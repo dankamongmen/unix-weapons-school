@@ -1,5 +1,6 @@
 \documentclass[pdf]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
+\usepackage{centernot}
 
 %% preamble
 \title{UNIX Weapons School, Week 0}
@@ -18,7 +19,7 @@ Georgia Institute of Technology}
 \begin{itemize}
 \item Train formidably competent systems programmers.
 \item Ensure GT continues to graduate world-class hackers.
-\item Provide a fast-paced challenge for skilled undergraduates. 
+\item Provide a fast-paced challenge for talented, driven students. 
 \end{itemize}
 \end{frame}
 
@@ -28,7 +29,7 @@ Georgia Institute of Technology}
 \uncover<2->{
 \begin{itemize}
 \item This assumption is also an answer to most complaints.
-\item I hope the class has self-selected the elite.
+\item Hopefully you represent a self-selection of the elite.
 \end{itemize}
 }
 \item You are dexterous with C.
@@ -44,12 +45,62 @@ Georgia Institute of Technology}
 \begin{itemize}
 \item I can't {\it require} you to install Linux, but...
 \item Why aren't you running open source?
-\item This class will regularly refer to and modify GNU/Linux source code.
+\item We will regularly refer to and modify GNU/Linux source code.
 \end{itemize}
 }
 \end{itemize}
+\end{frame}
 
+\begin{frame}{Relation to CoC I}
+UWS relies upon and extends:
+\begin{itemize}
+\item CS2130 (Bill Leahy) -- C-based weed-out
+\item CS35xx (Dr. STAFF) -- Algorithms
+\item CS325x (Dr. STAFF) -- Networking
+\end{itemize}
+UWS borrows material from:
+\begin{itemize}
+\item CS6230 (Richard Vuduc) -- HPC Tools and Methods
+\item CS6290 (Hyesoon Kim / Milos Prvulovic) -- Comp Arch
+\item CS6251 (Santosh Pande) -- Compiler Design
+\item Whatever Tom Conte's teaching at the moment
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Relation to CoC II}
+but... \\
+\emph{UWS focuses on {\it use} of these theories to produce high-performance,
+robust, {\it practical} software solutions.}\linebreak \\
+e.g.: \\
+You will not gain experience implementing SSA (single static
+assignment, which if you don't know now, you'll know later), but you will
+understand the space of optimizations an SSA-driven compiler can effect on your
+code.\linebreak \\
+{\bf UWS will involve writing \~{}10,000 lines of code in 9 weeks.}\linebreak \\
+This is Sparta, young friends. Feel free to leave.
+\end{frame}
+
+\begin{frame}{Grading function $G(p)$}
+\begin{itemize}
+\item $|S|$ students with four projects score $\{P_{0_{S_0}}, \dotsc P_{3_{S_{|S| - 1}}}\}$
+\item Project scores are totaled yielding $\{p_0, p_1, \dotsc p_{|S| - 1}\}$
+\item $G(p)$ will map $p$ to $\{A > B > C > F\}$ such that
+\begin{equation}
+\forall i \forall j,  p_i\ge y_j \implies G(p_i)\ge G(y_j) \nonumber \linebreak
+\end{equation}
+but:
+\begin{equation}
+\forall i \forall j,  p_i\gg y_j \centernot\implies G(p_i)\ge G(y_j) \nonumber
+\end{equation}
+and:
+\begin{equation}
+\forall i,  G(p_i) = \{A, F\} \implies S_i\ \text{really deserved it}\nonumber
+\end{equation}
+with approximate expectations:
+\begin{equation}
+|G_F| < |G_A| < \frac{|G_B|}{e} \simeq \frac{|G_C|}{e} \nonumber
+\end{equation}
+\end{itemize}
 \end{frame}
 
 \end{document}
