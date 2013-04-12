@@ -1,17 +1,22 @@
-\documentclass[pdf]{beamer}
+\documentclass[handout]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
+\usepackage{graphicx}
 
 %% preamble
 \title{UNIX Weapons School, Week 0}
 \subtitle{{\it Lasciate ogni speranza, voi ch'entrate!}}
 \author{Nick Black for the\\
-Georgia Institute of Technology}
+Georgia Institute of Technology
+}
 
 \begin{document}
 
 \begin{frame}
 \titlepage
+\begin{center}
+\includegraphics[scale=0.33]{uws.png}
+\end{center}
 \end{frame}
 
 \begin{frame}{Goals}
@@ -40,11 +45,11 @@ Georgia Institute of Technology}
 \item A copy of {\it The C Programming Language} is recommended.
 \end{itemize}
 }
-\item You have a 64-bit x86 Linux box easily available.
+\item You have a 64-bit x86 Linux box readily available.
 \uncover<4->{
 \begin{itemize}
 \item I can't {\it require} you to install Linux, but...
-\item Why aren't you running open source?
+\item You're CS majors. Why aren't you running open source?
 \item We will regularly refer to and modify GNU/Linux source code.
 \end{itemize}
 }
@@ -54,7 +59,7 @@ Georgia Institute of Technology}
 \begin{frame}{Relation to CoC I}
 UWS relies upon and extends:
 \begin{itemize}
-\item CS2130 (Bill Leahy) -- C-based weed-out
+\item CS2110 (Bill Leahy) -- C-based systems
 \item CS35xx (Dr. STAFF) -- Algorithms
 \item CS325x (Dr. STAFF) -- Networking
 \end{itemize}
@@ -81,26 +86,25 @@ This is Sparta, young friends. Feel free to leave.
 \end{frame}
 
 \begin{frame}{Grading function $G(p)$}
-\begin{itemize}
-\item $|S|$ students with four projects score $\{P_{0_{S_0}}, \dotsc P_{3_{S_{|S| - 1}}}\}$
-\item Project scores are totaled yielding $\{p_0, p_1, \dotsc p_{|S| - 1}\}$
-\item $G(p)$ will map $p$ to $\{A > B > C > F\}$ such that
+$|S|$ students with four projects score $\{P_{0_0}, \dotsc P_{3_{|S| - 1}}\}$.\linebreak \\
+Project scores are totaled yielding $\{p_0, p_1, \dotsc p_{|S| - 1}\}$.\linebreak \\
+$G(p)$ maps $p$ to $\{A > B > C > D \cong F\}$ such that
 \begin{equation}
-\forall i \forall j,  p_i\ge y_j \implies G(p_i)\ge G(y_j) \nonumber \linebreak
+\forall i \forall j,  p_i > p_j \implies G(p_i) \ge G(p_j),
+p_i = p_j \implies G(p_i) = G(p_j) \nonumber \linebreak
 \end{equation}
 but:
 \begin{equation}
-\forall i \forall j,  p_i\gg y_j \centernot\implies G(p_i)\ge G(y_j) \nonumber
+\forall i \forall j,  p_i\gg p_j \centernot\implies G(p_i) > G(p_j) \nonumber
 \end{equation}
-and:
+subject to:
 \begin{equation}
-\forall i,  G(p_i) = \{A, F\} \implies S_i\ \text{really deserved it}\nonumber
+\forall i,  G(p_i) = \{A, D, F\} \implies S_i\ \text{really deserved it}\nonumber
 \end{equation}
-with approximate expectations:
+with non-binding expectations:
 \begin{equation}
-|G_F| < |G_A| < \frac{|G_B|}{e} \simeq \frac{|G_C|}{e} \nonumber
+|G_D| = 0 \le |G_F| < |G_A| < \frac{|G_B|}{e} \simeq \frac{|G_C|}{e} \nonumber
 \end{equation}
-\end{itemize}
 \end{frame}
 
 \end{document}
