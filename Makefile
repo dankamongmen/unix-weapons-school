@@ -1,4 +1,4 @@
-LECTURES:=intro
+LECTURES:=intro prelude
 LECTOUT:=$(addsuffix .pdf,$(LECTURES))
 
 all: $(LECTOUT)
