@@ -127,32 +127,63 @@ This list is subject to change.
 	yourselves.
 \item We will not discuss the projects in class, but they will be
 	covered at length on the mailing list.
-\item Your internal design freedom is total; your external design freedom is nil.
+\item Your internal design freedom is total\footnote{Save contact of off-system oracles, which is prohibited.};\\
+your external design freedom is nil.
 \item You will have access to reference platforms on which your code will be
 	(automatically) tested.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Grading function $G(p)$}
-$|S|$ students with four projects score $\{P_{0_0}, \dotsc P_{3_{|S| - 1}}\}$.\linebreak \\
+\begin{frame}{Project Grading}
+\begin{itemize}
+\item I will prepare $U$, unit tests for each assignment $A_0 \dotsc A_3$.
+\item For each assignment $A_a$, for each unit test $U_{a_j}$
+\begin{itemize}
+\item Invoke turnin $T_{a_{i \in S}}$ upon $U_{a_j}$ in a clean environment
+\item Sort $|C_u|$ correct projects $0 \dotsc n\ge 0$ by decreasing running time
+\item If $|C_u| = 1$, award 1.5 points to turnin $T_{a_i} \in C_u$, otherwise
+\begin{equation}
+\forall i \forall j, T_{a_i} = C_{u_j} \implies \text{award } \frac{j}{|C_u| - 1} \text{ points to } T_{a_i}
+\nonumber
+\end{equation}.
+\item NB: The slowest of multiple correct projects receives 0 points.
+\end{itemize}
+\item Total points awarded = your score for the project.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Semester Grading}
 Project scores are totaled yielding $\{p_0, p_1, \dotsc p_{|S| - 1}\}$.\linebreak \\
-$G(p)$ maps $p$ to $\{A > B > C > D \cong F\}$ such that
+$G(p)$ maps $p$ to $\{A > B > C > D \cong F\}$ such that\footnote{Either the ``grading function'' or ``Greenlee function''.}
 \begin{equation}
-\forall i \forall j,  p_i > p_j \implies G(p_i) \ge G(p_j),
-p_i = p_j \implies G(p_i) = G(p_j) \nonumber \linebreak
+\forall i \forall j, p_i > p_j \implies G(p_i) \ge G(p_j), \nonumber
 \end{equation}
-but:
 \begin{equation}
-\forall i \forall j,  p_i\gg p_j \centernot\implies G(p_i) > G(p_j) \nonumber
+\forall i \forall j, p_i = p_j \implies G(p_i) = G(p_j), \nonumber \linebreak
+\end{equation}
+\begin{equation}
+\forall i \forall j, p_i\gg p_j \centernot\implies G(p_i) > G(p_j) \nonumber
 \end{equation}
 subject to:
 \begin{equation}
-\forall i,  G(p_i) = \{A, D, F\} \implies S_i\ \text{really deserved it}\nonumber
+\forall i, G(p_i) = \{A, D, F\} \implies S_i\ \text{really deserved it}\nonumber
 \end{equation}
 with non-binding expectations:
 \begin{equation}
 |G_D| = 0 \le |G_F| < |G_A| < \frac{|G_B|}{e} \simeq \frac{|G_C|}{e} \nonumber
 \end{equation}
+\end{frame}
+
+\begin{frame}{Cheating}
+\begin{center}
+If you cheat, I will set you on fire.
+\vspace{.5in}
+
+\includegraphics[scale=0.33]{setonfire.jpg}
+
+\vspace{.5in}
+Do not test me on this.
+\end{center}
 \end{frame}
 
 \end{document}
