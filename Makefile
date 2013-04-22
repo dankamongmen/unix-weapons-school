@@ -8,4 +8,7 @@ all: $(LECTOUT)
 
 clean:
 	rm -f $(LECTOUT) $(addsuffix .aux,$(LECTURES)) \
-		$(addsuffix .toc,$(LECTURES)) $(addsuffix .log,$(LECTURES))
+		$(addsuffix .toc,$(LECTURES)) $(addsuffix .log,$(LECTURES)) \
+		$(addsuffix .out,$(LECTURES)) $(addsuffix .snm,$(LECTURES)) \
+		$(addsuffix .log,$(LECTURES)) $(addsuffix .nav,$(LECTURES))
+
