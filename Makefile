@@ -1,5 +1,6 @@
 LECTURES:=intro prelude
 LECTOUT:=$(addsuffix .pdf,$(LECTURES))
+IMAGES:=$(wildcard images/*)
 
 all: $(LECTOUT)
 
@@ -11,4 +12,3 @@ clean:
 		$(addsuffix .toc,$(LECTURES)) $(addsuffix .log,$(LECTURES)) \
 		$(addsuffix .out,$(LECTURES)) $(addsuffix .snm,$(LECTURES)) \
 		$(addsuffix .log,$(LECTURES)) $(addsuffix .nav,$(LECTURES))
-
