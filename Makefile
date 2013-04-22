@@ -4,7 +4,7 @@ IMAGES:=$(wildcard images/*)
 
 all: $(LECTOUT)
 
-%.pdf: %.tex
+%.pdf: %.tex $(IMAGES)
 	pdflatex $(basename $<)
 
 clean:
