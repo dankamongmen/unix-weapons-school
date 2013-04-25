@@ -1,8 +1,10 @@
-\documentclass[handout]{beamer}
+\documentclass{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
 \usepackage{graphicx}
+\usepackage{geometry}
 
+\usepackage{helvet}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{lmodern}
@@ -23,11 +25,12 @@ Georgia Institute of Technology
 \titlepage
 \begin{center}
 \includegraphics[scale=0.33]{images/uws.png}\\
-\vspace{.25in}
+\vspace{.1in}
+\tiny{copyright \copyright\ 2013}\\
 \includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
 \includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{copyright \copyright\ 2013---creative commons 3.0 share-alike attribution license}
+\tiny{creative commons 3.0 share-alike attribution license}
 \end{center}
 \end{frame}
 
@@ -60,28 +63,22 @@ Georgia Institute of Technology
 \begin{frame}{Assumptions}
 \begin{itemize}
 \item You are not required to take this class.
-\uncover<2->{
 \begin{itemize}
 \item This assumption is also an answer to most complaints.
 \item Hopefully you represent a self-selection of the elite.
 \end{itemize}
-}
 \item You are dexterous with C.
-\uncover<3->{
 \begin{itemize}
 \item You ought be able to pump out working C pretty quickly...
 \item ... and be able to recognize any C construct.
 \item A copy of {\it The C Programming Language} is recommended.
 \end{itemize}
-}
 \item You have a 64-bit x86 Linux box readily available.
-\uncover<4->{
 \begin{itemize}
 \item I can't {\it require} you to install Linux, but...
 \item You're CS majors. Why aren't you running open source?
 \item We will regularly refer to and modify GNU/Linux source code.
 \end{itemize}
-}
 \end{itemize}
 \end{frame}
 
@@ -190,6 +187,58 @@ with non-binding expectations:
 \begin{equation}
 |G_D| = 0 \le |G_F| < |G_A| < \frac{|G_B|}{e} \simeq \frac{|G_C|}{e} \nonumber
 \end{equation}
+\end{frame}
+
+\begin{frame}{Three self-assessment questions}
+If you know the correct answers, you're in a good position to take this
+class. You should probably at least know all the words.
+\vspace{.1in}
+\begin{itemize}
+\item \textbf{Q1.} Can adding a NOP (no-operation) instruction accelerate a program?
+\item \textbf{Q2.} Will a program always incur fewer cache misses on a fully-associative
+	cache than a directly-mapped cache of the same size?
+\item \textbf{Q3.} A machine has two symmetric unicore physical processors with HyperThreading
+	(2-way SMT). Are there threads such that a single-processor
+	schedule can beat using both?
+\end{itemize}
+\vspace{.1in}
+If you're thinking ``what the hell's a schedule?'', you might want to reconsider UWS.
+\end{frame}
+
+\begin{frame}{Self-assessment Question I}
+\begin{itemize}
+\item \textbf{Q1.} Can adding a NOP (no-operation) instruction accelerate a program?
+\item \textbf{A1.} Yes. An example might be when it causes a branch target to 
+ be aligned.
+\item \textbf{NB:} This is generally the compiler's job.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Self-assessment Question II}
+\begin{itemize}
+\item \textbf{Q2.} Will a program always incur fewer cache misses on a fully-associative
+	cache than a directly-mapped cache of the same size?
+\item \textbf{A2.} No. A fully-associative cache will yield fewer hits when
+  data that \textit{is not} reused evicts data which \textit{is} reused, and
+  would otherwise have gone unevicted.
+\item \textbf{NB:} Under the classic Hill definition of a conflict miss as ``a
+  miss that would not have occurred in a fully associative cache'', this
+  implies that a cache can have a negative number of conflict misses!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Self-assessment Question III}
+\begin{itemize}
+\item \textbf{Q3.} A machine has two symmetric unicore physical processors with HyperThreading
+	(2-way SMT). Are there threads such that a single-processor
+	schedule can beat using both?
+\item \textbf{A3.} Yes. The two logical cores share all cache levels. If e.g.
+	the MESI protocol is in use, and writes to shared data are frequent,
+	and the dataset fits within one processor's cache, the reduction in
+	cycle capacity might be more than offset by fewer RFOs. 
+\item \textbf{NB:} That the cores were HyperThreaded is immaterial to the
+	question, until you get into actual quantitative analysis.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Introibimus ad altare Dei---our adventure begins!}
