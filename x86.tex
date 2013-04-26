@@ -1,0 +1,84 @@
+\documentclass[xcolor={dvipsnames,table}]{beamer}
+\mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
+\usepackage{centernot}
+\usepackage{graphicx}
+\usepackage{geometry}
+%\usepackage{fancybox}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+
+\usefonttheme{serif}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[babel=true]{microtype}
+
+%% preamble
+\title{UNIX Weapons School---The x86}
+\date{}
+\author{Nick Black for the\\
+Georgia Institute of Technology
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{center}
+\includegraphics[scale=0.33]{images/uws.png}\\
+\vspace{.1in}
+\tiny{copyright \copyright\ 2013}\\
+\includegraphics[scale=.25]{images/cc-logo.pdf}
+\includegraphics[scale=.25]{images/cc-new.pdf}
+\includegraphics[scale=.25]{images/cc-share.pdf}\\
+\tiny{creative commons 3.0 share-alike attribution license}
+\end{center}
+\end{frame}
+
+\begin{frame}{Why study the x86?}
+\begin{itemize}
+\item Used in a majority of servers, workstations, and laptops
+\item Receives the most focus in the kernel/toolchain
+\item Very complex processor, thus large optimization space
+\item Excellent documentation and literature
+\item Fascinating and revealing history
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{16-bit origins}
+\begin{block}{Column 1 Header}
+\begin{itemize}
+\item Real mode (x86-16)
+\item 1MB RAM in 16 64K segments
+\end{itemize}
+\end{block}
+\begin{block}{Column 2 Header}
+\begin{itemize}
+\item Real mode (x86-16)
+\item 1MB RAM in 16 64K segments
+\end{itemize}
+\end{block}
+\vfill
+\begin{center}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{RoyalPurple!20}{RoyalPurple!5}
+\begin{tabular}{|l|r|r|l|r|}
+\hline
+8086 & 1978 & 29K @ 3.2$\mu$m & 16 / 16 / 20 & 4--10MHz \\
+\hline
+8088 & 1979 & 29K @ 3.2$\mu$m & 16 / 8 / 20 & 5--8MHz \\
+\hline
+80186 & 1980 & 55K @ 2.6$\mu$m & 16 / 16 / 20 & 6--25MHz \\
+\hline
+80286 & 1982 & 134K @ 1.5$\mu$m & 16 / 16 / 24 & 4--12.5MHz \\
+\hline
+\end{tabular}%
+};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\end{document}
