@@ -17,5 +17,5 @@ clean:
 		$(addsuffix .toc,$(LECTURES)) $(addsuffix .log,$(LECTURES)) \
 		$(addsuffix .out,$(LECTURES)) $(addsuffix .snm,$(LECTURES)) \
 		$(addsuffix .log,$(LECTURES)) $(addsuffix .nav,$(LECTURES)) \
-		$(addsuffix .pdf,$(LECTURES)) $(addsuffix .aux,$(LECTURES)) 
+		$(addsuffix .pdf,$(LECTURES)) $(addsuffix .aux,$(LECTURES)) \
 		$(addsuffix .dsc,$(LECTURES))
