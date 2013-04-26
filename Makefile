@@ -7,6 +7,8 @@ all: $(LECTOUT)
 %.pdf.info: %.pdf
 	makebeamerinfo $<
 
+.PRECIOUS: $(addsuffix .pdf,$(LECTURES))
+
 %.pdf: %.tex $(IMAGES)
 	pdflatex $(basename $<)
 
@@ -16,3 +18,4 @@ clean:
 		$(addsuffix .out,$(LECTURES)) $(addsuffix .snm,$(LECTURES)) \
 		$(addsuffix .log,$(LECTURES)) $(addsuffix .nav,$(LECTURES)) \
 		$(addsuffix .pdf,$(LECTURES)) $(addsuffix .aux,$(LECTURES)) 
+		$(addsuffix .dsc,$(LECTURES))
