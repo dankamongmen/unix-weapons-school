@@ -13,7 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[babel=true]{microtype}
 
-\title{UNIX Weapons School---Abstractions}
+\title{UNIX Weapons School---Computer Architecture}
 \date{}
 \author{Nick Black for the\\
 Georgia Institute of Technology
@@ -34,10 +34,35 @@ Georgia Institute of Technology
 \end{center}
 \end{frame}
 
+\begin{frame}{Systems programming}
+\textbf{Given system $S$, and problem $P$,\\
+implement $P$,\\
+using the resources of $S$,\\
+subject to some constraint.}\\
+\vspace{.25in}
+Constraint is typically to minimize either:
+\begin{itemize}
+\vspace{.05in}
+\item time to completion, or
+\vspace{.05in}
+\item power to completion, or
+\vspace{.05in}
+\item $\frac{\text{time to completion}}{\text{utilization}}$
+(subject to some minimum utilization).
+\end{itemize}
+\vspace{.25in}
+Proving that these constraints have been met is clearly
+dependent upon the details of both $P$ and $S$.
+\end{frame}
+
 \begin{frame}{Abstraction}
 \begin{itemize}
-\item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''--Dijkstra
-\item ``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''--Kent Beck
+\item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
+\hfill--Edsger Dijkstra
+\vfill
+\item ``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''\\
+\hfill--Kent Beck
+\vfill
 \item We will draw the line at the electric level.
 \end{itemize}
 \end{frame}
@@ -70,8 +95,43 @@ P_{static} = I_{static}\cdot V_{DD} \nonumber
 Implication: power draw is largely independent of state.
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Instructions}
+\begin{description}
+\item[Static] Number of instructions in a sequence
+\item[Dynamic] Number of instructions executed in a sequence
+\item[IPC] Instructions per cycle
+\item[CPI] Cycles per instruction
+\end{description}
 \end{frame}
 
+\begin{frame}{Special registers}
+\begin{itemize}
+\item Often read-only, often require special instructions
+\item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Register file (indexed access)}
+\begin{itemize}
+\item Architectural registers are exposed as PRAM or a stack
+\item SRAM cells + read/write lines + decoder tree + sense amps
+\item One internal bit line per bit of read port
+\item Two internal bit lines per bit of write port
+\item One word line per entry
+\item Transistor area grows linearly with number of ports
+\item Wire pitch area grows with square of number of ports
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Registers}
+\begin{itemize}
+\item Read ports pace superscalability
+\item Write ports pace instruction retire
+\item Register width paces bit parallelism
+\item Architectural registers pace memory accesses
+\item Physical registers pace OOO hiding of antidependency
+% particularly useful for EFLAGS!
+\end{itemize}
+\end{frame}
 
 \end{document}
