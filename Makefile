@@ -1,4 +1,4 @@
-LECTURES:=intro x86
+LECTURES:=intro x86 abstractions
 LECTOUT:=$(addsuffix .pdf.info,$(LECTURES))
 IMAGES:=$(wildcard images/*)
 

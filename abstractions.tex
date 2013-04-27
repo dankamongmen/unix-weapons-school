@@ -1,0 +1,109 @@
+\documentclass[xcolor={dvipsnames,table}]{beamer}
+\mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
+\usepackage{centernot}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+
+\usefonttheme{serif}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[babel=true]{microtype}
+
+\title{UNIX Weapons School---Abstractions}
+\date{}
+\author{Nick Black for the\\
+Georgia Institute of Technology
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{center}
+\includegraphics[scale=0.33]{images/uws.png}\\
+\vspace{.1in}
+\tiny{copyright \copyright\ 2013}\\
+\includegraphics[scale=.25]{images/cc-logo.pdf}
+\includegraphics[scale=.25]{images/cc-new.pdf}
+\includegraphics[scale=.25]{images/cc-share.pdf}\\
+\tiny{creative commons 3.0 share-alike attribution license}
+\end{center}
+\end{frame}
+
+\begin{frame}{Abstraction}
+\begin{itemize}
+\item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''--Dijkstra
+\item ``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''--Kent Beck
+\item We will draw the line at the electric level.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Complementary metal-oxide semiconductors}
+\begin{itemize}
+\item Draw greatest power only when changing state:
+\begin{equation}
+P_{dynamic} = \alpha C_LV_{DD}^{2}f \tag{``dynamic power equation''}
+\end{equation}
+\begin{description}
+\item[$P$] Dynamic power ($W = J/s = \frac{m^{2}\cdot kg}{s^{3}}$)
+\item[$C_L$] Load capacitances ($F = \frac{A^{2}\cdot s^{4}}{m^{2}\cdot kg}$)
+\item[$\alpha$] Activity factor
+\item[$V_{DD}$] Supply voltage ($V = \frac{m^{2}\cdot kg}{A\cdot s^{3}}$)
+\item[$f$] Frequency ($\text{Hz}$)
+\end{description}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{16-bit era (IBM PC, MS-DOS, PDP-11, Alto)}
+\begin{block}{8086/80186 (Intel, NEC, AMD, Fujitsu, OKI, Kvazar-Mikro\ldots)}
+\begin{itemize}
+\item Real mode (x86-16 ISA) \hfill \includegraphics[height=11pt]{images/kp1810trans.jpg}
+\item 1MB RAM in 16 64K segments
+\item 8086-2 ISA on 80186
+{\footnotesize
+(\tt{ENTER}/\tt{LEAVE}, \tt{PUSHA}/\tt{POPA}, \tt{INS}/\tt{OUTS})
+}
+\end{itemize}
+\end{block}
+\begin{block}{80286 (Intel, IBM, AMD, Fujitsu\ldots)}
+\begin{columns}
+\column{3.4in}
+\begin{itemize}
+\item Protected mode w/ MMU
+\item 16MB RAM with privilege levels on segments
+\end{itemize}
+\column{.5in}
+%\includegraphics[width=.5in]{images/286.png}
+\end{columns}
+\end{block}
+\vfill
+\begin{center}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{RoyalPurple!20}{RoyalPurple!5}
+{\footnotesize
+\begin{tabular}{|l|r|r|c|r|}
+\hline
+8086 & 1978 & 29K @ 3.2$\mu$m & 16 / 16 / 20 & 4--10MHz \\
+\hline
+8088 & 1979 & 29K @ 3.2$\mu$m & 16 / 8 / 20 & 5--8MHz \\
+\hline
+80186 & 1980 & 55K @ 2.6$\mu$m & 16 / 16 / 20 & 6--25MHz \\
+\hline
+80188 & 1982 & 55K @ 2.6$\mu$m & 16 / 8 / 20 & 6--25MHz \\
+\hline
+80286 & 1982 & 134K @ 1.5$\mu$m & 16 / 16 / 24 & 4--12.5MHz \\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\end{document}
