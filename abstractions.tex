@@ -34,25 +34,18 @@ Georgia Institute of Technology
 \end{center}
 \end{frame}
 
-\begin{frame}{Systems programming}
-\textbf{Given system $S$, and problem $P$,\\
-implement $P$,\\
-using the resources of $S$,\\
-subject to some constraint.}\\
-\vspace{.25in}
-Constraint is typically to minimize either:
+\begin{frame}{Recommended Reading}
+\small
 \begin{itemize}
-\vspace{.05in}
-\item time to completion, or
-\vspace{.05in}
-\item power to completion, or
-\vspace{.05in}
-\item $\frac{\text{time to completion}}{\text{utilization}}$
-(subject to some minimum utilization).
+\item Andi Kleen. ``Linux multi-core scalability.'' Linux Kongress 2009.
+\item Ulrich Drepper. ``What Every Programmer Needs to Know About Memory.'' In 8 parts. Linux Weekly News (2007).
+\item Paul McKenney. ``Transactional Memory Everywhere.''\\
+http://paulmck.livejournal.com (2012).
+\item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004).
+\item \textit{Intel 64 and IA-32 Architectures Optimization Manual}. Intel.
+\item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers.}
+Regularly updated. http://www.agner.org.
 \end{itemize}
-\vspace{.25in}
-Proving that these constraints have been met is clearly
-dependent upon the details of both $P$ and $S$.
 \end{frame}
 
 \begin{frame}{Abstraction}
@@ -65,6 +58,27 @@ dependent upon the details of both $P$ and $S$.
 \vfill
 \item We will draw the line at the electric level.
 \end{itemize}
+\end{frame}
+
+\begin{frame}{The purpose of a systems programmer}
+\textbf{Given system $S$, and problem $P$,\\
+we will implement $P$,\\
+using the resources of $S$,\\
+subject to some constraint.}\\
+\vspace{.25in}
+That constraint is typically to minimize either:
+\begin{itemize}
+\vspace{.05in}
+\item time to completion,
+\vspace{.05in}
+\item power to completion, or
+\vspace{.05in}
+\item $\frac{\text{time to completion}}{\text{utilization}}$
+(subject to some minimum utilization).
+\end{itemize}
+\vspace{.25in}
+Proving that these constraints have been met is clearly
+dependent upon the details of both $P$ and $S$.
 \end{frame}
 
 \begin{frame}{Complementary metal-oxide semiconductors I}
@@ -96,18 +110,26 @@ Implication: power draw is largely independent of state.
 \end{frame}
 
 \begin{frame}{Instructions}
-\begin{description}
-\item[Static] Number of instructions in a sequence
-\item[Dynamic] Number of instructions executed in a sequence
+A system starts in some initial state, and while undisturbed, evolves
+in discrete time according to some closed function on that state.\\
+\vspace{.25in}
+Each time step is a \textit{cycle}. 1GHz = 1ns cycle.\\
+\vspace{.25in}
+``Running a program'' is the act of denoting one or more words of this state
+as ``instructions'', causing those words to drive control flow.
+\vspace{.25in}
+\begin{itemize}
+\item Static instructions: Instructions in a sequence
+\item Dynamic instructions: Instructions \textit{executed} in a sequence
 \item[IPC] Instructions per cycle
 \item[CPI] Cycles per instruction
-\end{description}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Special registers}
 \begin{itemize}
 \item Often read-only, often require special instructions
-\item 
+\item \textbf{FIXME}
 \end{itemize}
 \end{frame}
 
