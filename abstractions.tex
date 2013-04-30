@@ -48,18 +48,6 @@ Regularly updated. http://www.agner.org.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Abstraction}
-\begin{itemize}
-\item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
-\hfill--Edsger Dijkstra
-\vfill
-\item ``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''\\
-\hfill--Kent Beck
-\vfill
-\item We will draw the line at the electric level.
-\end{itemize}
-\end{frame}
-
 \begin{frame}{The purpose of a systems programmer}
 \textbf{Given system $S$, and problem $P$,\\
 we will implement $P$,\\
@@ -81,24 +69,38 @@ Proving that these constraints have been met is clearly
 dependent upon the details of both $P$ and $S$.
 \end{frame}
 
+\begin{frame}{Abstraction}
+\begin{itemize}
+\item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
+\hfill--Edsger Dijkstra
+\vfill
+\item ``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''\\
+\hfill--Kent Beck
+\vfill
+\item We will draw the line at the electric level.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Complementary metal-oxide semiconductors I}
 Draw \textit{greatest} power only when changing state\ldots
 \begin{equation}
-P_{dynamic} = \alpha C_LV_{DD}^{2}f \nonumber
+P_{dynamic} = \alpha C_LV_{DD}^{2}\nu
 \end{equation}
 \begin{description}
 \item[$P$] Dynamic power ($W = J/s = \frac{m^{2}\cdot kg}{s^{3}}$)
 \item[$C_L$] Load capacitances ($F = \frac{A^{2}\cdot s^{4}}{m^{2}\cdot kg}$)
 \item[$\alpha$] Activity factor
 \item[$V_{DD}$] Supply voltage ($V = \frac{m^{2}\cdot kg}{A\cdot s^{3}}$)
-\item[$f$] Frequency ($1/s$)
+\item[$\nu$] Frequency ($1/s$)
 \end{description}
+\vfill
+\textbf{NB:} $P_{dynamic}$ increases with the \textit{square} of $V_{DD}$.
 \end{frame}
 
 \begin{frame}{Complementary metal-oxide semiconductors II}
 \ldots but always consume \textit{some} power:
 \begin{equation}
-P_{static} = I_{static}\cdot V_{DD} \nonumber
+P_{static} = I_{static}\cdot V_{DD}
 \end{equation}
 \begin{description}
 \item[$P$] Static power ($W = V\cdot A$)
@@ -106,30 +108,75 @@ P_{static} = I_{static}\cdot V_{DD} \nonumber
 \item[$V_{DD}$] Supply voltage ($V$)
 \end{description}
 \vfill
-Implication: power draw is largely independent of state.
+\textbf{Implication:} power draw is independent of actual state.
 \end{frame}
 
-\begin{frame}{Instructions}
+\begin{frame}{Instructions I}
 A system starts in some initial state, and while undisturbed, evolves
 in discrete time according to some closed function on that state.\\
 \vspace{.25in}
-Each time step is a \textit{cycle}. 1GHz = 1ns cycle.\\
+Each time step is a \textit{cycle}. 1GHz$\implies$ 1ns cycle.\\
 \vspace{.25in}
 ``Running a program'' is the act of denoting one or more words of this state
-as ``instructions'', causing those words to drive control flow.
+as ``instructions'', causing them to drive control flow.
 \vspace{.25in}
 \begin{itemize}
 \item Static instructions: Instructions in a sequence
 \item Dynamic instructions: Instructions \textit{executed} in a sequence
-\item[IPC] Instructions per cycle
-\item[CPI] Cycles per instruction
+\item IPC: Instructions per cycle
+\item CPI: Cycles per instruction
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Instructions II}
+Instructions lie at the boundary between those abstractions we \textit{control} and those
+we merely \textit{exploit}.
+\begin{equation}
+P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
+\end{equation}
+The means of accelerating our program are finite:
+\begin{enumerate}
+\item Reduce cycle time (better $\mu$architecture, better materials)
+\item Require fewer instructions (better code, better algorithms, more powerful instructions, \textbf{BQP})
+\item Reduce cycles per instruction (better $\mu$architecture, better code)
+\item Add time (increased high-level parallelism)
+\item Dilate time (relativistic motion)
+\end{enumerate}
+\end{frame}
+
 \begin{frame}{Special registers}
+Often read-only/privileged/require special instructions.
+\tiny{
 \begin{itemize}
-\item Often read-only, often require special instructions
-\item \textbf{FIXME}
+\item $EIP$: Read-only. Instruction pointer
+\item $EFLAGS$: Flags register. Contains IOPL/CPL (\texttt{POPF}/\texttt{IRET})
+\item $CR_0$: Machine Status Control Word (\texttt{LMSW}, 286+)
+\item $CR_2$: Read-only. Page fault addresses (386+)
+\item $CR_3 (PDBR)$: Page Directory Base Reg. (386+)
+\item $MXCSR$ SSE Control Status Reg. (\texttt{LD/STMXCSR}, PIII+)
+\item $DR_0, DR_1, DR_2, DR_3, DR_7$: Debug Reg.
+\item $CS, DS, ES, FS, GS, SS$: Segment Reg.
+\item $TR$: Task Register (\texttt{LTR}/\texttt{STR})
+\item $GDTR$: Global Descriptor Table Reg. (\texttt{LGDT}/\texttt{SGDT}, 286+)
+\item $LDTR$: Local Descriptor Table Reg. (\texttt{LLDT}, 286+)
+\item $IDTR$: Interrupt Descriptor Table Reg. (\texttt{LIDT}/\texttt{SIDT}, 286+)
+\item $TPR$: Task Priority Reg.
+\item $PPR$: Process Priority Reg.
+\item $TSC$: Timestamp Counter (\texttt{RDTSC}, Pentium+)
+\item $PMC_n$: Performance Monitoring Counters (\texttt{RDPMC}, MMX+)
+\item $MSR_n$: Model-Specific Reg. (\texttt{RD/WRMSR}, Pentium+)
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{General-purpose registers}
+\begin{itemize}
+\item Read ports pace superscalability
+\item Write ports pace instruction retire
+\item Register width paces bit parallelism
+\item Architectural registers pace memory accesses
+\item Physical registers pace OOO hiding of antidependency
+% particularly useful for EFLAGS!
 \end{itemize}
 \end{frame}
 
@@ -142,17 +189,6 @@ as ``instructions'', causing those words to drive control flow.
 \item One word line per entry
 \item Transistor area grows linearly with number of ports
 \item Wire pitch area grows with square of number of ports
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Registers}
-\begin{itemize}
-\item Read ports pace superscalability
-\item Write ports pace instruction retire
-\item Register width paces bit parallelism
-\item Architectural registers pace memory accesses
-\item Physical registers pace OOO hiding of antidependency
-% particularly useful for EFLAGS!
 \end{itemize}
 \end{frame}
 
