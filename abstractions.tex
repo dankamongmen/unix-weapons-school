@@ -113,7 +113,7 @@ P_{static} = I_{static}\cdot V_{DD}
 
 \begin{frame}{Instructions I}
 A system starts in some initial state, and while undisturbed, evolves
-in discrete time according to some closed function on that state.\\
+in discrete time according to some closed primitive recursive function on that state (aka Church-Turing).\\
 \vspace{.25in}
 Each time step is a \textit{cycle}. 1GHz$\implies$ 1ns cycle.\\
 \vspace{.25in}
@@ -190,6 +190,20 @@ Often read-only/privileged/require special instructions.
 \item Transistor area grows linearly with number of ports
 \item Wire pitch area grows with square of number of ports
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Fundamental theorem of memory starvation}
+We can only hit peak during sequences of code which fully
+utilize arithmetic resources. Registers must provide throughput
+at least equivalent to the processor's arithmetic throughput.\footnote{\tiny{In a load/store (classic RISC) architecture, arithmetic instructions operate
+only on registers. In a machine admitting memory addresses as inputs to
+arithmetic operands, such instructions will exhibit greater latency and lesser throughput
+than their register-direct counterparts.}}\\
+\vspace{.25in}
+\textbf{THUS,} a memory lacking throughput greater than or equal to the ratio of
+arithmetic/register throughput to arithmetic intensity (cycles per word), or having latency
+greater than or equal to arithmetic latency (seconds per word), will not be able
+to sustain peak.
 \end{frame}
 
 \end{document}
