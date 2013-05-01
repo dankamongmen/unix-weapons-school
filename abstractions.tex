@@ -68,7 +68,26 @@ Proving that these constraints have been met is clearly
 dependent upon the details of both $P$ and $S$.
 \end{frame}
 
-\begin{frame}{Abstraction}
+\begin{frame}{Chasing Peak}
+How can we know when we're ``done''? Absolute measurements
+can be taken in terms of the system's theoretical peak perf.\\
+\vspace{.15in}
+Peak is a slippery concept. What follows are my opinions:
+\vspace{.15in}
+\begin{itemize}
+\item ``Peak'' seems most \textit{precisely} defined in terms of the ISA of $S$
+(which might be irrelevant to our problem).
+\item ``Peak'' seems most \textit{correctly} defined in terms of the best possible
+solution to $P$ (which might be unknown).
+\item ``Peak'' seems most \textit{productively} defined in terms of the instructions our actual
+implementation would use in the absence of structural hazards.
+\end{itemize}
+\vspace{.15in}
+In my experience, it is generally misleading to compare how closely
+different $P$ approach their own peaks.
+\end{frame}
+
+\begin{frame}{Abstractions Defrocked}
 \begin{itemize}
 \item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
 \hfill--Edsger Dijkstra
@@ -137,26 +156,10 @@ The means of accelerating our program are finite:
 \begin{enumerate}
 \item Reduce cycle time (better $\mu$architecture, better materials)
 \item Require fewer instructions (better code, better algorithms, more powerful instructions, \textbf{BQP})
-\item Reduce cycles per instruction (better $\mu$architecture, better code)
+\item Reduce cycles per instruction (better $\mu$arch, better code)
 \item Add time (increased high-level parallelism)
 \item Dilate time (relativistic motion)
 \end{enumerate}
-\end{frame}
-
-\begin{frame}{Peak I}
-\textbf{FIXME}
-\end{frame}
-
-\begin{frame}{Peak II}
-A slippery concept. What follows is my opinion only.
-\begin{itemize}
-\item ``Peak'' is most precisely defined in terms of the processor's instruction set
-(which might be irrelevant).
-\item ``Peak'' is most relevantly defined in terms of our problems's best possible solution
-(which might be unknown).
-\item ``Peak'' is most productively defined in terms of the instructions our actual
-implementation would use assuming no structural hazards.
-\end{itemize}
 \end{frame}
 
 \begin{frame}{Special registers}
@@ -204,6 +207,7 @@ Often read-only/privileged/require special instructions.
 \item One word line per entry
 \item Transistor area grows linearly with number of ports
 \item Wire pitch area grows with square of number of ports
+\item Hence: register \textit{banking}
 \end{itemize}
 \end{frame}
 
