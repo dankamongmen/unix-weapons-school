@@ -61,8 +61,7 @@ That constraint is typically to minimize either:
 \vspace{.05in}
 \item power to completion, or
 \vspace{.05in}
-\item $\frac{\text{time to completion}}{\text{utilization}}$
-(subject to some minimum utilization).
+\item $\text{time to completion}\cdot\text{utilization.}\footnote{Constrained by some minimum utilization.}$
 \end{itemize}
 \vspace{.25in}
 Proving that these constraints have been met is clearly
@@ -144,6 +143,22 @@ The means of accelerating our program are finite:
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Peak I}
+\textbf{FIXME}
+\end{frame}
+
+\begin{frame}{Peak II}
+A slippery concept. What follows is my opinion only.
+\begin{itemize}
+\item ``Peak'' is most precisely defined in terms of the processor's instruction set
+(which might be irrelevant).
+\item ``Peak'' is most relevantly defined in terms of our problems's best possible solution
+(which might be unknown).
+\item ``Peak'' is most productively defined in terms of the instructions our actual
+implementation would use assuming no structural hazards.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Special registers}
 Often read-only/privileged/require special instructions.
 \tiny{
@@ -200,10 +215,12 @@ only on registers. In a machine admitting memory addresses as inputs to
 arithmetic operands, such instructions will exhibit greater latency and lesser throughput
 than their register-direct counterparts.}}\\
 \vspace{.25in}
-\textbf{THUS,} a memory lacking throughput greater than or equal to the ratio of
-arithmetic/register throughput to arithmetic intensity (cycles per word), or having latency
-greater than or equal to arithmetic latency (seconds per word), will not be able
-to sustain peak.
+\textbf{THUS} a memory lacking throughput greater than or equal to the ratio of
+arithmetic/register throughput to arithmetic intensity (cycles per word) will not be able
+to sustain peak,\\
+\vspace{.15in}
+\textbf{AND} a memory having latency greater than or equal to arithmetic latency
+(seconds per word) will not have its delays hidden in the limit.
 \end{frame}
 
 \end{document}
