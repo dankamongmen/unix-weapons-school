@@ -1,5 +1,6 @@
 \documentclass[xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
+\usepackage{bbm}
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
@@ -37,14 +38,14 @@ Georgia Institute of Technology
 \begin{frame}{Recommended Reading}
 \small
 \begin{itemize}
-\item Andi Kleen. ``Linux multi-core scalability.'' Linux Kongress 2009.
-\item Ulrich Drepper. ``What Every Programmer Needs to Know About Memory.'' In 8 parts. Linux Weekly News (2007).
-\item Paul McKenney. ``Transactional Memory Everywhere.''\\
-http://paulmck.livejournal.com (2012).
+\item Andi Kleen. ``Linux multi-core scalability'' (2009).
+\item Doug Carmean and Eric Sprangle. ``Increasing Processor Performance by Implementing Deeper Pipelines'' (2002).
+\item Ulrich Drepper. ``What Every Programmer Needs to Know About Memory'' (2007). Linux Weekly News, in eight parts.
+\item Paul McKenney. ``Transactional Memory Everywhere'' (2012).
 \item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004).
-\item \textit{Intel 64 and IA-32 Architectures Optimization Manual}. Intel.
-\item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers.}
-Regularly updated. http://www.agner.org.
+\item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers} (regularly updated). http://www.agner.org.
+\item Bruce Shriver and Bennett Smith. \textit{The Anatomy of a High-Performance Microprocessor: A Systems Perspective} (1998).
+\item \textit{Intel 64 and IA-32 Architectures Optimization Manuals}. Intel.
 \end{itemize}
 \end{frame}
 
@@ -70,7 +71,7 @@ dependent upon the details of both $P$ and $S$.
 
 \begin{frame}{Chasing Peak}
 How can we know when we're ``done''? Absolute measurements
-can be taken in terms of the system's theoretical peak perf.\\
+can be taken in terms of the system's theoretical \textbf{peak} perf.\\
 \vspace{.15in}
 Peak is a slippery concept. What follows are my opinions:
 \vspace{.15in}
@@ -84,7 +85,8 @@ implementation would use in the absence of structural hazards.
 \end{itemize}
 \vspace{.15in}
 In my experience, it is generally misleading to compare how closely
-different $P$ approach their own peaks.
+different $P$ approach their own peaks. Most often, we use ``peak'' to refer
+to a small section of code.
 \end{frame}
 
 \begin{frame}{Abstractions Defrocked}
@@ -122,18 +124,22 @@ P_{static} = I_{static}\cdot V_{DD}
 \end{equation}
 \begin{description}
 \item[$P$] Static power ($W = V\cdot A$)
-\item[$I_{static}$] Static current ($I_{subth} + I_{tunnel} + I_{leakage}, A$)
+\item[$I_{static}$] Static current ($I_{subth}\footnote{Leakage between MOS source and drain} + I_{tunnel}\footnote{Leakage across semiconductor junctions} + I_{leakage}\footnote{Leakage through the insulator}, A$)
 \item[$V_{DD}$] Supply voltage ($V$)
 \end{description}
+This has become more important as transistor count has increased and sizes
+have shrunk.
 \vfill
 \textbf{Implication:} power draw is independent of actual state.
+\textbf{Implication:} for fixed work and $\mu$arch, lower frequencies cannot
+ usually save power.
 \end{frame}
 
 \begin{frame}{Instructions I}
 A system starts in some initial state, and while undisturbed, evolves
 in discrete time according to some closed primitive recursive function on that state (aka Church-Turing).\\
 \vspace{.25in}
-Each time step is a \textit{cycle}. 1GHz$\implies$ 1ns cycle.\\
+Each time step is a \textit{cycle} ($\mathbbm{c}$). 1GHz$\implies$ 1ns $\mathbbm{c}$-time.\\
 \vspace{.25in}
 ``Running a program'' is the act of denoting one or more words of this state
 as ``instructions'', causing them to drive control flow.
@@ -141,8 +147,8 @@ as ``instructions'', causing them to drive control flow.
 \begin{itemize}
 \item Static instructions: Instructions in a sequence
 \item Dynamic instructions: Instructions \textit{executed} in a sequence
-\item IPC: Instructions per cycle
-\item CPI: Cycles per instruction
+\item IPC: Instructions per $\mathbbm{c}$
+\item CPI: $\mathbbm{c}$ per instruction
 \end{itemize}
 \end{frame}
 
@@ -154,9 +160,9 @@ P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
 \end{equation}
 The means of accelerating our program are finite:
 \begin{enumerate}
-\item Reduce cycle time (better $\mu$architecture, better materials)
+\item Reduce $\mathbbm{c}$-time (better $\mu$architecture, better materials)
 \item Require fewer instructions (better code, better algorithms, more powerful instructions, \textbf{BQP})
-\item Reduce cycles per instruction (better $\mu$arch, better code)
+\item Reduce CPI (better $\mu$arch, better code)
 \item Add time (increased high-level parallelism)
 \item Dilate time (relativistic motion)
 \end{enumerate}
@@ -211,20 +217,42 @@ Often read-only/privileged/require special instructions.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Fundamental theorem of memory starvation}
+\begin{frame}{Register file examples}
+\huge \textbf{FIXME}
+Collect examples of architectural and physical register files.
+\end{frame}
+
+\begin{frame}{Fundamental theorem of data starvation}
 We can only hit peak during sequences of code which fully
 utilize arithmetic resources. Registers must provide throughput
 at least equivalent to the processor's arithmetic throughput.\footnote{\tiny{In a load/store (classic RISC) architecture, arithmetic instructions operate
 only on registers. In a machine admitting memory addresses as inputs to
 arithmetic operands, such instructions will exhibit greater latency and lesser throughput
 than their register-direct counterparts.}}\\
-\vspace{.25in}
-\textbf{THUS} a memory lacking throughput greater than or equal to the ratio of
-arithmetic/register throughput to arithmetic intensity (cycles per word) will not be able
-to sustain peak,\\
-\vspace{.15in}
-\textbf{AND} a memory having latency greater than or equal to arithmetic latency
-(seconds per word) will not have its delays hidden in the limit.
+\vspace{.35in}
+\textbf{THUS,} a memory lacking throughput greater than or equal to the ratio of
+arithmetic/register throughput to arithmetic intensity ($\mathbbm{c}$ per word) will not be able
+to sustain peak.
+\end{frame}
+
+\begin{frame}{Sandy Bridge frontend}
+The modern x86 frontend is tremendously complicated due to its inherited ISA,
+yet it manages to deliver $\mu$ops to the superscalar dataflow-ordered
+execution core at full throughput.
+\begin{itemize}
+\item 16-byte/$\mathbbm{c}$ fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
+\item Speculative decoding at each of fetch's 16 bytes
+\item 1 complex decoder, 3 simple decoders
+\item 32 sets of 8 ways of 6 $\mu$ops $\mu$I\$ (``decoded I\$'')
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Delays, or Where Have All the $\mathbbm{c}$ Gone?}
+\begin{itemize}
+\item Instruction fetch miss ($7\mathbbm{c}$ for ITLB miss + 2TLB hit)
+\item $3\mathbbm{c}$ for each non-REX length changing prefix\footnote{$6\mathbbm{c}$ for any fetch containing an LCP on Nehalem}
+\item Instruction decode delay / MSROM access
+\end{itemize}
 \end{frame}
 
 \end{document}
