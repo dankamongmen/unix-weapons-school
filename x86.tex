@@ -38,6 +38,7 @@ Georgia Institute of Technology
 \small
 \begin{itemize}
 \item http://www.sandpile.org
+\item http://80x86.ovh.org
 \item http://www.coreboot.org/Datasheets
 \item Intel Technology Journal
 \item \textit{Intel 64 and IA-32 Architectures Software Developer's Manuals}
@@ -54,10 +55,10 @@ Georgia Institute of Technology
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{16-bit era (IBM PC, MS-DOS, PDP-11, Alto)}
+\begin{frame}[t]{IA-16 CISC (MS-DOS, 640K--1M RAM)}
 \begin{block}{8086/80186 (NEC, AMD, Fujitsu, OKI, Kvazar-Mikro, \ldots)}
 \begin{itemize}
-\item IBM PC/XT. Real mode (x86-16 ISA)
+\item IBM PC/XT. Real mode. 16-bit regs and buses
 \item 1MB RAM in 16 64K segments
 \item 8086-2 ISA on 80186
 {\footnotesize
@@ -96,8 +97,8 @@ Georgia Institute of Technology
 \end{center}
 \end{frame}
 
-\begin{frame}[t]{32-bit CISC (Clones, Win 3, m68k)}
-\begin{block}{80386 (Am386, TI, IBM, Chips, IBM, \ldots)}
+\begin{frame}[t]{IA-32 CISC (Win 3.11, OS/2, Linux, BSD i386)}
+\begin{block}{80386 (Am386, TI, Chips, IBM, \ldots)}
 \begin{itemize}
 \item IBM PS/2/MCA. 32-bit segments, regs, buses
 \item NatSemi 16550A UART. 80386SL: first (external) cache
@@ -128,6 +129,8 @@ Georgia Institute of Technology
 \hline
 80486-DX2 & 1993 & $\mu$m & 32 / 32 / 32 & 40--66MHz \\
 \hline
+Am486-DX4 & 1995 & 1.25M@$.44\mu$m & 32 / 32 / 32 & 75--120MHz \\
+\hline
 \end{tabular}%
 }
 };
@@ -135,5 +138,8 @@ Georgia Institute of Technology
 \end{center}
 \end{frame}
 
+\begin{frame}[t]{Superscalar (Win 95, BeOS, Debian/Redhat, FreeBSD)}
+
+\end{frame}
 
 \end{document}

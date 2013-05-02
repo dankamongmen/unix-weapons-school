@@ -84,8 +84,8 @@ implementation would use in the absence of structural hazards.
 \end{itemize}
 \vspace{.15in}
 In my experience, it is generally misleading to compare how closely
-different $P$ approach their own peaks. Most often, we use ``peak'' to refer
-to a small section of code.
+different $P$ approach their own peaks. Most often, we use ``peak'' within
+the context of a small section of code.
 \end{frame}
 
 \begin{frame}{Abstractions defrocked}
@@ -130,8 +130,8 @@ This has become more important as transistor count has increased and sizes
 have shrunk.
 \vfill
 \textbf{Implication:} power draw is independent of actual state.
-\textbf{Implication:} for fixed work and $\mu$arch, lower frequencies cannot
- usually save power.
+\textbf{Implication:} for fixed work, lower frequencies $\mu$ usually cannot
+save power.
 \end{frame}
 
 \begin{frame}{Instructions I}
@@ -140,8 +140,8 @@ in discrete time according to some closed primitive recursive function on that s
 \vspace{.25in}
 Each time step is a \textit{cycle}(\textbf{c}). 1GHz$\implies$ 1ns \textbf{c}-time.\\
 \vspace{.25in}
-``Running a program'' is the act of denoting one or more words of this state
-as ``instructions'', causing them to drive control flow.
+``Running a program'' is the act of denoting words of this state
+as ``current instructions'', causing them to drive control flow.
 \vspace{.25in}
 \begin{itemize}
 \item Static instructions: Instructions in a sequence
@@ -237,13 +237,16 @@ to sustain peak.
 \begin{frame}{Sandy Bridge frontend}
 The modern x86 frontend is tremendously complicated due to its inherited ISA,
 yet it manages to deliver $\mu$ops to the superscalar dataflow-ordered
-execution core at full throughput.
+execution core at full throughput. How?
+\vfill
 \begin{itemize}
-\item 16-byte/$\textbf{c}$ fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
-\item Speculative decoding at each of fetch's 16 bytes
+\item 16B/\textbf{c} fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
+\item Speculative decoding at each of fetch's 16B
 \item 1 complex decoder, 3 simple decoders
-\item 32 sets of 8 ways of 6 $\mu$ops $\mu$I\$ (``decoded I\$'')
-\item \huge\textbf{FIXME}
+\item 32 sets of 8 ways of 6 $\mu$op $\mu$I\$ (``decoded I\$'')
+\item 28$\mu$op $\mu$L\$ (``Loop stream detector'') per thread\footnote{On HyperThreaded Ivy Bridge, 56 $\mu$ops if one logical core is inactive.}
+\item 4$\mu$op/\textbf{c} renamer-scheduler
+\item Macro- and micro-fusion
 \end{itemize}
 \end{frame}
 
