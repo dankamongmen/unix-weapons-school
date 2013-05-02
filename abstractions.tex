@@ -44,7 +44,7 @@ Georgia Institute of Technology
 \item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004).
 \item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers} (regularly updated). http://www.agner.org.
 \item Bruce Shriver and Bennett Smith. \textit{The Anatomy of a High-Performance Microprocessor: A Systems Perspective} (1998).
-\item \textit{Intel 64 and IA-32 Architectures Optimization Manuals}. Intel.
+\item \textit{Intel 64 and IA-32 Architectures Optimization Manuals}.
 \end{itemize}
 \end{frame}
 
@@ -68,7 +68,7 @@ Proving that these constraints have been met is clearly
 dependent upon the details of both $P$ and $S$.
 \end{frame}
 
-\begin{frame}{Chasing Peak}
+\begin{frame}{Chasing peak}
 How can we know when we're ``done''? Absolute measurements
 can be taken in terms of the system's theoretical \textbf{peak} perf.\\
 \vspace{.15in}
@@ -88,7 +88,7 @@ different $P$ approach their own peaks. Most often, we use ``peak'' to refer
 to a small section of code.
 \end{frame}
 
-\begin{frame}{Abstractions Defrocked}
+\begin{frame}{Abstractions defrocked}
 \begin{itemize}
 \item ``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
 \hfill--Edsger Dijkstra
@@ -138,7 +138,7 @@ have shrunk.
 A system starts in some initial state, and while undisturbed, evolves
 in discrete time according to some closed primitive recursive function on that state (aka Church-Turing).\\
 \vspace{.25in}
-Each time step is a \textit{cycle} (\textbf{c}). 1GHz$\implies$ 1ns \textbf{c}-time.\\
+Each time step is a \textit{cycle}(\textbf{c}). 1GHz$\implies$ 1ns \textbf{c}-time.\\
 \vspace{.25in}
 ``Running a program'' is the act of denoting one or more words of this state
 as ``instructions'', causing them to drive control flow.
@@ -243,15 +243,68 @@ execution core at full throughput.
 \item Speculative decoding at each of fetch's 16 bytes
 \item 1 complex decoder, 3 simple decoders
 \item 32 sets of 8 ways of 6 $\mu$ops $\mu$I\$ (``decoded I\$'')
+\item \huge\textbf{FIXME}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Delays, or Where Have All the $\textbf{c}$ Gone?}
+\begin{frame}{Frontend delays}
 \begin{itemize}
 \item Instruction fetch miss (7\textbf{c} for ITLB miss + 2TLB hit)
 \item 3\textbf{c} for each non-REX length changing prefix\footnote{6\textbf{c} for any fetch containing an LCP on Nehalem}
 \item Instruction decode delay / MSROM access
+\item \huge\textbf{FIXME}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Why we fall short of peak}
+\begin{center}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
+{\tiny
+\begin{tabular}{|>{\raggedleft}p{2in}|r|p{1in}|}
+\hline
+\textbf{Incident} & \textbf{Penalty} & \textbf{Ameliorations} \\
+\hline\hline
+Instructions having less than full throughput &
+Handful of \textbf{c} &
+Strength reduction \\
+\hline
+L1 cache hit & Very few \textbf{c}, if any & Multiple-port caches \\
+\hline
+True / unrenamable dependency & Handful of \textbf{c} & \\
+\hline
+Decoding/execution/retirement stalls & Handful of \textbf{c} & \\
+\hline
+Branch misprediction / pipeline flush & \textasciitilde Pipeline length & \\
+\hline
+L1 cache miss & <10\textbf{c} & \\
+\hline
+System call & & \\
+\hline
+Bus lock (atomic instructions) & & \\
+\hline
+L2 cache miss & & \\
+\hline
+Thread switch & & \\
+\hline
+TLB miss & & \\
+\hline
+Process switch & & \\
+\hline
+Load from resident page via MMU & & \\
+\hline
+Load from faulted page via DMA+MMU & & \\
+\hline
+Load via FSB PIO & & \\
+\hline
+Mutual exclusion & & \\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 \end{document}
