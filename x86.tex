@@ -39,6 +39,7 @@ Georgia Institute of Technology
 \begin{itemize}
 \item http://www.sandpile.org
 \item http://www.coreboot.org/Datasheets
+\item Intel Technology Journal
 \item \textit{Intel 64 and IA-32 Architectures Software Developer's Manuals}
 \end{itemize}
 \end{frame}
@@ -54,7 +55,7 @@ Georgia Institute of Technology
 \end{frame}
 
 \begin{frame}[t]{16-bit era (IBM PC, MS-DOS, PDP-11, Alto)}
-\begin{block}{8086/80186 (Intel, NEC, AMD, Fujitsu, OKI, Kvazar-Mikro, \ldots)}
+\begin{block}{8086/80186 (NEC, AMD, Fujitsu, OKI, Kvazar-Mikro, \ldots)}
 \begin{itemize}
 \item IBM PC/XT. Real mode (x86-16 ISA)
 \item 1MB RAM in 16 64K segments
@@ -64,7 +65,7 @@ Georgia Institute of Technology
 }
 \end{itemize}
 \end{block}
-\begin{block}{80286 (Intel, IBM, AMD, Fujitsu, \ldots)}
+\begin{block}{80286 (IBM, AMD, Fujitsu, \ldots)}
 \begin{itemize}
 \item IBM PC/AT (ISA). Protected mode w/ MMU
 \item 16MB RAM with privilege levels on segments
@@ -96,13 +97,18 @@ Georgia Institute of Technology
 \end{frame}
 
 \begin{frame}[t]{32-bit CISC (Clones, Win 3, m68k)}
-\begin{block}{80386 (Intel, AMD, Cyrix, TI, IBM, Chips, \ldots)}
+\begin{block}{80386 (Am386, TI, IBM, Chips, IBM, \ldots)}
 \begin{itemize}
-\item IBM PS/2. 32-bit segments, regs, buses
+\item IBM PS/2/MCA. 32-bit segments, regs, buses
 \item NatSemi 16550A UART. 80386SL: first (external) cache
+\item 2\textbf{c} per simple instruction
 \end{itemize}
 \end{block}
-\begin{block}{80486 (Intel, \ldots)}
+\begin{block}{80486 (Am486, Cx486DLC, TI486SXL, IBM486DLC,\ldots)}
+\begin{itemize}
+\item EISA/VLB. On-die cache, \texttt{XADD}, \texttt{CMPXCHG}
+\item 1\textbf{c} per simple instruction, integrated FPU
+\end{itemize}
 \end{block}
 \vfill
 \begin{center}
@@ -112,9 +118,9 @@ Georgia Institute of Technology
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-80386-DX & 1985 & 275K@$\frac{1.5\mu\text{m CHMOS-III}}{1\mu\text{m CHMOS-IV}}$ & 32 / 32 / 32 & 12--33MHz \\
+80386-DX & 1985 & 275K@1.5--1$\mu$m & 32 / 32 / 32 & 12--33MHz \\
 \hline
-80386-SX & 1988 & 29K@3.2$\mu$m CHMOS-IV & 32 / 16 / 24 & 16--33MHz \\
+80386-SX & 1988 & $\mu$m & 32 / 16 / 24 & 16--33MHz \\
 \hline
 80486-DX & 1989 & $\mu$m & 32 / 32 / 32 & 20--50MHz \\
 \hline

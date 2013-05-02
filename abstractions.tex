@@ -1,6 +1,5 @@
 \documentclass[xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
-\usepackage{bbm}
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
@@ -139,7 +138,7 @@ have shrunk.
 A system starts in some initial state, and while undisturbed, evolves
 in discrete time according to some closed primitive recursive function on that state (aka Church-Turing).\\
 \vspace{.25in}
-Each time step is a \textit{cycle} ($\mathbbm{c}$). 1GHz$\implies$ 1ns $\mathbbm{c}$-time.\\
+Each time step is a \textit{cycle} (\textbf{c}). 1GHz$\implies$ 1ns \textbf{c}-time.\\
 \vspace{.25in}
 ``Running a program'' is the act of denoting one or more words of this state
 as ``instructions'', causing them to drive control flow.
@@ -147,8 +146,8 @@ as ``instructions'', causing them to drive control flow.
 \begin{itemize}
 \item Static instructions: Instructions in a sequence
 \item Dynamic instructions: Instructions \textit{executed} in a sequence
-\item IPC: Instructions per $\mathbbm{c}$
-\item CPI: $\mathbbm{c}$ per instruction
+\item IPC: Instructions per \textbf{c}
+\item CPI: \textbf{c} per instruction
 \end{itemize}
 \end{frame}
 
@@ -160,7 +159,7 @@ P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
 \end{equation}
 The means of accelerating our program are finite:
 \begin{enumerate}
-\item Reduce $\mathbbm{c}$-time (better $\mu$architecture, better materials)
+\item Reduce \textbf{c}-time (better $\mu$architecture, better materials)
 \item Require fewer instructions (better code, better algorithms, more powerful instructions, \textbf{BQP})
 \item Reduce CPI (better $\mu$arch, better code)
 \item Add time (increased high-level parallelism)
@@ -231,7 +230,7 @@ arithmetic operands, such instructions will exhibit greater latency and lesser t
 than their register-direct counterparts.}}\\
 \vspace{.35in}
 \textbf{THUS,} a memory lacking throughput greater than or equal to the ratio of
-arithmetic/register throughput to arithmetic intensity ($\mathbbm{c}$ per word) will not be able
+arithmetic/register throughput to arithmetic intensity ($\textbf{c}$ per word) will not be able
 to sustain peak.
 \end{frame}
 
@@ -240,17 +239,17 @@ The modern x86 frontend is tremendously complicated due to its inherited ISA,
 yet it manages to deliver $\mu$ops to the superscalar dataflow-ordered
 execution core at full throughput.
 \begin{itemize}
-\item 16-byte/$\mathbbm{c}$ fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
+\item 16-byte/$\textbf{c}$ fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
 \item Speculative decoding at each of fetch's 16 bytes
 \item 1 complex decoder, 3 simple decoders
 \item 32 sets of 8 ways of 6 $\mu$ops $\mu$I\$ (``decoded I\$'')
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Delays, or Where Have All the $\mathbbm{c}$ Gone?}
+\begin{frame}{Delays, or Where Have All the $\textbf{c}$ Gone?}
 \begin{itemize}
-\item Instruction fetch miss ($7\mathbbm{c}$ for ITLB miss + 2TLB hit)
-\item $3\mathbbm{c}$ for each non-REX length changing prefix\footnote{$6\mathbbm{c}$ for any fetch containing an LCP on Nehalem}
+\item Instruction fetch miss (7\textbf{c} for ITLB miss + 2TLB hit)
+\item 3\textbf{c} for each non-REX length changing prefix\footnote{6\textbf{c} for any fetch containing an LCP on Nehalem}
 \item Instruction decode delay / MSROM access
 \end{itemize}
 \end{frame}
