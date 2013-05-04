@@ -14,7 +14,7 @@
 %\usepackage[T1]{fontenc}
 \usepackage[babel=true]{microtype}
 
-\title{UNIX Weapons School---Control and Concurrency}
+\title{UNIX Weapons School---Control+Concurrency}
 \date{}
 \author{Nick Black for the\\
 Georgia Institute of Technology
@@ -65,6 +65,20 @@ carried away. Another comes in its place; this too will be carried away.'')\\ \h
 \vspace{.1in}
 \item ``We shall come to see that time does not exist.''\\ \hfill---Julian Barbour
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Local concurrency}
+Of two ``schools'' of concurrency, we will focus on the first:
+\vfill
+\begin{description}
+\item[\textbf{Shared memory}]\hfill{Operate on a common store, establishing\\ \hfill mutual exclusion via control objects.}
+\item[\textbf{Message passing}]\hfill{Operate on disjoint stores, exchanging\\ \hfill messages containing common data.}
+\end{description}
+\vfill
+\textbf{NB:} Message passing is easily implemented
+in terms of shared memory, requiring a simple class. The converse is untrue\footnote{In C, anyway.
+In C++, we can do some operator overloading tricks---see Andrei Alexandrescu's ``Modern C++ Design'' (2001).}, since
+memory operations are already built into the language.
 \end{frame}
 
 \end{document}
