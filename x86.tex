@@ -148,6 +148,7 @@ Am486-DX4 & 1995 & 1.25M@$.44\mu$m & 32 / 32 / 32 & 75--120MHz \\
 \begin{block}{Intel Pentium}
 \begin{itemize}
 \item FIXME
+\item PMMX adds MMX + performance counters (\texttt{RDPMC})
 \end{itemize}
 \end{block}
 \begin{block}{AMD K5}
@@ -176,11 +177,18 @@ fixme & fixme & fixme & fixme & fixme \\
 
 \begin{block}{Intel P6 (PPro / PIII)}
 \begin{itemize}
+\item PPro adds \texttt{SYSENTER, SYSEXIT}
+\item PIII adds 8 128-bit regs, SSE1 and \texttt{CMOVcc}
+%SSE1 is strictly 32x4 FP + data-movement stuff, plus SFENCE
+%PIII shared execution resources (save regs) between SSE/FP
 \item FIXME
 \end{itemize}
 \end{block}
 \begin{block}{AMD K6}
 \begin{itemize}
+\item Adds \texttt{SYSCALL, SYSRET}
+\item K6-2 adds 3DNow! atop MMX regs
+% shit for performance, but worked without OS support, but who cares?
 \item FIXME
 \end{itemize}
 \end{block}
@@ -204,6 +212,8 @@ fixme & fixme & fixme & fixme & fixme \\
 \begin{frame}[t]{SSE2 + long pipelines (FreeBSD 4, Linux 2.4)}
 \begin{block}{Intel NetBurst (P4, PD)}
 \begin{itemize}
+\item P4 adds SSE2, HyperThreading
+% SSE2 implements MMX integer ops and 64-bit double FP
 \item FIXME
 \end{itemize}
 \end{block}
@@ -248,6 +258,10 @@ fixme & fixme & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
+Intel Conroe & 2006 & 291M@65nm & 64 / 64 / 64 & 3GHZ / 1333MHz \\
+\hline
+Intel Penryn & 2008 & 410M@45nm & & \\
+\hline
 fixme & fixme & fixme & fixme & fixme \\
 \hline
 \end{tabular}%
@@ -260,11 +274,14 @@ fixme & fixme & fixme & fixme & fixme \\
 \begin{frame}[t]{AVX + scaling + heterogeneity (FreeBSD 8, Linux 3)}
 \begin{block}{Intel Nehalem}
 \begin{itemize}
+\item Adds SSE4.2
+\item Quick Path Interconnect on Nehalem-E
 \item FIXME
 \end{itemize}
 \end{block}
 \begin{block}{Intel Sandy Bridge / Ivy Bridge}
 \begin{itemize}
+\item PCIe 3.0 on Ivy Bridge
 \item FIXME
 \end{itemize}
 \end{block}
