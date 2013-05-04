@@ -237,7 +237,7 @@ If you're thinking ``what the hell's a schedule?'', you might want to reconsider
 	(2-way SMT). Are there threads such that a single-processor
 	schedule can beat using both?
 \item \textbf{A3.} Yes. The two logical cores share all cache levels. If e.g.
-	the MOESI protocol is in use, and writes to shared data are frequent,
+	the MESI protocol is in use, and writes to shared data are frequent,
 	and the dataset fits within one processor's cache, the reduction in
 	cycle capacity might be more than offset by fewer RFOs. 
 \item \textbf{NB:} That the cores were HyperThreaded is immaterial to the
