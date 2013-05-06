@@ -54,6 +54,7 @@ Contemporary ARM and x86 Architectures}'' (2013).
 
 \begin{frame}{Why study the x86?}
 The answer is not ``elegance''.
+\vfill
 \begin{itemize}
 \item Used in a majority of servers, workstations, and laptops
 \item Receives the most focus in the kernel/toolchain
@@ -61,6 +62,7 @@ The answer is not ``elegance''.
 \item Excellent documentation and literature
 \item Fascinating, revealing, lengthy history
 \end{itemize}
+\vfill
 Please do not think that x86 has been all that's gone on over the past
 twenty years. That said, if you can successfully hack on x86, you can
 probably hack on anything.
@@ -108,7 +110,7 @@ probably hack on anything.
 \end{center}
 \end{frame}
 
-\begin{frame}[t]{IA-32 CISC (Win 3.11, OS/2, Linux, BSD i386)}
+\begin{frame}[t]{IA-32 CISC (Win 3.11, OS/2, Linux, 386BSD)}
 \begin{block}{80386 (Am386, TI, Chips, IBM, \ldots)}
 \begin{itemize}
 \item IBM PS/2 (MCA). 32-bit segments, regs, buses
@@ -150,15 +152,21 @@ Am486-DX4 & 1995 & 1.25M@.44$\mu$m & 32 / 32 / 32 & 75--120MHz \\
 \end{frame}
 
 \begin{frame}[t]{MMX + superscalar (Win 95, BeOS, FreeBSD)}
-\begin{block}{Intel Pentium}
+\begin{block}{Intel P5 (Pentium, Pentium MMX)}
 \begin{itemize}
-\item FIXME
+\item U/V pipes, I\$/D\$ split, better FPU/MUL, debug regs
 \item PMMX adds MMX + performance counters (\texttt{RDPMC})
 \end{itemize}
 \end{block}
-\begin{block}{AMD K5}
+\begin{block}{AMD K5 (SSA/5, 5k86)}
 \begin{itemize}
-\item FIXME
+\item RISC Am29000 with x86 frontend emitting $\mu$code
+\item Variable register window sizes
+\end{itemize}
+\end{block}
+\begin{block}{Cyrix 6x86}
+\begin{itemize}
+\item Scratchpad (``L0'') cache, great ZOPS, crap FPU
 \end{itemize}
 \end{block}
 \vfill
@@ -169,7 +177,13 @@ Am486-DX4 & 1995 & 1.25M@.44$\mu$m & 32 / 32 / 32 & 75--120MHz \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-fixme & fixme & fixme & fixme & fixme \\
+Pentium & 1993 & fixme & fixme & fixme \\
+\hline
+AMD SSA/5 & 1996 & 4.3M@.5--.35$\mu$m & fixme & 75--100MHz \\
+\hline
+AMD 5k86 & 1996 & 4.3M@.5--.35$\mu$m & fixme & 90--133MHz \\
+\hline
+Cyrix 6x86 & 1996 & fixme & fixme & fixme \\
 \hline
 \end{tabular}%
 }
@@ -180,7 +194,7 @@ fixme & fixme & fixme & fixme & fixme \\
 
 \begin{frame}[t]{SSE + OOO CRISC (Win 98, FreeBSD 3, Linux 2)}
 
-\begin{block}{Intel P6 (PPro / PIII)}
+\begin{block}{Intel P6 (PPro / PII / PIII)}
 \begin{itemize}
 \item PPro adds \texttt{SYSENTER, SYSEXIT}
 \item PIII adds 8 128-bit regs, SSE1 and \texttt{CMOVcc}
@@ -189,7 +203,7 @@ fixme & fixme & fixme & fixme & fixme \\
 \item FIXME
 \end{itemize}
 \end{block}
-\begin{block}{AMD K6}
+\begin{block}{AMD K6 (K6 / K6-2 / K6-III)}
 \begin{itemize}
 \item Adds \texttt{SYSCALL, SYSRET}
 \item K6-2 adds 3DNow! atop MMX regs
@@ -206,7 +220,12 @@ fixme & fixme & fixme & fixme & fixme \\
 \begin{tabular}{|l|r|r|c|r|}
 \hline
 Pentium Pro & 1995 & 5.5M@.6--.35$\mu$m & fixme & 150--333MHz \\
-Pentium III & 1999 & 9.5M@.25$\mu$m & fixme & 400MHz--1.4GHz \\
+\hline
+Pentium III & 1999 & 9.5M@.25--.13$\mu$m & fixme & 400MHz--1.4GHz \\
+\hline
+K6 & 1997 & fixme & fixme & fixme \\
+\hline
+K6-2 & 1998 & fixme & fixme & fixme \\
 \hline
 \end{tabular}%
 }
@@ -225,6 +244,8 @@ Pentium III & 1999 & 9.5M@.25$\mu$m & fixme & 400MHz--1.4GHz \\
 \end{block}
 \begin{block}{AMD K7 (Athlon)}
 \begin{itemize}
+\item Alpha's EV6, 3-way FPU
+\item SSE2 on Palomino
 \item FIXME
 \end{itemize}
 \end{block}
@@ -237,6 +258,12 @@ Pentium III & 1999 & 9.5M@.25$\mu$m & fixme & 400MHz--1.4GHz \\
 \begin{tabular}{|l|r|r|c|r|}
 \hline
 fixme & fixme & fixme & fixme & fixme \\
+\hline
+fixme & fixme & fixme & fixme & fixme \\
+\hline
+Athlon T-Bird & fixme & fixme & fixme & fixme \\
+\hline
+Athlon Barton & fixme & fixme & fixme & fixme \\
 \hline
 \end{tabular}%
 }
@@ -278,17 +305,21 @@ fixme & fixme & fixme & fixme & fixme \\
 \end{frame}
 
 \begin{frame}[t]{AVX + scaling + heterogeneity (FreeBSD 8, Linux 3)}
-\begin{block}{Intel Nehalem}
+\begin{block}{Intel Nehalem / Westmere}
 \begin{itemize}
-\item Adds SSE4.2
+\item Nehalem adds SSE4.2
 \item Quick Path Interconnect on Nehalem-E
-\item FIXME
 \end{itemize}
 \end{block}
 \begin{block}{Intel Sandy Bridge / Ivy Bridge}
 \begin{itemize}
-\item PCIe 3.0 on Ivy Bridge
-\item FIXME
+\item Integrated GPU, trigate FinFET
+\item Ivy Bridge adds AVX, PCIe 3.0
+\end{itemize}
+\end{block}
+\begin{block}{Intel Haswell}
+\begin{itemize}
+\item Transactional memory, AVX2, FMA3
 \end{itemize}
 \end{block}
 \vfill
