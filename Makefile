@@ -13,7 +13,7 @@ all: $(LECTOUT)
 	pdflatex $(basename $<)
 
 clean:
-	rm -f $(LECTOUT) doc_data.txt \
+	rm -f $(LECTOUT) doc_data.txt missfont.log \
 		$(addsuffix .toc,$(LECTURES)) $(addsuffix .log,$(LECTURES)) \
 		$(addsuffix .out,$(LECTURES)) $(addsuffix .snm,$(LECTURES)) \
 		$(addsuffix .log,$(LECTURES)) $(addsuffix .nav,$(LECTURES)) \
