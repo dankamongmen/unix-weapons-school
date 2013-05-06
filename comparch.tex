@@ -1,16 +1,14 @@
-\documentclass[xcolor={dvipsnames,table}]{beamer}
+\documentclass[mathserif,xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
-
-\usefonttheme{serif}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[babel=true]{microtype}
 
 \beamertemplatenavigationsymbolsempty
@@ -286,14 +284,15 @@ execution core at full throughput. How?
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
 {\tiny
-\begin{tabular}{|>{\raggedleft}p{2in}|r|p{1.25in}|}
+\begin{tabular}{|>{\raggedleft}p{2in}|c|p{1.25in}|}
 \hline
-\textbf{Incident} & \textbf{Penalty} & \textbf{Ameliorations} \\
+\textbf{Cause} & \textbf{Penalty} & \textbf{Ameliorations} \\
 \hline\hline
-Instructions having less than full throughput & Handful of \textbf{c} &
-Strength reduction \\
+Reduced-throughput instructions & $\le$ ALU pipeline length &
+Str. reduction / pipeline ALU\footnote{Explain how lengthening the ALU pipeline
+might be beneficial despite the delay being bounded by this pipeline's length.}  \\
 \hline
-L1 cache hit & Very few \textbf{c}, if any & Multiport/pipelined L1 \\
+L1 cache hit & Very few \textbf{c} & Multiport/pipelined L1 \\
 \hline
 False dependency & Handful of \textbf{c} & Register renaming \\
 \hline
@@ -301,17 +300,19 @@ True / unrenamable dependency & Handful of \textbf{c} & Value prediction, OOO \\
 \hline
 Decoding/execution/retirement stalls & Handful of \textbf{c} & More/better hardware \\
 \hline
-Branch misprediction / pipeline flush & \textasciitilde Pipeline length & Branch prediction, $\mu$caches, predication \\
+Startup / pipeline flush & Pipeline length & Shorten pipeline \\
 \hline
-L1 cache miss & L2 time (<10\textbf{c}) & Faster L2, bigger L1, non-temporal L/S \\
+Branch misprediction & \textasciitilde Pipeline length & Branch prediction, $\mu$caches,\linebreak predication, shorten pipeline \\
+\hline
+L1 D\$ miss (L2 D\$ cache hit) & $\le$ L2 time (<10\textbf{c}) & Faster L2, bigger L1,\linebreak non-temporal L/S, OOO \\
+\hline
+L1 I\$ miss (L2 I\$ cache hit) & L2 time (<10\textbf{c}) & Faster L2, bigger L1 \\
 \hline
 Procedure call & Dozens of \textbf{c} & Register windows, inlining \\
 \hline
 System call & Hundreds of \textbf{c} & Call gates \\
 \hline
-Bus lock (atomics, UC accesses\footnote{Including pagewalks of uncacheable tables.}) & & \\
-\hline
-L2 cache miss & & \\
+L2 cache miss & Memory access time & Bigger/better L2 \\
 \hline
 Thread switch & & \\
 \hline
@@ -319,13 +320,15 @@ TLB miss & & \\
 \hline
 Process switch & & \\
 \hline
-Load from resident page via MMU & & \\
+Access resident page via MMU & Hundreds of \textbf{c} & Larger caches, better bus \\
 \hline
-Load from faulted page via DMA+MMU & & \\
+Bus lock (atomics, UC accesses\footnote{Including pagewalks of uncacheable tables.}) & Bus + exclusion & Coherence protocols \\
+\hline
+Access faulted page via DMA+MMU & & \\
 \hline
 Load via FSB PIO & & \\
 \hline
-Mutual exclusion & & \\
+Mutual exclusion & Arbitrary & Transactional memory, RCU \\
 \hline
 \end{tabular}%
 }
