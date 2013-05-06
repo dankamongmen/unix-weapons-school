@@ -305,21 +305,14 @@ fixme & fixme & fixme & fixme & fixme \\
 \end{frame}
 
 \begin{frame}[t]{AVX + scaling + heterogeneity (FreeBSD 8, Linux 3)}
-\begin{block}{Intel Nehalem / Westmere}
+\begin{block}{Recent Intel}
 \begin{itemize}
-\item Nehalem adds SSE4.2
+\item Return of the barrel shifter!
+\item Nehalem adds SSE4.2, 2TLB, VT-d integrates northbridge
 \item Quick Path Interconnect on Nehalem-E
-\end{itemize}
-\end{block}
-\begin{block}{Intel Sandy Bridge / Ivy Bridge}
-\begin{itemize}
-\item Integrated GPU, trigate FinFET
-\item Ivy Bridge adds AVX, PCIe 3.0
-\end{itemize}
-\end{block}
-\begin{block}{Intel Haswell}
-\begin{itemize}
-\item Transactional memory, AVX2, FMA3
+\item Sandy Bridge integrates GPU, GMCH, L3, 256-bit AVX
+\item Ivy Bridge adds AVX, PCIe 3.0, FinFET trigates
+\item Hasell adds transactional memory, AVX2, FMA3
 \end{itemize}
 \end{block}
 \vfill
@@ -337,6 +330,55 @@ fixme & fixme & fixme & fixme & fixme \\
 };
 \end{tikzpicture}
 \end{center}
+\end{frame}
+
+\begin{frame}{Decoding\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\includegraphics[scale=.49]{images/haswell-1.png}
+\end{frame}
+
+\begin{frame}{Schedulers\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\includegraphics[scale=.42]{images/haswell-2.png}
+\end{frame}
+
+\begin{frame}{Execution\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\hfill\includegraphics[scale=.45]{images/haswell-3.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Pipeline}
+\huge\textbf{FIXME}
+\end{frame}
+
+\begin{frame}{Good times!\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\includegraphics[scale=.225]{images/haswell-5.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Architectural resources}
+\huge\textbf{FIXME}
+\begin{itemize}
+\item 256-bit AVX (old SSE) registers
+\item 64-bit GP registers
+\end{itemize}
+\end{frame}
+
+\begin{frame}{TLBs and Memory interface}
+\huge\textbf{FIXME show load/store buffers, PATs/MTRRs, page table hierarchy,
+cache hierarchy + multicore topology\ldots}
+\end{frame}
+
+\begin{frame}{Instruction set I}
+\huge\textbf{FIXME}
+\end{frame}
+
+\begin{frame}{Instruction set II}
+\huge\textbf{FIXME}
 \end{frame}
 
 \end{document}
