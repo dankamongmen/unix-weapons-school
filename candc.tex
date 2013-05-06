@@ -83,9 +83,8 @@ In C++, we can do some operator overloading tricks---see Andrei Alexandrescu's `
 memory operations are already built into the language.
 \end{frame}
 
-\begin{frame}{Necessities for fine-grained locking}
-What is required of hardware primitives arbitrary-scale locking\footnote{Material for this slide is due Lorenzo Alvisi's
-Fall 2004 CS803 ``Distributed Computing'' slides at the University of Texas (Austin).}?
+\begin{frame}{Necessities of fine-grained locking}
+What hardware primitives are required for scalable locking\footnote{Material for this slide is due Lorenzo Alvisi's Fall 2004 CS803 ``Distributed Computing'' slides at UT-Austin.}?
 \vfill
 \begin{itemize}
 \item \textit{Infinite consensus number}---For a concurrent object $X$ and
