@@ -5,7 +5,7 @@
 \usepackage{geometry}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
-
+\usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
@@ -38,13 +38,13 @@ Georgia Institute of Technology
 \begin{frame}{Recommended reading}
 \begin{itemize}
 \small
-\item Bhandarkar and Clark. ``Performance from Architecture: Comparing a
-   RISC and a CISC with Similar Hardware Organization'' (1991).
+\item Bhandarkar and Clark. ``\href{http://dl.acm.org/citation.cfm?id=107003}{Performance from Architecture: Comparing a
+RISC and a CISC with Similar Hardware Organization}'' (1991).
 \vfill
-\item Blem et al. ``Power Struggles: Revisiting the RISC vs. CISC Debate on
-   Contemporary ARM and x86 Architectures'' (2013).
+\item Blem et al. ``\href{http://research.cs.wisc.edu/vertical/papers/2013/hpca13-isa-power-struggles.pdf}{Power Struggles: Revisiting the RISC vs. CISC Debate on
+Contemporary ARM and x86 Architectures}'' (2013).
 \vfill
-\item http://www.sandpile.org
+\item \href{http://www.sandpile.org}{http://www.sandpile.org}
 \vfill
 \item \textit{Intel 64 and IA-32 Architectures Instruction Reference}.
 \vfill
@@ -61,6 +61,9 @@ The answer is not ``elegance''.
 \item Excellent documentation and literature
 \item Fascinating, revealing, lengthy history
 \end{itemize}
+Please do not think that x86 has been all that's gone on over the past
+twenty years. That said, if you can successfully hack on x86, you can
+probably hack on anything.
 \end{frame}
 
 \begin{frame}[t]{IA-16 CISC (MS-DOS, 640K--1M RAM)}
@@ -137,7 +140,7 @@ The answer is not ``elegance''.
 \hline
 80486-DX2 & 1993 & $\mu$m & 32 / 32 / 32 & 40--66MHz \\
 \hline
-Am486-DX4 & 1995 & 1.25M@$.44\mu$m & 32 / 32 / 32 & 75--120MHz \\
+Am486-DX4 & 1995 & 1.25M@.44$\mu$m & 32 / 32 / 32 & 75--120MHz \\
 \hline
 \end{tabular}%
 }
@@ -202,7 +205,8 @@ fixme & fixme & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-fixme & fixme & fixme & fixme & fixme \\
+Pentium Pro & 1995 & 5.5M@.6--.35$\mu$m & fixme & 150--333MHz \\
+Pentium III & 1999 & 9.5M@.25$\mu$m & fixme & 400MHz--1.4GHz \\
 \hline
 \end{tabular}%
 }
