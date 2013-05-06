@@ -14,6 +14,8 @@
 %\usepackage[T1]{fontenc}
 \usepackage[babel=true]{microtype}
 
+\beamertemplatenavigationsymbolsempty
+
 \title{UNIX Weapons School---Control+Concurrency}
 \date{}
 \author{Nick Black for the\\
@@ -45,6 +47,7 @@ Georgia Institute of Technology
 	``Practical Lock-Freedom'' (2003).
 \item Mathieu Desnoyers et al. ``User-Level Implementations of Read-Copy Update'' (2012).
 \item Hans Boehm. ``How to Miscompile Programs with ``Benign'' Data Races'' (2011).
+\item Michael Chynowe. ``Implementing Scalable Atomic Locks for Multicore Intel EM64T and IA32 Architectures'' (2012).
 \item Kogan and Petrank, ``Wait-free queues with multiple enqueuers and dequeuers'' (2011).
 \item David Culler and Jaswinder Singh. \textit{Parallel Computer Architecture} (1999). 
 \item \textit{Intel 64 and IA-32 Architectures Software Developer's Manuals}.
@@ -78,6 +81,40 @@ Of two ``schools'' of concurrency, we will focus on the first:
 in terms of shared memory, requiring a simple class. The converse is untrue\footnote{In C, anyway.
 In C++, we can do some operator overloading tricks---see Andrei Alexandrescu's ``Modern C++ Design'' (2001).}, since
 memory operations are already built into the language.
+\end{frame}
+
+\begin{frame}
+What is necessary for general fine-grained locking?\footnote{Material for this slide is due Lorenzo Alvisi's
+Fall 2004 CS803 ``Distributed Computing'' slides at the University of Texas (Austin).}
+\begin{itemize}
+\item \textit{Infinite consensus number}---For a concurrent object $X$ and
+r/w registers $W$, the largest $n$ for which there exists
+a consensus protocol $\{P_1\ldots P_n\}$ on {W, X}. The number is infinite if no
+such $n$ exists. Herlihy's wait-free hierarchy:
+\begin{center}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{YellowGreen!20}{YellowGreen!5}
+{\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Consensus number} & \textbf{Object} \\
+\hline\hline
+$1$ & Atomic r/w registers \\
+\hline
+$2$ & Test+set, Fetch+add \\
+\hline
+$2n - 2$ & n-register assignment \\
+\hline
+$\infty$ & Compare+swap/LLSC, FIFO+peek \\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{center}
+\item \textit{Linearizability}---
+\end{itemize}
 \end{frame}
 
 \end{document}

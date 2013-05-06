@@ -13,6 +13,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[babel=true]{microtype}
 
+\beamertemplatenavigationsymbolsempty
+
 \title{UNIX Weapons School---Computer Architecture}
 \date{}
 \author{Nick Black for the\\
@@ -168,6 +170,24 @@ The means of accelerating our program are finite:
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Instructions III}
+Fully generally, instructions map input states to output states.
+\small{
+\begin{itemize}
+\item A machine could contain in ROM a lookup table containing every possible
+function from $2^{n*\text{word}}\implies 2^{m*\text{word}}$. Each instruction
+specifies inputs, outputs, and a map selection\footnote{Calculate this ROM's size, and the minimum instruction size.}.
+\item A machine could allow each instruction to specify a single lookup table implementing
+a single such map\footnote{Calculate the minimum necessary instruction size.}.
+\item ``Arithmetic MISC'' provides universal computation via a single arithmetic instruction
+operation, memory addresses, and a conditional branch target in every instruction.
+\item``Transport-triggered MISC`` (sometimes called ZISC) involves memory-mapped
+functional units and a branch. All MISC schemes require the ability to modify one's
+own code\footnote{Prove this.}.
+\end{itemize}
+}
+\end{frame}
+
 \begin{frame}{Special registers}
 Often read-only/privileged/require special instructions.
 \tiny{
@@ -225,7 +245,7 @@ Collect examples of architectural and physical register files.
 \begin{frame}{Fundamental theorem of data starvation}
 We can only hit peak during sequences of code which fully
 utilize arithmetic resources. Registers must provide throughput
-at least equivalent to the processor's arithmetic throughput.\footnote{\tiny{In a load/store (classic RISC) architecture, arithmetic instructions operate
+at least equivalent to the processor's arithmetic throughput.\footnote{\tiny{In a classic load/store RISC architecture, arithmetic instructions operate
 only on registers. In a machine admitting memory addresses as inputs to
 arithmetic operands, such instructions will exhibit greater latency and lesser throughput
 than their register-direct counterparts.}}\\
@@ -266,27 +286,30 @@ execution core at full throughput. How?
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
 {\tiny
-\begin{tabular}{|>{\raggedleft}p{2in}|r|p{1in}|}
+\begin{tabular}{|>{\raggedleft}p{2in}|r|p{1.25in}|}
 \hline
 \textbf{Incident} & \textbf{Penalty} & \textbf{Ameliorations} \\
 \hline\hline
-Instructions having less than full throughput &
-Handful of \textbf{c} &
+Instructions having less than full throughput & Handful of \textbf{c} &
 Strength reduction \\
 \hline
-L1 cache hit & Very few \textbf{c}, if any & Multiple-port caches \\
+L1 cache hit & Very few \textbf{c}, if any & Multiport/pipelined L1 \\
 \hline
-True / unrenamable dependency & Handful of \textbf{c} & \\
+False dependency & Handful of \textbf{c} & Register renaming \\
 \hline
-Decoding/execution/retirement stalls & Handful of \textbf{c} & \\
+True / unrenamable dependency & Handful of \textbf{c} & Value prediction, OOO \\
 \hline
-Branch misprediction / pipeline flush & \textasciitilde Pipeline length & \\
+Decoding/execution/retirement stalls & Handful of \textbf{c} & More/better hardware \\
 \hline
-L1 cache miss & <10\textbf{c} & \\
+Branch misprediction / pipeline flush & \textasciitilde Pipeline length & Branch prediction, $\mu$caches, predication \\
 \hline
-System call & & \\
+L1 cache miss & L2 time (<10\textbf{c}) & Faster L2, bigger L1, non-temporal L/S \\
 \hline
-Bus lock (atomic instructions) & & \\
+Procedure call & Dozens of \textbf{c} & Register windows, inlining \\
+\hline
+System call & Hundreds of \textbf{c} & Call gates \\
+\hline
+Bus lock (atomics, UC accesses\footnote{Including pagewalks of uncacheable tables.}) & & \\
 \hline
 L2 cache miss & & \\
 \hline
