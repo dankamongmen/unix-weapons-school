@@ -44,11 +44,15 @@ RISC and a CISC with Similar Hardware Organization}'' (1991).
 \item Blem et al. ``\href{http://research.cs.wisc.edu/vertical/papers/2013/hpca13-isa-power-struggles.pdf}{Power Struggles: Revisiting the RISC vs. CISC Debate on
 Contemporary ARM and x86 Architectures}'' (2013).
 \vfill
-\item \href{http://www.sandpile.org}{http://www.sandpile.org}
+\item \href{http://www.sandpile.org}{http://www.sandpile.org} /
+\href{http://www.cpu-world.com}{http://www.cpu-world.com}
 \vfill
 \item \textit{Intel 64 and IA-32 Architectures Instruction Reference}.
 \vfill
 \item \textit{CUDA Parallel Thread Execution ISA Reference}.
+\vfill
+\item Michael Thomadakis. ``The Architecture of the Nehalem Processor and
+Nehalem-EP SMP Platforms'' (2011).
 \end{itemize}
 \end{frame}
 
@@ -177,13 +181,13 @@ Am486-DX4 & 1995 & 1.25M@.44$\mu$m & 32 / 32 / 32 & 75--120MHz \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-Pentium & 1993 & fixme & fixme & fixme \\
+Pentium\footnote{\tiny{The faster .35$\mu$m Pentiums (P54CS, P55C, Tillamook) didn't emerge until 1995 (P54CS) or 1997.}} & 1993 & 3.1M@.8--.35$\mu$m & 5 & 60--300MHz \\
 \hline
-AMD SSA/5 & 1996 & 4.3M@.5--.35$\mu$m & fixme & 75--100MHz \\
+AMD SSA/5 & 1996 & 4.3M@.5--.35$\mu$m & 5 & 75--100MHz \\
 \hline
-AMD 5k86 & 1996 & 4.3M@.5--.35$\mu$m & fixme & 90--133MHz \\
+AMD 5k86 & 1996 & 4.3M@.5--.35$\mu$m & 6 & 90--133MHz \\
 \hline
-Cyrix 6x86 & 1996 & fixme & fixme & fixme \\
+Cyrix 6x86 & 1996 & 3.3M@.65--.35$\mu$m & 7 & 80--150MHz \\
 \hline
 \end{tabular}%
 }
@@ -219,9 +223,9 @@ Cyrix 6x86 & 1996 & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-Pentium Pro & 1995 & 5.5M@.6--.35$\mu$m & fixme & 150--333MHz \\
+Pentium Pro & 1995 & 5.5M@.6--.35$\mu$m & 14 & 150--333MHz \\
 \hline
-Pentium III & 1999 & 9.5M@.25--.13$\mu$m & fixme & 400MHz--1.4GHz \\
+Pentium III & 1999 & 9.5M@.25--.13$\mu$m & 10 & 400--1400MHz \\
 \hline
 K6 & 1997 & fixme & fixme & fixme \\
 \hline
@@ -257,13 +261,13 @@ K6-2 & 1998 & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-fixme & fixme & fixme & fixme & fixme \\
+Intel Northwood & 55M@130nm & fixme & 20 & 1.6--3.4GHz / 400--800MHz \\
 \hline
-fixme & fixme & fixme & fixme & fixme \\
+Intel Prescott & 125M@90nm & fixme & 31 & 3--3.8GHz / 533--800MHz \\
 \hline
-Athlon T-Bird & fixme & fixme & fixme & fixme \\
+Athlon T-Bird & 37M@180nm & fixme & fixme & fixme \\
 \hline
-Athlon Barton & fixme & fixme & fixme & fixme \\
+Athlon Barton & 54M@130nm & fixme & fixme & fixme \\
 \hline
 \end{tabular}%
 }
@@ -291,9 +295,9 @@ Athlon Barton & fixme & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-Intel Conroe & 2006 & 291M@65nm & 64 / 64 / 64 & 3GHZ / 1333MHz \\
+Intel Conroe & 2006 & 291M@65nm & 14 & 3GHZ / 1333MHz \\
 \hline
-Intel Penryn & 2008 & 410M@45nm & & \\
+Intel Penryn & 2008 & 410M@45nm & 14 & \\
 \hline
 fixme & fixme & fixme & fixme & fixme \\
 \hline
@@ -307,7 +311,7 @@ fixme & fixme & fixme & fixme & fixme \\
 \begin{frame}[t]{AVX + scaling + heterogeneity (FreeBSD 8, Linux 3)}
 \begin{block}{Recent Intel}
 \begin{itemize}
-\item Return of the barrel shifter!
+\item Return of the barrel shifter (and HyperThreading)!
 \item Nehalem adds SSE4.2, 2TLB, VT-d, integrates northbridge
 \item Quick Path Interconnect on Nehalem-E
 \item Sandy Bridge integrates GPU, GMCH, L3, 256-bit AVX
@@ -323,7 +327,11 @@ fixme & fixme & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-fixme & fixme & fixme & fixme & fixme \\
+Intel Nehalem & 2008 & fixme & 16 & fixme \\
+\hline
+Intel Sandy Bridge & 2011 & fixme & fixme & fixme \\
+\hline
+Intel Haswell & 2013 & fixme & fixme & fixme \\
 \hline
 \end{tabular}%
 }
@@ -368,9 +376,33 @@ fixme & fixme & fixme & fixme & fixme \\
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Instruction store}
+Sandy Bridge (source: \textit{Intel Optimization Manual})
+\begin{itemize}
+\item 32KB instruction cache, 16B/\textbf{c}$\implies$48GB/s @ 3GHz
+\item 8-way on Sandy Bridge, 4-way on Nehalem
+\item 128 4K ITLB entries, 8 large ITLB entries\footnote{7 on Nehalem}
+\item MSROM 4$\mu$op/\textbf{c}
+\end{itemize}
+\end{frame}
+
 \begin{frame}{TLBs and Memory interface}
-\huge\textbf{FIXME show load/store buffers, PATs/MTRRs, page table hierarchy,
-cache hierarchy + multicore topology\ldots}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+Sandy Bridge\\ \small{(source: \textit{Intel Optimization Manual})}
+\begin{itemize}
+\item 32KB 8-way 64B/line data cache, 4\textbf{c} latency, 2x16B/\textbf{c}
+\item 256KB 8-way 64B/line unified non-inclusive L2, 12\textbf{c} latency, 32B/\textbf{c}
+\item Variable 64B/line unified inclusive LLC, 26--31\textbf{c} latency, 32B/\textbf{c}
+\item 43\textbf{c} for a clean off-core hit
+\item 60\textbf{c} for a dirty off-core hit
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[scale=.4]{images/skynet.png}
+\end{column}
+\end{columns}
+\textbf{FIXME show load/store buffers, PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
 
 \begin{frame}{Instruction set I}
