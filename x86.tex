@@ -11,7 +11,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[babel=true]{microtype}
-
+\usepackage{amsmath}
 \beamertemplatenavigationsymbolsempty
 
 \title{UNIX Weapons School---The x86}
@@ -368,28 +368,66 @@ Intel Haswell & 2013 & fixme & fixme & fixme \\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Architectural resources}
-\huge\textbf{FIXME}
-\begin{itemize}
-\item 256-bit AVX (old SSE) registers
-\item 64-bit GP registers
-\end{itemize}
-\end{frame}
+\begin{frame}{Immediate state + instruction store}
+\begin{center}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
+{\footnotesize
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Architectural component} & \textbf{Sandy Bridge} & \textbf{Nehalem} \\
+\hline
+\hline
+64-bit GP registers & fixme & fixme \\
+%\hline
+%80-bit MMX registers & fixme & fixme \\
+\hline
+SSE registers & 36 & 32 \\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
 
-\begin{frame}{On-die instruction store}
-Sandy Bridge (source: \textit{Intel Optimization Manual})
+\vspace{.25in}
+
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
+{\footnotesize
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{$\boldsymbol\mu$architectural component} & \textbf{Sandy Bridge} & \textbf{Nehalem} \\
+\hline
+\hline
+Load buffers & 64 & 48 \\
+\hline
+Store buffers & 36 & 32 \\
+\hline
+Line fill buffers & 10 & 10 \\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{center}
 \begin{itemize}
 \item 32KB instruction cache, 16B/\textbf{c}$\implies$48GB/s @ 3GHz
 \item 8-way on Sandy Bridge, 4-way on Nehalem
 \item 128 4K ITLB entries, 8 large ITLB entries\footnote{7 on Nehalem}
 \item MSROM 4$\mu$op/\textbf{c}
 \end{itemize}
+\vfill\hfill\tiny{Source: \textit{Intel 64 and IA32 Architectures Optimization Manual}}
 \end{frame}
 
 \begin{frame}{On-die data store}
+The latencies below are best cases (no eviction, etc.). MESI details are stored
+in L1/l2, while directory details are kept in the LLC (hence the latter's
+inclusivity).
+\vfill
 \begin{columns}
 \begin{column}{0.5\textwidth}
-%Sandy Bridge\\ \small{(source: \textit{Intel Optimization Manual})}
 \begin{itemize}
 \item 32KB 8-way 64B/line data cache, 4\textbf{c} latency, 2x16B/\textbf{c}
 \item 256KB 8-way 64B/line unified non-inclusive L2, 12\textbf{c} latency, 32B/\textbf{c}
@@ -402,16 +440,11 @@ Sandy Bridge (source: \textit{Intel Optimization Manual})
 \includegraphics[scale=.4]{images/skynet.png}
 \end{column}
 \end{columns}
-\vfill
-\begin{itemize}
-\item Latencies above are best cases (no eviction, etc.)
-\item MESI details are stored in L1/l2, directory details in the LLC
-(hence the latter's inclusivity)
-\end{itemize}
+\vfill\hfill\tiny{Source: \textit{Intel 64 and IA32 Architectures Optimization Manual}}
 \end{frame}
 
 \begin{frame}{TLBs and Memory interface}
-\textbf{FIXME show load/store buffers, PATs/MTRRs, page table hierarchy\ldots}
+\textbf{FIXME show PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
 
 \begin{frame}{Instruction set I}
