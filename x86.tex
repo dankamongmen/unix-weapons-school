@@ -376,7 +376,7 @@ Intel Haswell & 2013 & fixme & fixme & fixme \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Instruction store}
+\begin{frame}{On-die instruction store}
 Sandy Bridge (source: \textit{Intel Optimization Manual})
 \begin{itemize}
 \item 32KB instruction cache, 16B/\textbf{c}$\implies$48GB/s @ 3GHz
@@ -386,10 +386,10 @@ Sandy Bridge (source: \textit{Intel Optimization Manual})
 \end{itemize}
 \end{frame}
 
-\begin{frame}{TLBs and Memory interface}
+\begin{frame}{On-die data store}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-Sandy Bridge\\ \small{(source: \textit{Intel Optimization Manual})}
+%Sandy Bridge\\ \small{(source: \textit{Intel Optimization Manual})}
 \begin{itemize}
 \item 32KB 8-way 64B/line data cache, 4\textbf{c} latency, 2x16B/\textbf{c}
 \item 256KB 8-way 64B/line unified non-inclusive L2, 12\textbf{c} latency, 32B/\textbf{c}
@@ -402,6 +402,15 @@ Sandy Bridge\\ \small{(source: \textit{Intel Optimization Manual})}
 \includegraphics[scale=.4]{images/skynet.png}
 \end{column}
 \end{columns}
+\vfill
+\begin{itemize}
+\item Latencies above are best cases (no eviction, etc.)
+\item MESI details are stored in L1/l2, directory details in the LLC
+(hence the latter's inclusivity)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{TLBs and Memory interface}
 \textbf{FIXME show load/store buffers, PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
 
