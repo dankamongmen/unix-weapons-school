@@ -35,6 +35,20 @@ Georgia Institute of Technology
 \end{center}
 \end{frame}
 
+\begin{frame}
+``We still have judgment here, that we but teach\\
+Bloody instructions, which, being taught, return\\
+To plague th' inventor''\\
+\hfill---Shakespeare, \textit{Macbeth}
+\vfill
+``Each day the mythical return Enzian dreamed of seems less possible. Once it
+was necessary to know uniforms, insignia, airplane markings, to observe
+boundaries. But by now too many choices have been made. The single root lost,
+way back there in the May desolation. Each bird has his branch now, and each
+one is the Zone.''\\
+\hfill---Thomas Pynchon, \textit{Gravity's Rainbow}
+\end{frame}
+
 \begin{frame}{Recommended reading}
 \begin{itemize}
 \small
@@ -340,15 +354,15 @@ Intel Haswell & 2013 & fixme & fixme & fixme \\
 \end{center}
 \end{frame}
 
-\begin{frame}{Decoding\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{frame}{Decoding\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
 \includegraphics[scale=.49]{images/haswell-1.png}
 \end{frame}
 
-\begin{frame}{Schedulers\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{frame}{Schedulers\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
 \includegraphics[scale=.42]{images/haswell-2.png}
 \end{frame}
 
-\begin{frame}{Execution\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{frame}{Execution\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
 \begin{columns}
 \begin{column}{.5\textwidth}
 \hfill\includegraphics[scale=.45]{images/haswell-3.png}
@@ -356,11 +370,11 @@ Intel Haswell & 2013 & fixme & fixme & fixme \\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Pipeline}
-\huge\textbf{FIXME}
+\begin{frame}{Sandy Bridge\hfill\tiny{image source: \textit{Intel Optimization Manual}}}
+\includegraphics[scale=.3]{images/sandybridge.jpg}
 \end{frame}
 
-\begin{frame}{Good times!\hfill\tiny{image courtesy \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{frame}{Haswell\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
 \begin{columns}
 \begin{column}{.5\textwidth}
 \includegraphics[scale=.225]{images/haswell-5.png}
@@ -422,7 +436,7 @@ Line fill buffers & 10 & 10 \\
 \end{frame}
 
 \begin{frame}{On-die data store}
-The latencies below are best cases (no eviction, etc.). MESI details are stored
+The latencies below are best cases (simple address mode, no stalls, no eviction, etc.). MESI details are stored
 in L1/l2, while directory details are kept in the LLC (hence the latter's
 inclusivity).
 \vfill
@@ -444,6 +458,13 @@ inclusivity).
 \end{frame}
 
 \begin{frame}{TLBs and Memory interface}
+\begin{itemize}
+\item 4-way DTLB translates up to 2 loads/\textbf{c} and 1 store/\textbf{c}
+\item DTLB: 64 4KB entries, 32 2MB/4MB entries, 4 1GB entries
+\item 4-way unified STLB with 512 4KB entries, 7\textbf{c} latency
+\item L1: IP-based stride prefetcher, DCU streaming prefetcher
+\item L2: Spatial prefetcher, streaming prefetcher
+\end{itemize}
 \textbf{FIXME show PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
 
