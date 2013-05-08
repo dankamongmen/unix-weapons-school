@@ -164,6 +164,10 @@ The means of accelerating our program are finite:
 \end{enumerate}
 \end{frame}
 
+% FIXME
+% Show how this does *not* allow us to perform any operation in a single
+% instruction -- SHA-1 is a map from 512B to 120B, that mixes the input in
+% amongst itself, and thus would require a 512B->120B map.
 \begin{frame}{Instructions III}
 Fully generally, instructions map input states to output states.
 \small{

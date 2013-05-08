@@ -399,7 +399,7 @@ Intel Haswell & 2013 & fixme & fixme & fixme \\
 %\hline
 %80-bit MMX registers & fixme & fixme \\
 \hline
-SSE registers & 36 & 32 \\
+SSE registers & 16 & 16 \\
 \hline
 \end{tabular}%
 }
@@ -421,8 +421,13 @@ Load buffers & 64 & 48 \\
 \hline
 Store buffers & 36 & 32 \\
 \hline
+PRF entries & 160 IA64, 144 AVX & N/A \\
+\hline
 Line fill buffers & 10 & 10 \\
 \hline
+Reservation stations & 54 & 34 \\
+\hline
+Reorder buffer entries & 168 & 128 \\
 \end{tabular}%
 }
 };
@@ -434,7 +439,6 @@ Line fill buffers & 10 & 10 \\
 \item 128 4K ITLB entries, 8 large ITLB entries\footnote{7 on Nehalem}
 \item MSROM 4$\mu$op/\textbf{c}
 \end{itemize}
-\vfill\tiny{Source: \textit{Intel 64 and IA32 Architectures Optimization Manual}}
 \end{frame}
 
 \begin{frame}{On-die data store}
@@ -446,8 +450,8 @@ inclusivity).
 \begin{column}{0.5\textwidth}
 \begin{itemize}
 \item 32KB 8-way 64B/line data cache, 4\textbf{c} latency, 2x16B/\textbf{c}
-\item 256KB 8-way 64B/line unified non-inclusive L2, 12\textbf{c} latency, 32B/\textbf{c}
-\item Variable 64B/line unified inclusive LLC, 26--31\textbf{c} latency, 32B/\textbf{c}
+\item 256KB 8-way 64B/line unified non-inclusive L2, 12\textbf{c} (10\textbf{c} on Nehalem), 32B/\textbf{c}
+\item Var. 64B/line unified inclusive L3, 26--31\textbf{c}, 32B/\textbf{c}
 \item 43\textbf{c} for a clean off-core hit
 \item 60\textbf{c} for a dirty off-core hit
 \end{itemize}
@@ -456,7 +460,8 @@ inclusivity).
 \includegraphics[scale=.4]{images/skynet.pdf}
 \end{column}
 \end{columns}
-\vfill\tiny{Source: \textit{Intel 64 and IA32 Architectures Optimization Manual}\hfill\texttt{lstopo(1)} output}
+\hfill
+\tiny{\texttt{lstopo(1)} output}
 \end{frame}
 
 \begin{frame}{TLBs and Memory interface}
