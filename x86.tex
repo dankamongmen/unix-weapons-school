@@ -392,16 +392,16 @@ Intel Haswell & 2013 & fixme & 19(?) & fixme \\
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
 {\footnotesize
-\begin{tabular}{|l|r|r|}
+\begin{tabular}{|l|r|}
 \hline
-\textbf{Architectural component} & \textbf{Sandy Bridge} & \textbf{Nehalem} \\
+\textbf{Architectural component} & \textbf{Count} \\
 \hline
 \hline
-64-bit IA64 GP registers & 16 & 16 \\
+64-bit IA64 GP registers & 16 \\
 \hline
-80-bit x87/MMX registers & 8 & 8 \\
+80-bit x87/MMX registers & 8 \\
 \hline
-AVX/XMM registers & 16x 256-bit & 16x 128-bit \\
+AVX/XMM registers & 16 \\
 \hline
 \end{tabular}%
 }
@@ -414,22 +414,22 @@ AVX/XMM registers & 16x 256-bit & 16x 128-bit \\
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
 {\footnotesize
-\begin{tabular}{|l|r|r|}
+\begin{tabular}{|l|r|r|r|}
 \hline
-\textbf{$\boldsymbol\mu$architectural component} & \textbf{Sandy Bridge} & \textbf{Nehalem} \\
+\textbf{$\boldsymbol\mu$architectural component} & \textbf{Haswell} & \textbf{Sandy Bridge} & \textbf{Nehalem} \\
 \hline
 \hline
-Load buffers & 64 & 48 \\
+Load buffers & 72 & 64 & 48 \\
 \hline
-Store buffers & 36 & 32 \\
+Store buffers & 42 & 36 & 32 \\
 \hline
-PRF entries & 160 IA64, 144 AVX & N/A \\
+PRF entries (IA64+AVX) & 168+168 & 160+144 & N/A \\
 \hline
-Line fill buffers & 10 & 10 \\
+Line fill buffers & 10 & 10 & 10 \\
 \hline
-Reservation stations & 54 & 34 \\
+Reservation stations & 60 & 54 & 34 \\
 \hline
-Reorder buffer entries & 168 & 128 \\
+Reorder buffer entries & 192 & 168 & 128 \\
 \hline
 \end{tabular}%
 }

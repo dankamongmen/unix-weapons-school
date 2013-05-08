@@ -4,7 +4,7 @@
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
-
+\usepackage{listings}
 \usefonttheme{serif}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -20,6 +20,20 @@
 \date{}
 \author{Nick Black for the\\
 Georgia Institute of Technology
+}
+
+\lstset{
+  language=C,
+  showstringspaces=false,
+  formfeed=\newpage,
+  tabsize=8,
+  commentstyle=\itshape,
+  basicstyle=\ttfamily,
+  morekeywords={models, lambda, forms}
+}
+
+\newcommand{\code}[2]{
+  \tiny{{\lstinputlisting{#2}}}
 }
 
 \begin{document}
@@ -195,12 +209,19 @@ class. You should probably at least know all the words.
 \item \textbf{Q1.} Can adding a NOP (no-operation) instruction accelerate a program?
 \item \textbf{Q2.} Will a program always incur fewer cache misses on a fully-associative
 	cache than a directly-mapped cache of the same size?
-\item \textbf{Q3.} A machine has two symmetric unicore physical processors with HyperThreading
-	(2-way SMT). Are there threads such that a single-processor
-	schedule can beat using both?
+\item \textbf{Q3.} Which of these two programs is likely to complete first
+	on a modern x86?\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\code{A}{code/introq3a.S}
+\end{column}
+\begin{column}{.5\textwidth}
+\code{B}{code/introq3b.S}
+\end{column}
+\end{columns}
 \end{itemize}
 \vspace{.1in}
-If you're thinking ``what the hell's a schedule?'', you might want to reconsider UWS.
+If you're thinking ``what the hell's a cache?'', you might want to reconsider UWS.
 \end{frame}
 
 \begin{frame}{Self-assessment Question I}
@@ -227,15 +248,21 @@ If you're thinking ``what the hell's a schedule?'', you might want to reconsider
 
 \begin{frame}{Self-assessment Question III}
 \begin{itemize}
-\item \textbf{Q3.} A machine has two symmetric unicore physical processors with HyperThreading
-	(2-way SMT). Are there threads such that a single-processor
-	schedule can beat using both?
-\item \textbf{A3.} Yes. The two logical cores share all cache levels. If e.g.
-	the MESI protocol is in use, and writes to shared data are frequent,
-	and the dataset fits within one processor's cache, the reduction in
-	cycle capacity might be more than offset by fewer RFOs. 
-\item \textbf{NB:} That the cores were HyperThreaded is immaterial to the
-	question, until you get into actual quantitative analysis.
+\item \textbf{Q3.} Which of these two programs is likely to complete first
+	on a modern x86?\\
+\begin{columns}
+\begin{column}{.5\textwidth}
+\code{A}{code/introq3a.S}
+\end{column}
+\begin{column}{.5\textwidth}
+\code{B}{code/introq3b.S}
+\end{column}
+\end{columns}
+\item \textbf{A3.} The program on the left, as it does not carry a long
+	dependency chain as done by the program on the right. Given perfect
+	store forwarding, the two programs might require the same number of
+	cycles.
+\item \textbf{NB:} If your compiler generates either program, get a better compiler.
 \end{itemize}
 \end{frame}
 
