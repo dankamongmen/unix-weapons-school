@@ -448,13 +448,15 @@ inclusivity).
 \vfill
 \begin{columns}
 \begin{column}{0.5\textwidth}
+\small{
 \begin{itemize}
 \item 32KB 8-way 64B/line data cache, 4\textbf{c} latency, 2x16B/\textbf{c}
+\item Sandy Bridge provides 32B/\textbf{c} L1 load, Haswell 64B/\textbf{c} L1/L2 load and 32B/\textbf{c} L1 store
 \item 256KB 8-way 64B/line unified non-inclusive L2, 12\textbf{c} (10\textbf{c} on Nehalem), 32B/\textbf{c}
-\item Var. 64B/line unified inclusive L3, 26--31\textbf{c}, 32B/\textbf{c}
-\item 43\textbf{c} for a clean off-core hit
-\item 60\textbf{c} for a dirty off-core hit
+\item Variable 64B/line unified inclusive L3, 26--31\textbf{c} (35--40\textbf{c} on Nehalem), 32B/\textbf{c}
+\item 43\textbf{c}/60\textbf{c} for clean/dirty forward
 \end{itemize}
+}
 \end{column}
 \begin{column}{0.5\textwidth}
 \includegraphics[scale=.4]{images/skynet.pdf}
@@ -468,9 +470,11 @@ inclusivity).
 \begin{itemize}
 \item 4-way DTLB translates up to 2 loads/\textbf{c} and 1 store/\textbf{c}
 \item DTLB: 64 4KB entries, 32 2MB/4MB entries, 4 1GB entries
-\item 4-way unified STLB with 512 4KB entries, 7\textbf{c} latency
+\item 4-way unified STLB with 512\footnote{1024 on Haswell} 4KB entries, 7\textbf{c} latency
 \item L1: IP-based stride prefetcher, DCU streaming prefetcher
 \item L2: Spatial prefetcher, streaming prefetcher
+\item Nehalem: 3x 8B DDR3 @ 1.333GT/s (31.992GB/s)
+\item Sandy Bridge-E: 4x 8B DDR3 @ 1.6GT/s (51.2GB/s)
 \end{itemize}
 \textbf{FIXME show PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
@@ -481,6 +485,14 @@ inclusivity).
 
 \begin{frame}{Instruction set II}
 \huge\textbf{FIXME}
+\end{frame}
+
+\begin{frame}{HyperThreading}
+\begin{description}
+\item[\textbf{Replication}] Registers, renamed RSB, large page ITLB
+\item[\textbf{Partition}] Load/store buffers, ROB, small page ITLB
+\item[\textbf{Competition}] Reservation stations, cache, DTLB, STLB 
+\end{description}
 \end{frame}
 
 \end{document}
