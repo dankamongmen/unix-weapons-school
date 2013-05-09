@@ -1,6 +1,7 @@
 .DELETE_ON_ERROR:
 .PHONY: clean all upload
-LECTURES:=intro x86 comparch candc kernelspace userspace compilers future algorithms
+LECTURES:=intro x86 comparch candc kernelspace userspace compilers future \
+	algorithms networking practicum
 LECTOUT:=$(addsuffix .pdf.info,$(LECTURES))
 IMAGES:=$(wildcard images/*)
 
