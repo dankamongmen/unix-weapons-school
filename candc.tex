@@ -1,3 +1,4 @@
+\pdfminorversion=4
 \documentclass[mathserif,xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
@@ -34,39 +35,6 @@ Georgia Institute of Technology
 \includegraphics[scale=.25]{images/cc-share.pdf}\\
 \tiny{creative commons 3.0 share-alike attribution license}
 \end{center}
-\end{frame}
-
-\begin{frame}
-\begin{itemize}
-\item ``\greektextΠοταμός τίς ἐστι τῶν γινομένων καὶ ῥεῦμα βίαιον ὁ αἰών· ἅμα
-τε γὰρ ὤφθη ἕκαστον, καὶ παρενήνεκται καὶ ἄλλο παραφέρεται, τὸ δὲ
-ἐνεχθήσεται.\latintext'' (``A river made up of the events which
-happen, a violent stream. As soon as a thing has been seen, it is
-carried away. Another comes in its place; this too will be carried away.'')\\ \hfill---Marcus Aurelius
-\vfill
-\item \selectlanguage{frenchb}``Le temps est ce qui empêche que tout soit donné tout d'un coup.'' \latintext (``Time
-	keeps everything from happening all at once.'')\\ \hfill---Henri Bergson
-\vfill
-\item ``We shall come to see that time does not exist.''\\ \hfill---Julian Barbour
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Recommended reading}
-\small{
-\begin{itemize}
-\item Edsger Dijkstra. ``Communicating Sequential Processes'' (1968).
-\item Maurice Herlihy. ``Impossibility and universality results for wait-free synchronization'' (1988).
-\item ``Volatile Considered Harmful.'' Linux kernel documentation..
-\item Fraser and Harris, ``Concurrent Programming Without Locks'' (2007) and/or Fraser,
-	``Practical Lock-Freedom'' (2003).
-\item Mathieu Desnoyers et al. ``User-Level Implementations of Read-Copy Update'' (2012).
-\item Hans Boehm. ``How to Miscompile Programs with ``Benign'' Data Races'' (2011).
-\item Michael Chynowe. ``Implementing Scalable Atomic Locks for Multicore Intel EM64T and IA32 Architectures'' (2012).
-\item Kogan and Petrank, ``Wait-free queues with multiple enqueuers and dequeuers'' (2011).
-\item Culler and Singh. \textit{Parallel Computer Architecture} (1999). 
-\item \textit{Intel 64 and IA-32 Architectures Software Developer's Manuals}.
-\end{itemize}
-}
 \end{frame}
 
 \begin{frame}{Local concurrency}
@@ -114,6 +82,39 @@ $\infty$ & Compare+swap/LLSC, FIFO+peek \\
 \end{tikzpicture}
 \end{center}
 \item \textit{Linearizability}---\textbf{FIXME}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Recommended reading}
+\small{
+\begin{itemize}
+\item Edsger Dijkstra. ``Communicating Sequential Processes'' (1968).
+\item Maurice Herlihy. ``Impossibility and universality results for wait-free synchronization'' (1988).
+\item ``Volatile Considered Harmful.'' Linux kernel documentation..
+\item Fraser and Harris, ``Concurrent Programming Without Locks'' (2007) and/or Fraser,
+	``Practical Lock-Freedom'' (2003).
+\item Mathieu Desnoyers et al. ``User-Level Implementations of Read-Copy Update'' (2012).
+\item Hans Boehm. ``How to Miscompile Programs with ``Benign'' Data Races'' (2011).
+\item Michael Chynowe. ``Implementing Scalable Atomic Locks for Multicore Intel EM64T and IA32 Architectures'' (2012).
+\item Kogan and Petrank, ``Wait-free queues with multiple enqueuers and dequeuers'' (2011).
+\item Culler and Singh. \textit{Parallel Computer Architecture} (1999). 
+\item \textit{Intel 64 and IA-32 Architectures Software Developer's Manuals}.
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item ``\greektextΠοταμός τίς ἐστι τῶν γινομένων καὶ ῥεῦμα βίαιον ὁ αἰών· ἅμα
+τε γὰρ ὤφθη ἕκαστον, καὶ παρενήνεκται καὶ ἄλλο παραφέρεται, τὸ δὲ
+ἐνεχθήσεται.\latintext'' (``A river made up of the events which
+happen, a violent stream. As soon as a thing has been seen, it is
+carried away. Another comes in its place; this too will be carried away.'')\\ \hfill---Marcus Aurelius
+\vfill
+\item \selectlanguage{frenchb}``Le temps est ce qui empêche que tout soit donné tout d'un coup.'' \latintext (``Time
+	keeps everything from happening all at once.'')\\ \hfill---Henri Bergson
+\vfill
+\item ``We shall come to see that time does not exist.''\\ \hfill---Julian Barbour
 \end{itemize}
 \end{frame}
 

@@ -1,3 +1,4 @@
+\pdfminorversion=4
 \documentclass[mathserif,xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
@@ -32,28 +33,6 @@ Georgia Institute of Technology
 \includegraphics[scale=.25]{images/cc-share.pdf}\\
 \tiny{creative commons 3.0 share-alike attribution license}
 \end{center}
-\end{frame}
-
-\begin{frame}
-``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
-\hfill--Edsger Dijkstra
-\vfill
-``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''\\
-\hfill--Kent Beck
-\end{frame}
-
-\begin{frame}{Recommended reading}
-\small
-\begin{itemize}
-\item Andi Kleen. ``Linux multi-core scalability'' (2009).
-\item Doug Carmean and Eric Sprangle. ``Increasing Processor Performance by Implementing Deeper Pipelines'' (2002).
-\item Ulrich Drepper. ``What Every Programmer Needs to Know About Memory'' (2007). Linux Weekly News, in eight parts.
-\item Paul McKenney. ``Transactional Memory Everywhere'' (2012).
-\item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004).
-\item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers} (regularly updated). http://www.agner.org.
-\item Bruce Shriver and Bennett Smith. \textit{The Anatomy of a High-Performance Microprocessor: A Systems Perspective} (1998).
-\item \textit{Intel 64 and IA-32 Architectures Optimization Manuals}.
-\end{itemize}
 \end{frame}
 
 \begin{frame}{The purpose of a systems programmer}
@@ -330,6 +309,28 @@ Mutual exclusion & Arbitrary & Transactional memory, RCU \\
 };
 \end{tikzpicture}
 \end{center}
+\end{frame}
+
+\begin{frame}{Recommended reading}
+\small
+\begin{itemize}
+\item Andi Kleen. ``Linux multi-core scalability'' (2009).
+\item Doug Carmean and Eric Sprangle. ``Increasing Processor Performance by Implementing Deeper Pipelines'' (2002).
+\item Ulrich Drepper. ``What Every Programmer Needs to Know About Memory'' (2007). Linux Weekly News, in eight parts.
+\item Paul McKenney. ``Transactional Memory Everywhere'' (2012).
+\item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004).
+\item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers} (regularly updated). http://www.agner.org.
+\item Bruce Shriver and Bennett Smith. \textit{The Anatomy of a High-Performance Microprocessor: A Systems Perspective} (1998).
+\item \textit{Intel 64 and IA-32 Architectures Optimization Manuals}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+``The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.''\\
+\hfill--Edsger Dijkstra
+\vfill
+``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''\\
+\hfill--Kent Beck
 \end{frame}
 
 \end{document}
