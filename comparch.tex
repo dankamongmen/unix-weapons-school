@@ -4,6 +4,7 @@
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage{upgreek}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
 \usepackage[utf8]{inputenc}
@@ -135,9 +136,9 @@ P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
 \end{equation}
 The means of accelerating our program are finite:
 \begin{enumerate}
-\item Reduce \textbf{c}-time (better $\mu$architecture, better materials)
+\item Reduce \textbf{c}-time (better $\upmu$architecture, better materials)
 \item Require fewer instructions (better code, better algorithms, more powerful instructions, \textbf{BQP})
-\item Reduce CPI (better $\mu$arch, better code)
+\item Reduce CPI (better $\upmu$arch, better code)
 \item Add time (increased high-level parallelism)
 \item Dilate time (relativistic motion)
 \end{enumerate}
@@ -229,16 +230,16 @@ to sustain peak.
 
 \begin{frame}{Sandy Bridge frontend}
 The modern x86 frontend is tremendously complicated due to its inherited ISA,
-yet it manages to deliver $\mu$ops to the superscalar dataflow-ordered
+yet it manages to deliver $\upmu$ops to the superscalar dataflow-ordered
 execution core at full throughput. How?
 \vfill
 \begin{itemize}
 \item 16B/\textbf{c} fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
 \item Speculative decoding at each of fetch's 16B
 \item 1 complex decoder, 3 simple decoders
-\item 32 sets of 8 ways of 6 $\mu$op $\mu$I\$ (``decoded I\$'')
-\item 28$\mu$op $\mu$L\$ (``Loop stream detector'') per thread\footnote{On HyperThreaded Ivy Bridge, 56 $\mu$ops if one logical core is inactive.}
-\item 4$\mu$op/\textbf{c} renamer-scheduler
+\item 32 sets of 8 ways of 6 $\upmu$op $\upmu$I\$ (``decoded I\$'')
+\item 28$\upmu$op $\upmu$L\$ (``Loop stream detector'') per thread\footnote{On HyperThreaded Ivy Bridge, 56 $\upmu$ops if one logical core is inactive.}
+\item 4$\upmu$op/\textbf{c} renamer-scheduler
 \item Macro- and micro-fusion
 \end{itemize}
 \end{frame}
@@ -276,7 +277,7 @@ Decoding/execution/retirement stalls & Handful of \textbf{c} & More/better hardw
 \hline
 Startup / pipeline flush & Pipeline length & Shorten pipeline \\
 \hline
-Branch misprediction & \textasciitilde Pipeline length & Branch prediction, $\mu$caches,\linebreak predication, shorten pipeline \\
+Branch misprediction & \textasciitilde Pipeline length & Branch prediction, $\upmu$caches,\linebreak predication, shorten pipeline \\
 \hline
 L1 D\$ miss (L2 D\$ cache hit) & $\le$ L2 time (<10\textbf{c}) & Faster L2, bigger L1,\linebreak non-temporal L/S, OOO \\
 \hline

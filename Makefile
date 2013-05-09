@@ -1,4 +1,6 @@
-LECTURES:=intro x86 comparch candc
+.DELETE_ON_ERROR:
+
+LECTURES:=intro x86 comparch candc kernelspace userspace compilers
 LECTOUT:=$(addsuffix .pdf.info,$(LECTURES))
 IMAGES:=$(wildcard images/*)
 
