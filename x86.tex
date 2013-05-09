@@ -60,6 +60,7 @@ probably hack on anything.
 \begin{itemize}
 \item Alpha
 \item AVR32
+\item CMS
 \item PA-RISC + MAX-2
 \item SuperH 
 \item i960
@@ -243,9 +244,9 @@ Cyrix 6x86 & 1996 & 3.3M@.65--.35$\upmu$m & 7 & 80--150MHz \\
 \hline
 Pentium Pro & 1995 & 5.5M@.6--.35$\upmu$m & 14 & 150--333MHz \\
 \hline
-K6 & 1997 & fixme & fixme & fixme \\
+K6 & 1997 & 8.8M@.35--.25$\upmu$m & 6 & 166--233MHz \\
 \hline
-K6-2 & 1998 & fixme & fixme & fixme \\
+K6-2 & 1998 & 9.3M@.25$\upmu$m & 6 & 300--550MHz \\
 \hline
 Pentium III & 1999 & 9.5M@.25--.13$\upmu$m & 10 & 400--1400MHz \\
 \hline
@@ -259,15 +260,20 @@ Pentium III & 1999 & 9.5M@.25--.13$\upmu$m & 10 & 400--1400MHz \\
 \begin{frame}[t]{SSE2 + long pipelines (FreeBSD 4, Linux 2.4)}
 \begin{block}{Intel NetBurst (P4, PD)}
 \begin{itemize}
-\item P4 adds SSE2, HyperThreading
+\item P4 adds SSE2, HyperThreading, quad-pumped FSB
 % SSE2 implements MMX integer ops and 64-bit double FP
-\item Quad-pumped FSB
 \end{itemize}
 \end{block}
 \begin{block}{AMD K7 (Athlon)}
 \begin{itemize}
-\item Alpha's EV6, 3-way FPU
-\item SSE2 on Palomino
+\item Alpha's EV6 bus, 3-way FPU fixes AMD FP
+\item Enhanced 3DNow! Palomino gets SSE2
+\item T-Bird adds L2 cache on-die
+\end{itemize}
+\end{block}
+\begin{block}{VIA C3+C7 / Transmeta Crusoe+Efficeon}
+\begin{itemize}
+\item Who cares? x86 officially becomes a two-party system.
 \end{itemize}
 \end{block}
 \vfill
@@ -278,13 +284,13 @@ Pentium III & 1999 & 9.5M@.25--.13$\upmu$m & 10 & 400--1400MHz \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-Athlon T-Bird & 2000 & 37M@180nm & fixme & fixme \\
+Athlon T-Bird & 2000 & 37M@180nm & 10/15 & .6--1.4GHz / 333MT/s \\
 \hline
-Intel Northwood & 2003 & 55M@130nm & 20 & 1.6--3.4GHz / 400--800MHz \\
+Intel Northwood & 2003 & 55M@130nm & 20 & 1.6--3.4GHz / 800MT/s \\
 \hline
-Athlon Barton & 2003 & 54M@130nm & 10/15 & 1833--2333MHz / 166--200MHz \\
+Athlon Barton & 2003 & 54M@130nm & 10/15 & 1.833--2.333MHz / 400MT/s \\
 \hline
-Intel Prescott & 2004 & 125M@90nm & 31 & 3--3.8GHz / 533--800MHz \\
+Intel Prescott & 2004 & 125M@90nm & 31 & 3--3.8GHz / 800MT/s \\
 \hline
 \end{tabular}%
 }
