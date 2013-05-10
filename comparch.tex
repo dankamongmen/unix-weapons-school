@@ -317,6 +317,39 @@ Mutual exclusion & Arbitrary & Transactional memory, RCU \\
 \end{center}
 \end{frame}
 
+\begin{frame}{Optimization methodology\hfill\tiny{Adapted from the \textit{Intel Optimization Manual}}}
+Are we hitting peak? If not, let's account for each cycle:\\
+\vspace{.15in}
+Are we fully utilizing the system?
+\begin{itemize}
+\item No. Why not?
+\begin{itemize}
+\item Contention among threads?
+\item Blocking on I/O?
+\item Incomplete exploitation of multiple processors / SIMD?
+\end{itemize}
+\end{itemize}
+Yes. Are we issuing $\upmu$ops?
+\begin{itemize}
+\item No. What's causing our frontend stall?
+\begin{itemize}
+ \item Store-forwarding?
+ \item LCP delay?
+ \item Cache miss?
+\end{itemize}
+\end{itemize}
+Yes. Are we retiring $\upmu$ops?
+\begin{itemize}
+ \item No. What's clogging our backend?
+ \begin{itemize}
+  \item Branch mispredictions?
+  \item Dependency chains?
+ \end{itemize}
+\end{itemize}
+Yes. Look for strength reduction or new algorithms.
+
+\end{frame}
+
 \begin{frame}{Recommended reading}
 \footnotesize{
 \begin{itemize}

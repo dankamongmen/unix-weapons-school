@@ -3,6 +3,7 @@
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
 \usepackage{upgreek}
+\usepackage{ragged2e}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{tikz}
@@ -80,6 +81,7 @@ probably hack on anything.
 \item SPARC V9 + VIS3\footnote{\tiny{Most recently the ``Oracle SPARC Architecture 2011''.}}
 \item JVM\footnote{\tiny{Most recently the Java SE 7 spec, 2013-02-28.}}
 \item PTX/SASS\footnote{\tiny{Most recently the PTX ISA 3.1 spec, 2012-09-13.}}
+\item TILE-Gx\footnote{\tiny{TILE-Gx ISA 1.2, 2013-02-26.}}
 \item ARM + NEON\footnote{\tiny{ARMv8: A64, A32, and T32, 2011-10-27.}}
 \item Blackfin
 \item PowerISA + AltiVec/VSX\footnote{\tiny{PowerISA v.2.06B, 2010-11-03.}}
@@ -399,7 +401,7 @@ Intel Haswell & 2013 & fixme & 19(?) & fixme \\
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
 {\footnotesize
-\begin{tabular}{|l|r|}
+\begin{tabular}{|l|l|}
 \hline
 \textbf{Architectural component} & \textbf{Count} \\
 \hline
@@ -421,7 +423,7 @@ AVX/XMM registers & 16 \\
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
 {\footnotesize
-\begin{tabular}{|l|r|r|r|}
+\begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{$\boldsymbol\upmu$architectural component} & \textbf{Haswell} & \textbf{Sandy Bridge} & \textbf{Nehalem} \\
 \hline
@@ -490,15 +492,75 @@ inclusivity).
 \textbf{FIXME show PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
 
-\begin{frame}{Instruction set I}
+\begin{frame}{Instruction set I---Encoding}
+x86-64 instructions can be up to 15 bytes.
+\vspace{.5in}
 \begin{itemize}
-\item x86-64 instructions can be up to 15 bytes
-\item Up to four prefixes per instruction:
+\item Up to four \textit{legacy prefixes}:
+\begin{itemize}
+\item{LOCK/REPNE/REPNZ/REP/REPE/REPZ}
+\item{Segment overrides and branch hinting}
+\item{Operand-size override}
+\item{Address-size override}
 \end{itemize}
-\huge\textbf{FIXME}
+\item Opcode with possible \textit{family prefix} (REX, VEX, XOP)
+\item Possible 1-byte ModR/M (operand encoding, register/memory)
+\item Possible 1-byte SIB (scale-index-base)
+\item 0, 1, 2, 4, or 8-byte displacement
+\item 0, 1, 2, 4, or 8-byte immediate
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Instruction set II}
+\begin{frame}{Instruction set II---Memory}
+\justifying
+\small{\textit{Non-temporal} accesses bypass cache and do not require RFOs; they are
+write-combining, write-collapsing, and weakly ordered. They do not take
+PATs into account. When
+properly bunched into cacheline-length chunks, they can deliver the full bus
+bandwidth. \textit{Prefetches} (as opposed to preloading) do not consume a
+register, do not stall retirement, do not split cache lines, and cannot fault\footnote{\tiny{CPUID.01H.EBX holds the stride length (D\$/U\$ only).}}. \textit{Fence} instructions ensure coherence of data.}
+%MOVs to CR3/CR4 can also invalidate page cache structures.
+\begin{center}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
+{\scriptsize
+\begin{tabular}{|l|l|}
+\hline
+MOVNT*Q/MOVNTPS & Streaming store to memory\\
+\hline
+MOVNTDQA & Streaming loads from USWC MMIO (SSE4.1)\\
+\hline
+PREFETCHNTA & Prefetch into second-level cache\\
+\hline
+PREFETCHNT0 & Prefetch into all cache levels\\
+\hline
+MASKMOVD* & Bytemask store from register to memory\\
+\hline
+SFENCE & Order point for stores\\
+\hline
+LFENCE & Order point for loads\\
+\hline
+MFENCE & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered!}}\\
+\hline
+WBINVD & Write back, and invalidate cache\\
+\hline
+INVD & Screw it, just invalidate the damn caches\\
+\hline
+INVLPG & Invalidate TLB entries\\
+\hline
+CLFLUSH & Cache line invalidation (all levels, broadcasted)\\
+\hline
+MONITOR/MWAIT & Monitor a cache line (SSE3)\\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Instruction set III---Arithmetic}
 \huge\textbf{FIXME}
 \end{frame}
 
