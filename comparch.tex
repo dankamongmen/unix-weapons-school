@@ -221,7 +221,7 @@ utilize arithmetic resources. Registers must provide throughput
 at least equivalent to the processor's arithmetic throughput.\footnote{\tiny{In a classic load/store RISC architecture, arithmetic instructions operate
 only on registers. In a machine admitting memory addresses as inputs to
 arithmetic operands, such instructions will exhibit greater latency and lesser throughput
-than their register-direct counterparts.}}\\
+than their register-direct counterparts (though not always; see Intel NetBurst/Core ``micro-fusion'').}}\\
 \vspace{.35in}
 \textbf{THUS,} a memory lacking throughput greater than or equal to the ratio of
 arithmetic/register throughput to arithmetic intensity ($\textbf{c}$ per word) will not be able
@@ -251,6 +251,11 @@ execution core at full throughput. How?
 \item Instruction decode delay / MSROM access
 \item \huge\textbf{FIXME}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\huge FIXME talk about OOO-dataflow limit, FO4, why higher freq requires more
+pipelining, etc.
 \end{frame}
 
 \begin{frame}{Why we fall short of peak}
