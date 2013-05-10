@@ -520,44 +520,43 @@ properly bunched into cacheline-length chunks, they can deliver the full bus
 bandwidth. \textit{Prefetches} (as opposed to preloading) do not consume a
 register, do not stall retirement, do not split cache lines, and cannot fault\footnote{\tiny{CPUID.01H.EBX holds the stride length (D\$/U\$ only).}}. \textit{Fence} instructions ensure coherence of data.}
 %MOVs to CR3/CR4 can also invalidate page cache structures.
-\begin{center}
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
 {\scriptsize
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|l|l|}
 \hline
-MOVNT*Q/MOVNTPS & Streaming store to memory\\
+MOVNT*Q/MOVNTPS & \_mm\_stream\_* & Streaming store to mem\\
 \hline
-MOVNTDQA & Streaming loads from USWC MMIO (SSE4.1)\\
+MOVNTDQA (SSE4.1) & \_mm\_stream\_load\_* & Streaming loads from USWC MMIO\\
 \hline
-PREFETCHNTA & Prefetch into second-level cache\\
+PREFETCHNTA & \_mm\_prefetch(NTA) & Prefetch into second-level cache\\
 \hline
-PREFETCHNT0 & Prefetch into all cache levels\\
+PREFETCHNT0 & \_mm\_prefetch(T0) & Prefetch into all cache levels\\
 \hline
-MASKMOVD* & Bytemask store from register to memory\\
+MASKMOVD* & & Bytemasked store to mem\\
 \hline
-SFENCE & Order point for stores\\
+SFENCE & void\_mm\_sfence & Order point for stores\\
 \hline
-LFENCE & Order point for loads\\
+LFENCE & void\_mm\_lfence & Order point for loads\\
 \hline
-MFENCE & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered!}}\\
+MFENCE & void\_mm\_mfence & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered!}}\\
 \hline
-WBINVD & Write back, and invalidate cache\\
+WBINVD & & Write back, and invalidate cache\\
 \hline
-INVD & Screw it, just invalidate the damn caches\\
+INVD & & Screw it, just invalidate the caches\\
 \hline
-INVLPG & Invalidate TLB entries\\
+INVLPG & & Invalidate TLB entries\\
 \hline
-CLFLUSH & Cache line invalidation (all levels, broadcasted)\\
+% All levels, broadcasted
+CLFLUSH & & Cache line invalidation\\
 \hline
-MONITOR/MWAIT & Monitor a cache line (SSE3)\\
+MWAIT (SSE3) & & Monitor a cache line\\
 \hline
 \end{tabular}%
 }
 };
 \end{tikzpicture}
-\end{center}
 \end{frame}
 
 \begin{frame}{Instruction set III---Arithmetic}
