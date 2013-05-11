@@ -12,10 +12,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[babel=true]{microtype}
-
 \beamertemplatenavigationsymbolsempty
 
-\title{\textbf{Computer Architecture}}
+\title{\textbf{Your Friend the Computer \\(aka Computer Architecture)}}
 \date{}
 \author{CS4803UWS at the\\
 Georgia Institute of Technology
@@ -74,6 +73,40 @@ implementation would use in the absence of structural hazards.
 In my experience, it is generally misleading to compare how closely
 different $P$ approach their own peaks. Most often, we use ``peak'' within
 the context of a small section of code.
+\end{frame}
+
+\begin{frame}{Digital logic}
+\begin{figure}
+\centering{
+\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl_inverter_sch.png}}
+\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttl.png}}   
+\fbox{\tiny{pMOS}\includegraphics[height=.49in,width=0.1\textwidth]{images/pmos.jpg}}   
+\fbox{\tiny{nMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/nmosinverter.pdf}}   
+\fbox{\tiny{CMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/cmos.png}}
+}\\
+\scriptsize{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs.}
+\end{figure}
+\begin{figure}
+\centering{
+%\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
+%\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
+\fbox{\includegraphics[width=0.25\textwidth]{images/cmosnor.png}}
+\fbox{\includegraphics[width=0.25\textwidth]{images/cmosnand.png}}
+}\\
+\vspace{.1in}
+\scriptsize{Given NORs and NANDs, we can build universal computers.}
+\end{figure}
+
+%\hfill \includegraphics[width=0.25\textwidth]{images/vtf.png}\\
+%\hfill \tiny{Inverter voltage transfer function}
+
+\begin{figure}
+\centering
+%\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
+%\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
+\fbox{\includegraphics[width=0.25\textwidth]{images/nandadder.png}}\\
+\small{\ldots and now we're getting somewhere.}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Complementary metal-oxide semiconductors I}
