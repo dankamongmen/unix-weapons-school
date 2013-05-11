@@ -84,7 +84,7 @@ the context of a small section of code.
 \fbox{\tiny{nMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/nmosinverter.pdf}}   
 \fbox{\tiny{CMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/cmos.png}}
 }\\
-\scriptsize{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs.}
+\scriptsize{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs\footnote{\tiny{CMOS NOR/NAND in 4 transistors each; TTL multiemitters requires 5 for NOR vs. 4 for NAND.}}\ldots}
 \end{figure}
 \begin{figure}
 \centering{
@@ -94,11 +94,8 @@ the context of a small section of code.
 \fbox{\includegraphics[width=0.25\textwidth]{images/cmosnand.png}}
 }\\
 \vspace{.1in}
-\scriptsize{Given NORs and NANDs, we can build universal computers.}
+\scriptsize{\ldots given NORs and NANDs, we can build universal computers\ldots}
 \end{figure}
-
-%\hfill \includegraphics[width=0.25\textwidth]{images/vtf.png}\\
-%\hfill \tiny{Inverter voltage transfer function}
 
 \begin{figure}
 \centering
@@ -176,6 +173,23 @@ The means of accelerating our program are finite:
 \item Add time (increased high-level parallelism)
 \item Dilate time (relativistic motion)
 \end{enumerate}
+\end{frame}
+
+\begin{frame}{The care and feeding of gates}
+\tiny{CMOS inverter voltage transfer function}
+\hfill\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$,
+$K_n = K_p\footnote{\tiny{$K_{foo,ox} = \frac{\mu_{foo}\varepsilon_{ox}}{2T_{ox}}$,
+where $\mu = \text{electron mobility}$,
+$\varepsilon = \text{dielectric constant}$,
+and $T = \text{insulator thickness}$.
+}}$, $C^{*}_{oxn} = C^{*}_{oxp}$) having zero static draw are easily built via
+combination of a pMOS and nMOS transistor.
+)
+\\
+\includegraphics[scale=.2]{images/vtf.png}\\
+\vfill
+\includegraphics[scale=.3]{images/oe-001.png}
+\includegraphics[scale=.3]{images/oe-000.png}
 \end{frame}
 
 % FIXME
