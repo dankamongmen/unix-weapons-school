@@ -5,6 +5,8 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{upgreek}
+\usepackage{lipsum}
+\usepackage{cutwin}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
 \usepackage[utf8]{inputenc}
@@ -76,33 +78,42 @@ the context of a small section of code.
 \end{frame}
 
 \begin{frame}{Digital logic}
+\tiny{\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$,
+$C^{*}_{oxn} = C^{*}_{oxp}$, and
+$K_n = K_p$ ($K_{foo,ox}\triangleq \frac{\mu_{foo}\kappa_{ox}}{2T_{ox}}$,
+where $\mu = \text{electron mobility in}\ foo$,
+$\kappa = \text{relative permittivity in}\ ox$,
+and $T = \text{thickness of insulator oxide}\ ox$)
+%$\kappa$ is frequently written $\varepsilon$ and refered to as ``dielectric constant''
+draw power only while switching, maximize use of clocks, and require only 
+a pMOS and nMOS transistor in series.}
 \begin{figure}
-\centering{
+\begin{center}
 \fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl_inverter_sch.png}}
 \fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttl.png}}   
 \fbox{\tiny{pMOS}\includegraphics[height=.49in,width=0.1\textwidth]{images/pmos.jpg}}   
 \fbox{\tiny{nMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/nmosinverter.pdf}}   
 \fbox{\tiny{CMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/cmos.png}}
-}\\
-\scriptsize{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs\footnote{\tiny{CMOS NOR/NAND in 4 transistors each; TTL multiemitters requires 5 for NOR vs. 4 for NAND.}}\ldots}
+\end{center}
+\tiny{\textbf{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs\footnote{\tiny{CMOS NOR/NAND in 4 transistors each; TTL multiemitters requires 5 for NOR vs. 4 for NAND.}}\ldots}}
 \end{figure}
 \begin{figure}
-\centering{
+\begin{center}
 %\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
 %\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
 \fbox{\includegraphics[width=0.25\textwidth]{images/cmosnor.png}}
 \fbox{\includegraphics[width=0.25\textwidth]{images/cmosnand.png}}
-}\\
-\vspace{.1in}
-\scriptsize{\ldots given NORs and NANDs, we can build universal computers\ldots}
+\end{center}
+\tiny{\textbf{\ldots given NORs and NANDs, we can build universal computers\ldots}}
 \end{figure}
 
 \begin{figure}
-\centering
+\begin{center}
 %\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
 %\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
 \fbox{\includegraphics[width=0.25\textwidth]{images/nandadder.png}}\\
-\scriptsize{\ldots and now we're getting somewhere.}
+\tiny{\textbf{\ldots and \textit{now} we're getting somewhere. Delicious!}}
+\end{center}
 \end{figure}
 \end{frame}
 
@@ -176,20 +187,29 @@ The means of accelerating our program are finite:
 \end{frame}
 
 \begin{frame}{The care and feeding of gates}
-\tiny{CMOS inverter voltage transfer function}
-\hfill\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$,
-$K_n = K_p\footnote{\tiny{$K_{foo,ox} = \frac{\mu_{foo}\varepsilon_{ox}}{2T_{ox}}$,
-where $\mu = \text{electron mobility}$,
-$\varepsilon = \text{dielectric constant}$,
-and $T = \text{insulator thickness}$.
-}}$, $C^{*}_{oxn} = C^{*}_{oxp}$) having zero static draw are easily built via
-combination of a pMOS and nMOS transistor.
-)
+\renewcommand\windowpagestuff{%
+\includegraphics[height=1.5cm,width=4cm]{images/vtf.png}
+\par{\usebeamercolor[fg]{caption name}%
+\usebeamerfont*{caption name}%\figurename%
+\usebeamertemplate{caption label separator}}%
+%\raggedright%
+\usebeamerfont*{caption}%
+%\tiny{CMOS inverter voltage transfer function}%
+}
+\opencutleft
+%\begin{cutout}{0}{0cm}{.8\linewidth}{4}
+{\scriptsize nMOS (``negative MOS'') uses
+electrons as charge carriers, n+ source, drain, and gate, and p-substrate. With no
+mobile carriers, $I_D = 0$. $V^{+}_{GS}$
+is applied to the gate, attracting electrons as $V_{GS}\ \text{exceeds the threshold
+voltage} V_{TH}$, establishing a salient. When $V_{DSat}\triangleq V_{GS} - V_{TH} \ge V_{DS}$,
+a conducting channel exists from source to drain, and $I_D = \frac{\mu_{n}C^{*}_{oxn}W}{2L}$.
+}
 \\
-\includegraphics[scale=.2]{images/vtf.png}\\
 \vfill
 \includegraphics[scale=.3]{images/oe-001.png}
 \includegraphics[scale=.3]{images/oe-000.png}
+%\end{cutout}
 \end{frame}
 
 % FIXME
