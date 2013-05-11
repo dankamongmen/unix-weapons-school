@@ -152,6 +152,39 @@ have shrunk.
 save power.
 \end{frame}
 
+\begin{frame}{Caring for and feeding your MOSFET}
+\renewcommand\windowpagestuff{%
+\includegraphics[height=1.5cm,width=4cm]{images/vtf.png}
+\par{\usebeamercolor[fg]{caption name}%
+\usebeamerfont*{caption name}%\figurename%
+\usebeamertemplate{caption label separator}}%
+%\raggedright%
+\usebeamerfont*{caption}%
+%\tiny{CMOS inverter voltage transfer function}%
+}
+\opencutleft
+%\begin{cutout}{0}{0cm}{.8\linewidth}{4}
+{\scriptsize nMOS (``negative MOS'') uses
+$e^{-}$ as charge carriers, n+ source, drain, and gate, and p-substrate. With no
+mobile carriers, $I_{D_{C}} = 0$. $V^{+}_{GS}$
+is applied to the gate, attracting electrons as $V_{GS}\ \text{exceeds the threshold
+voltage}\ V_{TH}$, establishing a salient.
+$I_{D_{TL}} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[2(V_{GS} - V_{TH})V_{DS} - V^{2}_{DS}\right]$, growing
+linearly with $V_{GS}$. Once $V_{DSat}\triangleq V_{GS} - V_{TH} \ge V_{DS}$, a
+conducting channel exists from source to drain, and $I_{DSat} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[V_{GS} - V_{TH}\right]^{2}$. We call these three modes \textit{cutoff},
+\textit{linear}, and \textit{saturation}. This switch requires discharging the charge in our nMOSFET:\\
+\begin{equation}
+\tau_{pHL} \approx \frac{\text{charge on} C_L}{2 * \text{NMOS discharge current}} = \frac{L_{n}C_{L}V_{DD}}{W_{n}\mu_{n}C^{*}_{ox}\left(V_{DD} - V_{TH}\right)^{2}}
+\end{equation}
+pMOS reverses all the signs, but only where appropriate\footnote{Using holes, not $e^{+}$ (positrons).}.
+}
+\\
+\vfill
+\includegraphics[scale=.3]{images/oe-001.png}
+\includegraphics[scale=.3]{images/oe-000.png}
+%\end{cutout}
+\end{frame}
+
 \begin{frame}{Instructions I}
 Start in some initial state, and evolve in discrete timesteps
 according to some primitive recursive function closed on that state.\\
@@ -184,32 +217,6 @@ The means of accelerating our program are finite:
 \item Add time (increased high-level parallelism)
 \item Dilate time (relativistic motion)
 \end{enumerate}
-\end{frame}
-
-\begin{frame}{The care and feeding of gates}
-\renewcommand\windowpagestuff{%
-\includegraphics[height=1.5cm,width=4cm]{images/vtf.png}
-\par{\usebeamercolor[fg]{caption name}%
-\usebeamerfont*{caption name}%\figurename%
-\usebeamertemplate{caption label separator}}%
-%\raggedright%
-\usebeamerfont*{caption}%
-%\tiny{CMOS inverter voltage transfer function}%
-}
-\opencutleft
-%\begin{cutout}{0}{0cm}{.8\linewidth}{4}
-{\scriptsize nMOS (``negative MOS'') uses
-electrons as charge carriers, n+ source, drain, and gate, and p-substrate. With no
-mobile carriers, $I_D = 0$. $V^{+}_{GS}$
-is applied to the gate, attracting electrons as $V_{GS}\ \text{exceeds the threshold
-voltage} V_{TH}$, establishing a salient. When $V_{DSat}\triangleq V_{GS} - V_{TH} \ge V_{DS}$,
-a conducting channel exists from source to drain, and $I_D = \frac{\mu_{n}C^{*}_{oxn}W}{2L}$.
-}
-\\
-\vfill
-\includegraphics[scale=.3]{images/oe-001.png}
-\includegraphics[scale=.3]{images/oe-000.png}
-%\end{cutout}
 \end{frame}
 
 % FIXME
