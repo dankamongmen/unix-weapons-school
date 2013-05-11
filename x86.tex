@@ -59,18 +59,18 @@ probably hack on anything.
 \begin{column}{.5\textwidth}
 \footnotesize{
 \begin{itemize}
-\item Alpha
-\item AVR32
+\item Alpha + BWX/FIX/CIX/MVI
+\item AVR32 + JVM
 \item CMS
 \item PA-RISC + MAX-2
 \item SuperH 
 \item i960
 \item IA64 (Itanium)
-\item MIPS + MIPS-3D
+\item MIPS + MDMX/MIPS-3D
 \item IBMHLA (s390 + z)
 \item m68k
 \item z80
-\item VAX
+\item VAX + VAXVA
 \item MIX
 \end{itemize}
 }
@@ -395,6 +395,22 @@ Intel Haswell & 2013 & fixme & 19(?) & fixme \\
 \end{columns}
 \end{frame}
 
+\begin{frame}{Model}
+Very rigid memory model for all but non-temporal accesses\footnote{Note that the Winchip implemented ``x86 oostore'', with less strongly ordered memory.}:
+\begin{itemize}
+\item The pipeline and I\$ are coherent
+\item Loads (dependent or otherwise) are never reordered
+\item Atomics are never reordered
+\item Stores \textbf{can be} reoredered after loads
+\end{itemize}
+HyperThreading, when activated by BIOS and OS, results in:
+\begin{description}
+\item[\textbf{Replication}] Registers, renamed RSB, large page ITLB
+\item[\textbf{Partition}] Load/store buffers, ROB, small page ITLB
+\item[\textbf{Competition}] Reservation stations, cache, DTLB, STLB 
+\end{description}
+\end{frame}
+
 \begin{frame}{Immediate state + instruction store}
 \begin{center}
 \begin{tikzpicture}
@@ -526,7 +542,7 @@ register, do not stall retirement, do not split cache lines, and cannot fault\fo
 {\scriptsize
 \begin{tabular}{|l|l|l|}
 \hline
-MOVNT*Q/MOVNTPS & \_mm\_stream\_* & Streaming store to mem\\
+MOVNT*\footnote{\tiny{See also AMD's SSE4a's MOVNTSD/MOVNTSS.}} & \_mm\_stream\_* & Streaming store to mem\\
 \hline
 MOVNTDQA (SSE4.1) & \_mm\_stream\_load\_* & Streaming loads from USWC MMIO\\
 \hline
@@ -534,24 +550,22 @@ PREFETCHNTA & \_mm\_prefetch(NTA) & Prefetch into second-level cache\\
 \hline
 PREFETCHNT0 & \_mm\_prefetch(T0) & Prefetch into all cache levels\\
 \hline
-MASKMOVD* & & Bytemasked store to mem\\
+MASKMOVD* & \_mm\_maskmove\_* & Bytemasked store to mem\\
 \hline
-SFENCE & void\_mm\_sfence & Order point for stores\\
+SFENCE/LFENCE & \_mm\_sfence/\_lfence & Order point for stores/loads\\
 \hline
-LFENCE & void\_mm\_lfence & Order point for loads\\
+MFENCE & \_mm\_mfence & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered!}}\\
 \hline
-MFENCE & void\_mm\_mfence & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered!}}\\
+WBINVD & "wbinvd":::"memory" & Write back, and invalidate cache\\
 \hline
-WBINVD & & Write back, and invalidate cache\\
+INVD & "invd" & Screw it, just invalidate the caches\\
 \hline
-INVD & & Screw it, just invalidate the caches\\
-\hline
-INVLPG & & Invalidate TLB entries\\
+INVLPG & "invlpg" & Invalidate TLB entries\\
 \hline
 % All levels, broadcasted
-CLFLUSH & & Cache line invalidation\\
+CLFLUSH & "clflush \%0":"+m" & Cacheline invalidation\\
 \hline
-MWAIT (SSE3) & & Monitor a cache line\\
+MWAIT (SSE3) & \_mm\_mwait & Monitor a cache line\\
 \hline
 \end{tabular}%
 }
@@ -561,14 +575,6 @@ MWAIT (SSE3) & & Monitor a cache line\\
 
 \begin{frame}{Instruction set III---Arithmetic}
 \huge\textbf{FIXME}
-\end{frame}
-
-\begin{frame}{HyperThreading}
-\begin{description}
-\item[\textbf{Replication}] Registers, renamed RSB, large page ITLB
-\item[\textbf{Partition}] Load/store buffers, ROB, small page ITLB
-\item[\textbf{Competition}] Reservation stations, cache, DTLB, STLB 
-\end{description}
 \end{frame}
 
 \begin{frame}{Recommended reading}
