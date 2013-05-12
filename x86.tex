@@ -433,7 +433,7 @@ HyperThreading, when activated by BIOS and OS, results in:
 \end{description}
 \end{frame}
 
-\begin{frame}{Immediate state + instruction store}
+\begin{frame}{Immediate state}
 \begin{center}
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
@@ -485,6 +485,9 @@ Reorder buffer entries & 192 & 168 & 128 \\
 };
 \end{tikzpicture}
 \end{center}
+\end{frame}
+
+\begin{frame}{Instruction store}
 \begin{itemize}
 \item 32KB instruction cache, 16B/\textbf{c}$\implies$48GB/s @ 3GHz
 \item 8-way on Sandy Bridge, 4-way on Nehalem
