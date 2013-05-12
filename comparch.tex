@@ -77,6 +77,48 @@ different $P$ approach their own peaks. Most often, we use ``peak'' within
 the context of a small section of code.
 \end{frame}
 
+\begin{frame}{Instructions I}
+Start in some initial state, and evolve in discrete timesteps
+according to some primitive recursive function closed on that state.\\
+\vspace{.25in}
+Each time step is a \textit{cycle}(\textbf{c}). 1GHz$\implies$ 1ns \textbf{c}-time.\\
+\vspace{.25in}
+``Running a program'' is the act of denoting words of this state
+as ``current instructions'', causing them to drive control flow.
+\vspace{.25in}
+\begin{itemize}
+\item Static instructions: Instructions in a sequence
+\item Dynamic instructions: Instructions \textit{executed} in a sequence
+\item IPC: Instructions per \textbf{c}
+\item CPI: \textbf{c} per instruction
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Instructions II}
+Instructions lie at the boundary between those abstractions we \textit{control} and those
+we merely \textit{exploit}.
+\begin{equation}
+P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
+\end{equation}
+The means of accelerating our program are finite:
+\begin{enumerate}
+\item Reduce \textbf{c}-time (better $\upmu$architecture, better materials)
+\item Require fewer instructions (better code, better algorithms, more powerful instructions, AQC)
+\item Reduce CPI (better $\upmu$arch, better code, VLIW/EPIC)
+\item Add time (increased high-level parallelism)
+\item Dilate time (relativistic motion)
+\end{enumerate}
+\vspace{.1in}
+\#5 is a tool of the future, and \#1 is a tool of the past.
+Understanding why will require a detour into physics. Hold on tight!
+\end{frame}
+
+\begin{frame}{\textbf{c}-time}
+Taken to the limit, we can 
+\begin{equation}
+\end{equation}
+\end{frame}
+
 \begin{frame}{Digital logic}
 \tiny{\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$,
 $C^{*}_{oxn} = C^{*}_{oxp}$, and
@@ -187,40 +229,6 @@ Where appropriate, pMOS reverses the signs\footnote{Using holes, not $e^{+}$ (po
 
 \begin{frame}{Caring for and feeding your MOSFET II}
 \lipsum[1]
-\end{frame}
-
-\begin{frame}{Instructions I}
-Start in some initial state, and evolve in discrete timesteps
-according to some primitive recursive function closed on that state.\\
-\vspace{.25in}
-Each time step is a \textit{cycle}(\textbf{c}). 1GHz$\implies$ 1ns \textbf{c}-time.\\
-\vspace{.25in}
-``Running a program'' is the act of denoting words of this state
-as ``current instructions'', causing them to drive control flow.
-\vspace{.25in}
-\begin{itemize}
-\item Static instructions: Instructions in a sequence
-\item Dynamic instructions: Instructions \textit{executed} in a sequence
-\item IPC: Instructions per \textbf{c}
-\item CPI: \textbf{c} per instruction
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Instructions II}
-Instructions lie at the boundary between those abstractions we \textit{control} and those
-we merely \textit{exploit}.
-\begin{equation}
-P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
-\end{equation}
-The means of accelerating our program are finite:
-\begin{enumerate}
-\item Change power equations (new hardware logic)
-\item Reduce \textbf{c}-time (better $\upmu$architecture, better materials)
-\item Require fewer instructions (better code, better algorithms, more powerful instructions, \textbf{BQP})
-\item Reduce CPI (better $\upmu$arch, better code)
-\item Add time (increased high-level parallelism)
-\item Dilate time (relativistic motion)
-\end{enumerate}
 \end{frame}
 
 % FIXME
