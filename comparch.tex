@@ -91,8 +91,8 @@ as ``current instructions'', causing them to drive control flow.
 \item CPI: \textbf{c} per instruction
 \end{itemize}
 \vspace{.15in}
-Instructions lie at the boundary between those abstractions we \textit{control} and those
-we merely \textit{exploit}.% दत्त दयध्वम् दम्यत.
+Instructions lie at the boundary between those abstractions we control, and those
+we merely exploit.% दत्त दयध्वम् दम्यत.
 \end{frame}
 
 \begin{frame}{Minimizing time to completion}
@@ -108,13 +108,14 @@ P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
 \end{enumerate}
 \vspace{.25in}
 \#1 is an exhausted technique. Understanding why will require a detour into
-physics\footnote{\tiny{``Dilating time'' (``relativistic computing?'') is some
-non-starter Discovery Channel horseshit.}}. Hold on tight!
+electrical engineering.
+Hold on tight\footnote{\tiny{``Dilating time'' (``relativistic computing?'') is some
+non-starter Discovery Channel horseshit.}}!
 \end{frame}
 
 \begin{frame}{\textbf{c}-time}
 \scriptsize{
-Taken to the limit, we can run asynchronously:
+Taken to the limit, we can run asynchronously (measured in ``FO4 inverter delays''):
 \begin{equation}
 \phi = \phi_{logic}
 \end{equation}
@@ -143,24 +144,36 @@ square wave.}}) and skew (differences in time of arrived signals):
 \end{frame}
 
 \begin{frame}{Moore's Law}
-The number of transistors on an IC doubles every $\phi_{moore}$ (i.e.,
+\scriptsize{The number of transistors on an IC doubles every $\phi_{Moore}$ (i.e.,
 transistor packing grows exponentially). Chip area is decisively \textit{not}
-growing exponentially, so transistor areas must be shrinking.\\
-\vspace{.1in}
-Good! More transistors means larger scales of integration, bigger on-die
-caches, wider SIMD, etc.\ldots
-\vspace{.1in}
-Bad! Interconnect lines show greater resistance with reduced dimension. More
-transistors, everything else being equal, mean more power draw. 
+growing exponentially, so transistor areas must be shrinking.}
+\vfill
+\scriptsize{\textbf{w00t!} More transistors means wider SIMD, more integrated functionality, bigger on-die
+caches, more cores per physical package, or more physical packages per wafer (with implied
+price savings). Less area per transistor means less capacitance means less current
+required to switch means less time to switch (faster devices!) means less work
+done means less power drawn means less heat dissipated\footnote{\tiny{Which itself means faster, lower-power, more reliable devices.}}.}
+\vfill
+\scriptsize{\textbf{argh!} Interconnect lines show greater resistance with reduced dimension. More
+transistors, everything else being equal, mean more power draw\footnote{\tiny{This can be more than offset by needing fewer cycles for a given problem.}}. When
+% drain-induced barrier lowering
+channel length L $\sim$ depletion layer widths, \textit{short-channel effects}\footnote{\tiny{DIBL,
+velocity saturation, impact ionization, surface scattering,
+and dreaded ``hot carrier injection''.}} come into play. Less junction material amplifies
+the effect of dopant fluctuations\footnote{\tiny{Though dopant density goes up to combat
+CLM and thus DIBL.}}. Electrons tunnel more easily across the oxide
+from gate to channel. Voltages must be reduced to combat HCI.}
+\vfill
+\scriptsize{But mainly w00t. Thanks, CMOS technologists!}
 \end{frame}
 
 \begin{frame}{Digital logic}
-\tiny{\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$,
-$C^{*}_{oxn} = C^{*}_{oxp}$, and
-$K_n = K_p$ ($K_{foo,ox}\triangleq \frac{\mu_{foo}\kappa_{ox}}{2T_{ox}}$,
-where $\mu = \text{electron mobility in}\ foo$,
+\tiny{\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$ and
+%$C^{*}_{oxn} = C^{*}_{oxp}$, and
+$K_n = K_p$ ($K_{foo,ox}\triangleq \frac{\mu_{foo}\kappa_{ox}}{T_{ox}}$
+($\mu = \text{electron mobility in}\ foo$,
 $\kappa = \text{relative permittivity in}\ ox$,
-and $T = \text{thickness of insulator oxide}\ ox$)
+and $T = \text{thickness of insulator oxide}\ ox$))
 %$\kappa$ is frequently written $\varepsilon$ and refered to as ``dielectric constant''
 draw power only while switching, maximize use of clocks, and require only 
 a pMOS and nMOS transistor in series.}
@@ -194,42 +207,7 @@ a pMOS and nMOS transistor in series.}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Complementary metal-oxide semiconductors I}
-Draw \textit{greatest} power only when changing state\ldots\footnote{Though, as $\nu\rightarrow\infty$, $\frac{T_{switching}}{T_{total}}\rightarrow 1$\ldots\\}
-\begin{equation}
-P_{dynamic} = \alpha C_LV_{DD}^{2}\nu
-\end{equation}
-\begin{description}
-\item[$P$] Dynamic power ($W = J/s = \frac{m^{2}\cdot kg}{s^{3}}$)
-\item[$C_L$] Load capacitances ($F = \frac{A^{2}\cdot s^{4}}{m^{2}\cdot kg}$)
-\item[$\alpha$] Activity factor
-\item[$V_{DD}$] Supply voltage ($V = \frac{m^{2}\cdot kg}{A\cdot s^{3}}$)
-\item[$\nu$] Frequency ($1/s$)
-\end{description}
-\vfill
-\textbf{NB:} $P_{dynamic}$ increases with the \textit{square} of $V_{DD}$.
-\end{frame}
-
-\begin{frame}{Complementary metal-oxide semiconductors II}
-\ldots but always consume \textit{some} power:
-\begin{equation}
-P_{static} = I_{static}\cdot V_{DD}
-\end{equation}
-\begin{description}
-\item[$P$] Static power ($W = V\cdot A$)
-\item[$I_{static}$] Static current ($I_{subth}\footnote{Leakage between MOS source and drain} + I_{tunnel}\footnote{Leakage across semiconductor junctions} + I_{leakage}\footnote{Leakage through the insulator}, A$)
-\item[$V_{DD}$] Supply voltage ($V$)
-\end{description}
-\vspace{.15in}
-This has become more important as transistor count has increased and sizes
-have shrunk.
-\vfill
-\textbf{Implication:} power draw is independent of actual state.
-\textbf{Implication:} for fixed work, lower $\upnu$ usually cannot
-save power.
-\end{frame}
-
-\begin{frame}{Caring for and feeding your MOSFET I}
+\begin{frame}{Complementary metal oxide semiconductors}
 \renewcommand\windowpagestuff{%
 \includegraphics[height=1.5cm,width=4cm]{images/vtf.png}
 \par{\usebeamercolor[fg]{caption name}%
@@ -262,15 +240,62 @@ Where appropriate, pMOS reverses the signs\footnote{Using holes, not $e^{+}$ (po
 %\end{cutout}
 \end{frame}
 
-\begin{frame}{Caring for and feeding your MOSFET II}
-\lipsum[1]
+\begin{frame}{CMOS dynamic power}
+Draw \textit{greatest} power only when changing state\ldots\footnote{Though, as $\nu\rightarrow\infty$, $\frac{T_{switching}}{T_{total}}\rightarrow 1$\ldots\\}
+\begin{equation}
+P_{dynamic} = \alpha C_LV_{DD}^{2}\nu
+\end{equation}
+\begin{description}
+\item[$P$] Dynamic power ($W = J/s = \frac{m^{2}\cdot kg}{s^{3}}$)
+\item[$C_L$] Load capacitances ($F = \frac{A^{2}\cdot s^{4}}{m^{2}\cdot kg}$)
+\item[$\alpha$] Activity factor
+\item[$V_{DD}$] Supply voltage ($V = \frac{m^{2}\cdot kg}{A\cdot s^{3}}$)
+\item[$\nu$] Frequency ($1/s$)
+\end{description}
+\vfill
+\textbf{NB:} $P_{dynamic}$ increases with the \textit{square} of $V_{DD}$.
+\end{frame}
+
+\begin{frame}{CMOS static power}
+\ldots but always consume \textit{some} power:
+\begin{equation}
+P_{static} = I_{static}\cdot V_{DD}
+\end{equation}
+\begin{description}
+\item[$P$] Static power ($W = V\cdot A$)
+\item[$I_{static}$] Static current ($I_{subth}\footnote{Leakage between MOS source and drain} + I_{tunnel}\footnote{Leakage across semiconductor junctions} + I_{leakage}\footnote{Leakage through the insulator}, A$)
+\item[$V_{DD}$] Supply voltage ($V$)
+\end{description}
+\vspace{.15in}
+This has become more important as transistor count has increased and sizes
+have shrunk, both for reasons mentioned earlier and because dynamic power
+has fallen.
+\vfill
+\textbf{Implication:} power draw is independent of actual state.
+\textbf{Implication:} for fixed work, lower $\upnu$ usually cannot
+save power.
+\end{frame}
+
+\begin{frame}{10GHz: don't hold your breath}
+Why do we care?
+\vfill
+\textbf{General purpose processors won't see large $\boldsymbol \upnu$ increases.}
+\vfill
+Recall that $\text{\textbf{c}-time} > \phi_{logic_{max}}$. Reducing the maximum logic
+delay (without sacrificing computational power per instruction) generally
+requires pipelining. As we add pipeline stages, we lose more and more
+\textbf{c} to |stage|-bounded delays, especially branch mispredictions.
+\vfill
+Power requirements for clock distribution increase linearly with frequency.
+As does dynamic power draw. As does CPI. Jitter tolerances are approached
+more closely. These lost \textbf{c} are not free.
 \end{frame}
 
 % FIXME
 % Show how this does *not* allow us to perform any operation in a single
 % instruction -- SHA-1 is a map from 512B to 120B, that mixes the input in
 % amongst itself, and thus would require a 512B->120B map.
-\begin{frame}{Instructions III}
+\begin{frame}{Instruction set architecture}
 Fully generally, instructions map input states to output states.
 \small{
 \begin{itemize}
@@ -376,8 +401,7 @@ execution core at full throughput. How?
 \end{frame}
 
 \begin{frame}
-\huge FIXME talk about OOO-dataflow limit, FO4, why higher freq requires more
-pipelining, etc.
+\huge FIXME talk about OOO-dataflow limit
 \end{frame}
 
 \begin{frame}{Why we fall short of peak}
@@ -391,8 +415,9 @@ pipelining, etc.
 \textbf{Cause} & \textbf{Penalty} & \textbf{Ameliorations} \\
 \hline\hline
 Reduced-throughput instructions & $\le$ ALU pipeline length &
-Str. reduction / pipeline ALU\footnote{Explain how lengthening the ALU pipeline
-might be beneficial despite the delay being bounded by this pipeline's length.}  \\
+Str. reduction / pipeline ALU
+%\footnote{Explain how lengthening the ALU pipeline might be beneficial despite the delay being bounded by this pipeline's length.}
+\\
 \hline
 L1 cache hit & Very few \textbf{c} & Multiport/pipelined L1 \\
 \hline
