@@ -55,8 +55,6 @@ Georgia Institute of Technology
 }
 
 \begin{frame}{Why study the x86?}
-The answer is not ``elegance''.
-\vfill
 \begin{itemize}
 \item Used in a majority of servers, workstations, and laptops
 \item Receives the most focus in the kernel/toolchain
@@ -65,9 +63,11 @@ The answer is not ``elegance''.
 \item Fascinating, revealing, lengthy history
 \end{itemize}
 \vfill
-Please do not think that x86 is all that's gone on over the past
-thirty years\footnote{Commonly expressed as ``All the world's an x86.''}. That said, if you can chase peak on x86, you can
-probably hack on anything.
+\vspace{.35in}
+Do not think that x86 is all that's gone on over the past
+30 years\footnote{Commonly expressed as ``All the world's an x86.''}.\\
+\vspace{.35in}
+That said, if you can chase peak on x86, you can chase it anywhere.
 \end{frame}
 
 \begin{frame}{In the grim future of computing there are 10,000 ISAs}
@@ -424,6 +424,7 @@ Very rigid memory model for all but non-temporal accesses\footnote{Note that the
 \item Atomics are never reordered
 \item Stores \textbf{can be} reoredered after loads
 \end{itemize}
+\vfill
 HyperThreading, when activated by BIOS and OS, results in:
 \begin{description}
 \item[\textbf{Replication}] Registers, renamed RSB, large page ITLB
@@ -443,11 +444,13 @@ HyperThreading, when activated by BIOS and OS, results in:
 \textbf{Architectural component} & \textbf{Count} \\
 \hline
 \hline
-64-bit x86-64 GP registers & 16 \\
+64-bit x86-64 GP / segment registers & 8 / 6 \\
 \hline
 80-bit x87/MMX registers & 8 \\
 \hline
 AVX/XMM registers & 16 \\
+\hline
+Special-purpose & 2 (EFLAGS, EIP) \\
 \hline
 \end{tabular}%
 }
@@ -531,7 +534,7 @@ inclusivity).
 
 \begin{frame}{Instruction set I---Encoding}
 x86-64 instructions can be up to 15 bytes.
-\vspace{.5in}
+\vfill
 \begin{itemize}
 \item Up to four \textit{legacy prefixes}:
 \begin{itemize}
@@ -546,6 +549,9 @@ x86-64 instructions can be up to 15 bytes.
 \item 0, 1, 2, 4, or 8-byte displacement
 \item 0, 1, 2, 4, or 8-byte immediate
 \end{itemize}
+\vfill
+Recall that 4 instructions per 16B/\textbf{c} fetch is necessary for peak
+decoder throughput (but this is not requisite for peak issue rate).
 \end{frame}
 
 \begin{frame}{Instruction set II---Memory}
@@ -586,7 +592,32 @@ INVLPG & "invlpg" & Invalidate TLB entries\\
 % All levels, broadcasted
 CLFLUSH & "clflush \%0":"+m" & Cacheline invalidation\\
 \hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Instruction set III---Control}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
+{\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+HALT & & \\
+\hline
 MWAIT (SSE3) & \_mm\_mwait & Monitor a cache line\\
+\hline
+CCMOVxx & & Conditional move (control dep to data dep) \\
+\hline
+JMP & & Unconditional branch \\
+\hline
+Jxx / Jx & & Conditional branches \\
+\hline
+CALL & & \\
+\hline
+IRET & & \\
 \hline
 \end{tabular}%
 }
@@ -594,7 +625,7 @@ MWAIT (SSE3) & \_mm\_mwait & Monitor a cache line\\
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Instruction set III---Arithmetic}
+\begin{frame}{Instruction set IV---Arithmetic}
 \huge\textbf{FIXME}
 \end{frame}
 
