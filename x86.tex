@@ -85,8 +85,8 @@ That said, if you can chase peak on x86, you can chase it anywhere.
 \item MIPS + MDMX/MIPS-3D
 \item IBMHLA (s390 + z)
 \item m68k
-\item z80
 \item VAX + VAXVA
+\item z80 / MOS6502
 \item MIX
 \end{itemize}
 }
@@ -161,7 +161,7 @@ That said, if you can chase peak on x86, you can chase it anywhere.
 \end{block}
 \begin{block}{80486 (Am486, Cx486DLC, TI486SXL, IBM486DLC,\ldots)}
 \begin{itemize}
-\item EISA/VLB. On-die cache, \texttt{XADD}, \texttt{CMPXCHG}
+\item EISA/VLB. On-die 8KB U\$, \texttt{XADD}, \texttt{CMPXCHG}
 \item 1\textbf{c} per simple instruction, integrated FPU
 \end{itemize}
 \end{block}
@@ -195,8 +195,8 @@ Am486-DX4 & 1995 & 1.25M@.44$\upmu$m & 32 / 32 / 32 & 75--120MHz \\
 \begin{frame}[t]{Pipelined superscalar (Win 95, BeOS, FreeBSD)}
 \begin{block}{Intel P5 (Pentium, Pentium MMX)}
 \begin{itemize}
-\item U/V pipes, I\$/D\$ split, better FPU/MUL, debug regs
-\item PMMX adds MMX + performance counters (\texttt{RDPMC})
+\item U/V pipes, 8KB each I\$/D\$, better FPU/MUL, debug regs
+\item PMMX adds MMX + perf counters (\texttt{RDPMC}), 2x16KB L1
 \end{itemize}
 \end{block}
 \begin{block}{AMD K5 (SSA/5, 5k86)}
