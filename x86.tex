@@ -10,7 +10,7 @@
 \usetikzlibrary{shadows}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage[hebrew,english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[babel=true]{microtype}
@@ -38,6 +38,22 @@ Georgia Institute of Technology
 \end{center}
 \end{frame}
 
+{\usebackgroundtemplate{\includegraphics[scale=.27]{images/ivymain.jpeg}}
+\begin{frame}{``Upon first looking into Intel's x86''}
+\hfill that upon\\
+\hfill which here\\
+\hfill we gaze is\\
+\hfill mankind's\\
+\hfill triumph,\\
+\vspace{.8in}
+\hfill and we\\
+\hfill are its\\
+\hfill stewards.\\
+\vspace{.5in}
+\hfill use it well.\\
+\end{frame}
+}
+
 \begin{frame}{Why study the x86?}
 The answer is not ``elegance''.
 \vfill
@@ -50,7 +66,7 @@ The answer is not ``elegance''.
 \end{itemize}
 \vfill
 Please do not think that x86 is all that's gone on over the past
-twenty years\footnote{Commonly expressed as ``All the world's an x86.''}. That said, if you can chase peak on x86, you can
+thirty years\footnote{Commonly expressed as ``All the world's an x86.''}. That said, if you can chase peak on x86, you can
 probably hack on anything.
 \end{frame}
 
@@ -304,12 +320,15 @@ Intel Prescott & 2004 & 125M@90nm & 31 & 3--3.8GHz / 800MT/s \\
 \begin{frame}[t]{IA-64 multicore (FreeBSD 7, Linux 2.6)}
 \begin{block}{Intel Core}
 \begin{itemize}
-\item FIXME
+\item 45nm Penryn replaces $SiO_2$ with HfSiON.
+\item Woodcrest Xeon adds SSSE3
 \end{itemize}
 \end{block}
 \begin{block}{AMD K8}
 \begin{itemize}
-\item HyperTransport
+\item HyperTransport @ 1GHz on Socket 939
+\item San Diego adds SSE3, IOMMU
+\item Quad FX (Windsor) goes NUMA on HT2
 \end{itemize}
 \end{block}
 \vfill
@@ -320,11 +339,13 @@ Intel Prescott & 2004 & 125M@90nm & 31 & 3--3.8GHz / 800MT/s \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-Intel Conroe & 2006 & 291M@65nm & 14 & 3GHZ / 1333MHz \\
+AMD San Diego & 2005 & 114M@90nm & 12/17 & 2.2--2.6GHz / 1GHz \\
 \hline
-Intel Penryn & 2008 & 410M@45nm & 14 & \\
+Intel Conroe & 2006 & 291M@65nm & 14 & 1.6--2.6GHZ / 533--800MHz \\
 \hline
-fixme & fixme & fixme & fixme & fixme \\
+AMD Windsor & 2007 & 154M@90nm  & 12/17 & 2--3.2GHz / 2GHz \\
+\hline
+Intel Penryn & 2008 & 410M@45nm & 14 & 1.2--3.06GHz / 800--1333MHz \\
 \hline
 \end{tabular}%
 }
@@ -339,9 +360,9 @@ fixme & fixme & fixme & fixme & fixme \\
 \item Return of the barrel shifter (and HyperThreading)!
 \item Nehalem adds SSE4.2, 2TLB, VT-d, integrates northbridge
 \item Quick Path Interconnect on Nehalem-E
-\item Sandy Bridge integrates GPU, GMCH, L3, 256-bit AVX
+\item Sandy Bridge integrates GPU, GMCH, L3, 128-bit AVX
 \item Ivy Bridge adds PCIe 3.0, FinFET trigates
-\item Haswell adds transactional memory, AVX2, FMA3
+\item Haswell adds transactional memory, 256-bit AVX2, FMA3
 \end{itemize}
 \end{block}
 \vfill
@@ -352,13 +373,13 @@ fixme & fixme & fixme & fixme & fixme \\
 {\footnotesize
 \begin{tabular}{|l|r|r|c|r|}
 \hline
-Intel Nehalem & 2008 & fixme & 16(?) & fixme \\
+Intel Nehalem & 2008 & 731M@45nm & 16 & 2--3.33GHz \\
 \hline
-Intel Sandy Bridge & 2011 & fixme & 19(?) & fixme \\
+Intel Sandy Bridge & 2011 & 1.2B@32nm & 14/19 & 2.3--4GHz \\
 \hline
-AMD Bulldozer & 2011 & fixme & 19(?) & fixme \\
+AMD Bulldozer & 2011 & 1.2B@3nm & 15 & fixme \\
 \hline
-Intel Haswell & 2013 & fixme & 19(?) & fixme \\
+Intel Haswell & 2013 & 1.5B@22nm & 14/19 & 2.3--3.9GHz \\
 \hline
 \end{tabular}%
 }
@@ -422,7 +443,7 @@ HyperThreading, when activated by BIOS and OS, results in:
 \textbf{Architectural component} & \textbf{Count} \\
 \hline
 \hline
-64-bit IA64 GP registers & 16 \\
+64-bit x86-64 GP registers & 16 \\
 \hline
 80-bit x87/MMX registers & 8 \\
 \hline
@@ -448,7 +469,7 @@ Load buffers & 72 & 64 & 48 \\
 \hline
 Store buffers & 42 & 36 & 32 \\
 \hline
-PRF entries (IA64+AVX) & 168+168 & 160+144 & N/A \\
+PRF entries (x86-64+AVX) & 168+168 & 160+144 & N/A \\
 \hline
 Line fill buffers & 10 & 10 & 10 \\
 \hline
