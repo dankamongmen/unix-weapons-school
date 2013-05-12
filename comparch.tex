@@ -115,7 +115,7 @@ non-starter Discovery Channel horseshit.}}!
 
 \begin{frame}{\textbf{c}-time}
 \scriptsize{
-Taken to the limit, we can run asynchronously (measured in ``FO4 inverter delays''):
+Taken to the limit, we can run asynchronously (measured in FO4 inverter delays):
 \begin{equation}
 \phi = \phi_{logic}
 \end{equation}
@@ -151,18 +151,19 @@ growing exponentially, so transistor areas must be shrinking.}
 \scriptsize{\textbf{w00t!} More transistors means wider SIMD, more integrated functionality, bigger on-die
 caches, more cores per physical package, or more physical packages per wafer (with implied
 price savings). Less area per transistor means less capacitance means less current
-required to switch means less time to switch (faster devices!) means less work
-done means less power drawn means less heat dissipated\footnote{\tiny{Which itself means faster, lower-power, more reliable devices.}}.}
+required to switch means less time to switch (faster devices, w00t!) means less work
+done means less power drawn means less heat dissipated\footnote{\tiny{Which itself means lower-power, more reliable, faster (w00t!) devices.}}.}
 \vfill
 \scriptsize{\textbf{argh!} Interconnect lines show greater resistance with reduced dimension. More
 transistors, everything else being equal, mean more power draw\footnote{\tiny{This can be more than offset by needing fewer cycles for a given problem.}}. When
 % drain-induced barrier lowering
-channel length L $\sim$ depletion layer widths, \textit{short-channel effects}\footnote{\tiny{DIBL,
+channel length L $\sim$ depletion layer widths, \textit{short-channel effects}\footnote{\tiny{Effects like DIBL,
 velocity saturation, impact ionization, surface scattering,
-and dreaded ``hot carrier injection''.}} come into play. Less junction material amplifies
+and dread hot carrier injection.}} come into play. Less junction material amplifies
 the effect of dopant fluctuations\footnote{\tiny{Though dopant density goes up to combat
 CLM and thus DIBL.}}. Electrons tunnel more easily across the oxide
-from gate to channel. Voltages must be reduced to combat HCI.}
+from gate to channel. Voltages must be reduced to combat HCI, but carrier velocity
+$\nu = \mu_{SC}E = \frac{\mu_{SC}V_{DS}}{L} \implies t = \frac{L}{\nu} = \frac{L^{2}}{\mu_{SC}V_{DS}}$ (slower devices, argh!).}
 \vfill
 \scriptsize{But mainly w00t. Thanks, CMOS technologists!}
 \end{frame}
@@ -202,7 +203,7 @@ a pMOS and nMOS transistor in series.}
 %\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
 %\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
 \fbox{\includegraphics[width=0.25\textwidth]{images/nandadder.png}}\\
-\tiny{\textbf{\ldots and \textit{now} we're getting somewhere. Delicious!}}
+\tiny{\textbf{\ldots and now we're getting somewhere. Delicious!}}
 \end{center}
 \end{figure}
 \end{frame}
@@ -224,6 +225,7 @@ $e^{-}$ as charge carriers, n+ source, drain, and gate, and p-substrate. With no
 mobile carriers, $I_{D_{C}} = 0$. $V^{+}_{GS}$
 is applied to the gate, attracting electrons as $V_{GS}\ \text{exceeds the threshold
 voltage}\ V_{TH}$, establishing a salient.
+%C^{*}_{ox} = \frac{\varepsilon_{ox}}{T_{ox}}
 $I_{D_{TL}} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[2(V_{GS} - V_{TH})V_{DS} - V^{2}_{DS}\right]$, growing
 linearly with $V_{GS}$. Once $V_{DSat}\triangleq V_{GS} - V_{TH} \ge V_{DS}$, a
 conducting channel exists from source to drain, and $I_{DSat} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[V_{GS} - V_{TH}\right]^{2}$. We call these three modes \textit{cutoff},
@@ -368,7 +370,7 @@ utilize arithmetic resources. Registers must provide throughput
 at least equivalent to the processor's arithmetic throughput.\footnote{\tiny{In a classic load/store RISC architecture, arithmetic instructions operate
 only on registers. In a machine admitting memory addresses as inputs to
 arithmetic operands, such instructions will exhibit greater latency and lesser throughput
-than their register-direct counterparts (though not always; see Intel NetBurst/Core ``micro-fusion'').}}\\
+than their register-direct counterparts (though not always; see Intel NetBurst/Core ``$\upmu$-fusion'').}}\\
 \vspace{.35in}
 \textbf{THUS,} a memory lacking throughput greater than or equal to the ratio of
 arithmetic/register throughput to arithmetic intensity ($\textbf{c}$ per word) will not be able
@@ -387,7 +389,7 @@ execution core at full throughput. How?
 \item 32 sets of 8 ways of 6 $\upmu$op $\upmu$I\$ (``decoded I\$'')
 \item 28$\upmu$op $\upmu$L\$ (``Loop stream detector'') per thread\footnote{On HyperThreaded Ivy Bridge, 56 $\upmu$ops if one logical core is inactive.}
 \item 4$\upmu$op/\textbf{c} renamer-scheduler
-\item Macro- and micro-fusion
+\item Macro- and $\upmu$-fusion
 \end{itemize}
 \end{frame}
 
@@ -527,7 +529,7 @@ computer hardware industry.''\hfill---Henry Petroski
 \end{frame}
 
 \usebackgroundtemplate{%
-\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.6]{images/gt.jpeg}}}}
+\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.61]{images/gt.jpeg}}}}
 \begin{frame}
 \end{frame}
 
