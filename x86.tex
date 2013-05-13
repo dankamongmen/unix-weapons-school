@@ -5,6 +5,8 @@
 \usepackage{upgreek}
 \usepackage{ragged2e}
 \usepackage{graphicx}
+\usepackage{fancybox}
+\usepackage{transparent}
 \usepackage{geometry}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
@@ -25,18 +27,29 @@ Georgia Institute of Technology
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\begin{center}
-\includegraphics[scale=0.33]{images/uws.png}\\
-\vspace{.1in}
-\tiny{copyright \copyright\ 2013}\\
-\includegraphics[scale=.25]{images/cc-logo.pdf}
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth,height=\paperheight]{images/gt2.jpeg}
+}%
+\begin{frame}[plain]
+\textcolor{white}{
+\transparent{0.5}%
+\colorbox{black}{\textbf{the x86 is dead. long live the x86!}}
+}
+\vspace{2.7in}
+\\
+\hfill\includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
-\includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{creative commons 3.0 share-alike attribution license}
-\end{center}
+\includegraphics[scale=.25]{images/cc-share.pdf}
+\textcolor{white}{
+\\
+\hfill \tiny{CC3.0 share-alike attribution}\\
+}
+\textcolor{white}{
+\hfill \scriptsize{copyright \copyright\ 2013}\\
+}
 \end{frame}
+}
 
 {\usebackgroundtemplate{\includegraphics[scale=.27]{images/ivymain.jpeg}}
 \begin{frame}{``Upon first looking into Intel's x86''}
@@ -671,11 +684,6 @@ boundaries. But by now too many choices have been made. The single root lost,
 way back there in the May desolation. Each bird has his branch now, and each
 one is the Zone.''\\
 \hfill---Thomas Pynchon, \textit{Gravity's Rainbow}
-\end{frame}
-
-\usebackgroundtemplate{%
-\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.61]{images/gt.jpeg}}}}
-\begin{frame}
 \end{frame}
 
 \end{document}
