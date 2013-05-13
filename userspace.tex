@@ -3,6 +3,7 @@
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
 \usepackage{graphicx}
+\usepackage{transparent}
 \usepackage{geometry}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
@@ -23,17 +24,28 @@ Georgia Institute of Technology
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\begin{center}
-\includegraphics[scale=0.33]{images/uws.png}\\
-\vspace{.1in}
-\tiny{copyright \copyright\ 2013}\\
-\includegraphics[scale=.25]{images/cc-logo.pdf}
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth,height=\paperheight]{images/gt2.jpeg}
+}%
+\begin{frame}[plain]
+\textcolor{white}{
+\transparent{0.5}%
+\colorbox{black}{\textbf{userspace}}
+}
+\vspace{2.7in}
+\\
+\hfill\includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
-\includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{creative commons 3.0 share-alike attribution license}
-\end{center}
+\includegraphics[scale=.25]{images/cc-share.pdf}
+\textcolor{white}{
+\\
+\hfill \tiny{CC3.0 share-alike attribution}\\
+}
+\textcolor{white}{
+\hfill \scriptsize{copyright \copyright\ 2013}\\
+}
 \end{frame}
+}
 
 \end{document}

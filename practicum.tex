@@ -71,7 +71,8 @@ Please don't write perl.
 \item Redirect both stdout and stderr: \texttt{>} \textit{redir} \texttt{2>\&1}
 \item Send stderr to stdin through pipe: \texttt{|\&} (\texttt{2>\&1 |})
 \item Duplicate to stdout and a file: \texttt{| tee} \textit{file}
-\item Append: \texttt{>}\texttt{>}\textit{file}\hfill Dup and append: \texttt{| tee -a} \textit{file}
+\item Append: \texttt{>}\texttt{>}\textit{file}
+\item Dup and append: \texttt{| tee -a} \textit{file}
 \item \texttt{/dev/std\{in, out, err\}}: stdio in a filename context
 \end{itemize}
 \end{frame}
