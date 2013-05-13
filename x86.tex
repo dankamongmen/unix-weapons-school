@@ -417,7 +417,7 @@ Intel Haswell & 2013 & 1.5B@22nm & 14/19 & 2.3--3.9GHz \\
 \end{frame}
 
 \begin{frame}{Model}
-Very rigid memory model for all but non-temporal accesses\footnote{Note that the Winchip implemented ``x86 oostore'', with less strongly ordered memory.}:
+Very rigid memory model for all but non-temporal accesses\footnote{\tiny{Centaur Winchip implemented ``x86 oostore'', with less strongly ordered memory.}}:
 \begin{itemize}
 \item The pipeline and I\$ are coherent
 \item Loads (dependent or otherwise) are never reordered
@@ -429,7 +429,7 @@ HyperThreading, when activated by BIOS and OS, results in:
 \begin{description}
 \item[\textbf{Replication}] Registers, renamed RSB, large page ITLB
 \item[\textbf{Partition}] Load/store buffers, ROB, small page ITLB
-\item[\textbf{Competition}] Reservation stations, cache, DTLB, STLB 
+\item[\textbf{Competition}] Reservation stations, cache\footnote{\tiny{Actually, L1 D\$ can be non-competitively shared between logical cores in \textit{adaptive mode}, so long as their CR3 registers match, their paging modes match, and bit 24 of the IA32\_MISC\_ENABLE MSR isn't set.}}, DTLB, STLB 
 \end{description}
 \end{frame}
 
@@ -493,6 +493,7 @@ Reorder buffer entries & 192 & 168 & 128 \\
 \item 8-way on Sandy Bridge, 4-way on Nehalem
 \item 128 4K ITLB entries, 8 large ITLB entries\footnote{7 on Nehalem}
 \item MSROM 4$\upmu$op/\textbf{c}
+\item 1.5K$\upmu$op trace cache\footnote{The Pentium 4 trace cache was a whopping 12K$\upmu$ops.}
 \end{itemize}
 \end{frame}
 
@@ -574,7 +575,7 @@ register, do not stall retirement, do not split cache lines, and cannot fault\fo
 \hline
 MOVNT*\footnote{\tiny{See also AMD's SSE4a's MOVNTSD/MOVNTSS.}} & \_mm\_stream\_* & Streaming store to mem\\
 \hline
-MOVNTDQA (SSE4.1) & \_mm\_stream\_load\_* & Streaming loads from USWC MMIO\\
+MOVNTDQA & \_mm\_stream\_load\_* & Streaming loads from USWC MMIO\\
 \hline
 PREFETCHNTA & \_mm\_prefetch(NTA) & Prefetch into second-level cache\\
 \hline
@@ -584,7 +585,7 @@ MASKMOVD* & \_mm\_maskmove\_* & Bytemasked store to mem\\
 \hline
 SFENCE/LFENCE & \_mm\_sfence/\_lfence & Order point for stores/loads\\
 \hline
-MFENCE & \_mm\_mfence & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered!}}\\
+MFENCE & \_mm\_mfence & Order point for stores and loads\footnote{\tiny{Not equivalent to SFENCE+LFENCE, which would be mutually unordered! Only MFENCE orders CLFLUSH.}}\\
 \hline
 WBINVD & "wbinvd":::"memory" & Write back, and invalidate cache\\
 \hline
