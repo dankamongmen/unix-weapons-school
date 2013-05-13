@@ -3,6 +3,7 @@
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
 \usepackage{graphicx}
+\usepackage{transparent}
 \usepackage{geometry}
 \usepackage{listings}
 \usefonttheme{serif}
@@ -38,18 +39,29 @@ Georgia Institute of Technology
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\begin{center}
-\includegraphics[scale=0.33]{images/uws.png}\\
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth,height=\paperheight]{images/gt2.jpeg}
+}%
+\begin{frame}[l,plain]
+\textcolor{white}{
+\transparent{0.5}%
+\colorbox{black}{\textbf{introduction (lasciate ogni speranza, voi ch'entrate!)}}
+}
+\vspace{2.7in}
+\textcolor{white}{
+\hfill copyright\\
+\hfill \copyright\ 2013\\
+}
 \vspace{.1in}
-\tiny{copyright \copyright\ 2013}\\
-\includegraphics[scale=.25]{images/cc-logo.pdf}
+\hfill\includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
 \includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{creative commons 3.0 share-alike attribution license}
-\end{center}
+\textcolor{white}{
+\hfill\tiny{CC3.0 share-alike attribution license}
+}
 \end{frame}
+}
 
 \begin{frame}{High-Level Goals}
 \begin{itemize}
@@ -276,11 +288,6 @@ Let us go then, you and I.
 
 'Tis not too late to seek a newer world.
 \end{center}
-\end{frame}
-
-\usebackgroundtemplate{%
-\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.61]{images/gt.jpeg}}}}
-\begin{frame}
 \end{frame}
 
 \end{document}

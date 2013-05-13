@@ -4,6 +4,8 @@
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage{transparent}
+\usepackage{fancybox}
 \usepackage{upgreek}
 \usepackage{lipsum}
 \usepackage{cutwin}
@@ -14,7 +16,7 @@
 \usepackage{lmodern}
 \beamertemplatenavigationsymbolsempty
 
-\title{\textbf{Your Friend the Computer \\(aka Computer Architecture)}}
+\title{\textbf{Your Friend the Computer \\(aka computer architecture)}}
 \date{}
 \author{CS4803UWS at the\\
 Georgia Institute of Technology
@@ -22,18 +24,29 @@ Georgia Institute of Technology
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\begin{center}
-\includegraphics[scale=0.33]{images/uws.png}\\
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth,height=\paperheight]{images/gt2.jpeg}
+}%
+\begin{frame}[l,plain]
+\textcolor{white}{
+\transparent{0.5}%
+\colorbox{black}{\textbf{Your Friend the Computer (aka computer architecture)}}
+}
+\vspace{2.7in}
+\textcolor{white}{
+\hfill copyright\\
+\hfill \copyright\ 2013\\
+}
 \vspace{.1in}
-\tiny{copyright \copyright\ 2013}\\
-\includegraphics[scale=.25]{images/cc-logo.pdf}
+\hfill\includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
 \includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{creative commons 3.0 share-alike attribution license}
-\end{center}
+\textcolor{white}{
+\hfill\tiny{CC3.0 share-alike attribution license}
+}
 \end{frame}
+}
 
 \begin{frame}{The purpose of a systems programmer}
 \textbf{Given system $S$, and problem $P$,\\
@@ -526,11 +539,6 @@ computer hardware industry.''\hfill---Henry Petroski
 \vfill
 ``First you learn the value of abstraction. Then you learn the cost of abstraction. Then you're ready to engineer.''\\
 \hfill---Kent Beck
-\end{frame}
-
-\usebackgroundtemplate{%
-\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.61]{images/gt.jpeg}}}}
-\begin{frame}
 \end{frame}
 
 \end{document}
