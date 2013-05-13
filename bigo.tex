@@ -4,6 +4,7 @@
 \usepackage{centernot}
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage{transparent}
 \usepackage{upgreek}
 \usepackage{lipsum}
 \usepackage{cutwin}
@@ -22,18 +23,30 @@ Georgia Institute of Technology
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\begin{center}
-\includegraphics[scale=0.33]{images/uws.png}\\
-\vspace{.1in}
-\tiny{copyright \copyright\ 2013}\\
-\includegraphics[scale=.25]{images/cc-logo.pdf}
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth,height=\paperheight]{images/gt2.jpeg}
+}%
+\begin{frame}[plain]
+\textcolor{white}{
+\transparent{0.5}%
+\colorbox{black}{\textbf{Big-$\boldsymbol{\mathcal{O}}$ Ain't What it Used to Be}}
+}
+\vspace{2.7in}
+\\
+\hfill\includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
-\includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{creative commons 3.0 share-alike attribution license}
-\end{center}
+\includegraphics[scale=.25]{images/cc-share.pdf}
+\textcolor{white}{
+\\
+\hfill \tiny{CC3.0 share-alike attribution}\\
+}
+\textcolor{white}{
+\hfill \scriptsize{copyright \copyright\ 2013}\\
+}
 \end{frame}
+}
+
 
 \begin{frame}{Recommended reading}
 \footnotesize{
@@ -44,11 +57,6 @@ Georgia Institute of Technology
 \end{frame}
 
 \begin{frame}{Hack on!}
-\end{frame}
-
-\usebackgroundtemplate{%
-\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.61]{images/gt.jpeg}}}}
-\begin{frame}
 \end{frame}
 
 \end{document}

@@ -5,6 +5,7 @@
 \usepackage{upgreek}
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage{transparent}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
 \usepackage{hyperref}
@@ -24,18 +25,29 @@ Georgia Institute of Technology
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\begin{center}
-\includegraphics[scale=0.33]{images/uws.png}\\
-\vspace{.1in}
-\tiny{copyright \copyright\ 2013}\\
-\includegraphics[scale=.25]{images/cc-logo.pdf}
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth,height=\paperheight]{images/gt2.jpeg}
+}%
+\begin{frame}[plain]
+\textcolor{white}{
+\transparent{0.5}%
+\colorbox{black}{\textbf{algorithms worth knowing}}
+}
+\vspace{2.7in}
+\\
+\hfill\includegraphics[scale=.25]{images/cc-logo.pdf}
 \includegraphics[scale=.25]{images/cc-new.pdf}
-\includegraphics[scale=.25]{images/cc-share.pdf}\\
-\tiny{creative commons 3.0 share-alike attribution license}
-\end{center}
+\includegraphics[scale=.25]{images/cc-share.pdf}
+\textcolor{white}{
+\\
+\hfill \tiny{CC3.0 share-alike attribution}\\
+}
+\textcolor{white}{
+\hfill \scriptsize{copyright \copyright\ 2013}\\
+}
 \end{frame}
+}
 
 \begin{frame}{von Neumann's debiasing scheme}
 \huge FIXME
@@ -178,11 +190,6 @@ step---just as ordinary technology has done. There is an unlimited challenge
 for ingenuity applied to specific problems.''}\\
 \vspace{.1in}
 \scriptsize{\hfill---Hans-Joachim Bremermann,\\ \hfill``Optimization through evolution and recombination'' (1962).}
-\end{frame}
-
-\usebackgroundtemplate{%
-\vbox to \paperheight{\hbox to \paperwidth{\includegraphics[scale=0.61]{images/gt.jpeg}}}}
-\begin{frame}
 \end{frame}
 
 \end{document}
