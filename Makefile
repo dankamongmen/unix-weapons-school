@@ -3,7 +3,7 @@
 LECTURES:=intro x86 comparch candc kernelspace userspace compilers future \
 	algorithms networking practicum bigo io
 LECTOUT:=$(addsuffix .pdf.info,$(LECTURES))
-IMAGES:=$(wildcard images/*)
+IMAGES:=$(wildcard images/*) $(wildcard code/*)
 
 all: $(LECTOUT)
 
