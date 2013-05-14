@@ -658,7 +658,19 @@ IRET & & \\
 \end{frame}
 
 \begin{frame}{Instruction set IV---Arithmetic}
-\huge\textbf{FIXME}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
+{\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+DPP[DS] & \_mm\_dp\_p* & FP dot product\\
+\hline
+PMULDQ/LD & \_mm\_mul*\_epi32 & Packed 32-bit integer multiply\\
+\end{tabular}%
+}
+};
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Recommended reading}

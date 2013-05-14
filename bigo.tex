@@ -50,6 +50,9 @@ Georgia Institute of Technology
 }
 
 \begin{frame}{Asymptotic notation review I}
+Asymptotic analysis gives us a means of speaking of arbitrarily large growth,
+independently of arbitrarily (but finitely) large costs not associated with
+problem size.
 \scriptsize{
 \begin{center}
 \begin{tikzpicture}
@@ -85,6 +88,10 @@ $n>n_0 \implies |f(n)| \ge |g(n)|*k$ & Donald Knuth\newline(1976) \\
 };
 \end{tikzpicture}
 \end{center}
+\vfill
+Advances in (finite) computing technology can only reduce these
+ignored costs. Wrap the earth with your register file, and still there will be
+numbers so large that their addition is $\Theta(n)$.
 }
 \end{frame}
 
@@ -120,25 +127,75 @@ $\mathcal{O}(c^{c^{n}_2}_1)$ & Double-exponential & Presburger arithmetic decisi
 \end{center}
 \vfill
 Speaking of still faster growth rates\footnote{\scriptsize{Check out ``fast-growing hierarchies'' and the L\"ob–Wainer hierarchy.}} (hyper-exponential, $\mathcal{A}(n)$)
-, is mostly zoology\footnote{\scriptsize{Forgive the pun on busy beavers.}}.
+ is mostly zoology\footnote{\scriptsize{Forgive the pun on busy beavers.}}.
 }
 \end{frame}
 
 \begin{frame}{It's the constants, stupid}
-
+Algorithmic choices can dominate performance, especially at scale. By the
+definition of Big O, it should also be obvious that an asymptotically superior
+algorithm can be slower for small inputs\footnote{We will see that small inputs can be surprisingly large.}.\\
+\vfill
+That said, no one's going to think implementing a routing table with a linked list is a good idea.\\
+\vfill
+Furthermore, asymptotic analysis speaks of performance as problem size grows.
+It doesn't speak of real-time. It doesn't speak of bounded memories.
+We rarely speak of piecewise asymptotics.
+\vfill
+But, by all means, do ensure you're not doing linear searches on sorted data etc.
 \end{frame}
 
+\begin{frame}{What's hiding behind $\mathcal{O}$?}
+Naive $nxn$ matrix multiplication is $\Theta(n^{3})$.
+\vfill
+\begin{equation}
+C = AB \implies C_{ij} = \sum\limits_{m=1}^{k} A_{im}B_{mj}
+\end{equation}
+\vfill
+Counting the explicit additions and multiplications, there are
+precisely $2n^{3}$ operations.
+\end{frame}
+
+
+\begin{frame}{Fused multiply-add}
+\end{frame}
+
+%In terms of pure growth, we have $ijk$, so we can set
+%\begin{equation}
+%n=\frac{i}{3} + \frac{j}{3} + \frac{k}{3}
+%\end{equation}
+%and this is a very accurate analysis.
+%Do you see $n$?\\
+%\vfill
+%I see $k$ additions of $k$ multiplications, done $i * j$ times. So $n$ is the
+%average of our three sizes. But really, $k$ contributes twice as much as either
+%$i$ or $j$. So
+%\begin{equation}
+%n = \frac{k}{2} + \frac{i}{4} + \frac{j}{4}
+%\end{equation}
+%
+%naively, a bit at a time on $b$-bit inputs, I see $ijk\Theta(b) + ijk\mathcal{O}(b^{2})
+%\implies ijk\mathcal{O}(b^{2})$. Fix $b$. I see $ijkb + ijkb^{2}$. What, we can add
+%$b$-bit words in a single operation? I see $ijk + ijkb$
+%\footnote{\tiny{Note that whatever $b$ we pick, so long as we pick a finite $b$, the
+%asymptotic analysis holds---whether $b$ or $b^{2}$, it's just a constant factor
+%as our problem grows. Accurately multiplying matrices of fixed size, but having arbitrarily
+%large elements, is a different analysis.}}
+%. Ho ho, we have a hardware
+%multiplier? $ijk + ijk$ it is!
+
 \begin{frame}{Recommended reading}
-\footnotesize{
+\tiny{
 \begin{itemize}
 \item Goto et al. ``Anatomy of High-Performance Matrix Multiplication'' (2008).
 \item Kalyanasundaram et al. ``Improved Simulation of NTMs'' (2011).
-\item FIXME
+\item Fran\c{c}ois Le Gall. ``Faster Algorithms for Rectangular Matrix Multiplication'' (2012).
+\item Eric Quinnell. ``Floating-Point Fused Multiply-Add Architectures'' (2007).
 \end{itemize}
 }
 \end{frame}
 
-\begin{frame}{Hack on!}
-\end{frame}
+%\begin{frame}{Hack on!}
+%\end{frame}
 
 \end{document}
