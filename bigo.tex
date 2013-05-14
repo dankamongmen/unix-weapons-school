@@ -75,10 +75,6 @@ $f(n) \in o(g(n))$ & Small O & $\forall k>0,\exists n_0,\forall n$
 \newline
 $n>n_0 \implies |f(n)| \le |g(n)|*k$ & Edmund Landau\newline (1909) \\
 \hline
-$f(n) \in \Omega(g(n))$ & Big Omega & $\exists k>0,\exists n_0,\forall n$
-\newline
-$n>n_0 \implies f(n) > g(n)*k$ & Donald Knuth\newline (1976) \\
-\hline
 $f(n) \in \Theta(g(n))$ & Big Theta & $\exists k_1>0,\exists k_2>0,\exists n_0,\forall n$
 \newline
 $n>n_0 \implies g(n)*k_1 \le f(n),
@@ -88,6 +84,10 @@ f(n) \le g(n)*k_2$ & Donald Knuth\newline (1976) \\
 $f(n) \in \omega(g(n))$ &Small Omega& $\forall k>0,\exists n_0,\forall n$
 \newline
 $n>n_0 \implies |f(n)| \ge |g(n)|*k$ & Donald Knuth\newline(1976) \\
+\hline
+$f(n) \in \Omega(g(n))$ & Big Omega & $\exists k>0,\exists n_0,\forall n$
+\newline
+$n>n_0 \implies f(n) > g(n)*k$ & Donald Knuth\newline (1976) \\
 \hline
 \end{tabular}%
 };
@@ -118,7 +118,7 @@ $\mathcal{O}(\lg_c n)$ & Logarithmic & Binary search\\
 \hline
 $\mathcal{O}(n\lg n) = \mathcal{O}(\lg n!)$ & Linearithmic & FFT\\
 \hline
-$\mathcal{O}(n^{c})$ & Polynomial & Bipartite graph matching\\
+$\mathcal{O}(n^{c})$ & Polynomial & Primality testing\\
 \hline
 $\mathcal{O}(c^{n})$ & Exponential & Brute-force Boolean equivalence \\
 \hline
@@ -132,7 +132,7 @@ $\mathcal{O}(c^{c^{n}_2}_1)$ & Double-exp & Presburger arithmetic decision best 
 \end{center}
 \vfill
 Speaking of still faster growth rates\footnote{\scriptsize{Check out ``fast-growing hierarchies'' and the L\"ob–Wainer hierarchy.}} (hyper-exponential, $\mathcal{A}(n)$)
- is mostly zoology\footnote{\scriptsize{Forgive the pun on busy beavers.}}.
+ is mostly zoology.%\footnote{\scriptsize{Forgive the pun on busy beavers.}}.
 }
 \end{frame}
 
@@ -192,8 +192,7 @@ There are now precisely $n^{3}$ ``operations''.
 \begin{frame}[b]{Wide issue}
 \scriptsize{
 Haswell can issue and retire 2 VFMADD* instructions per cycle.\\
-There are now precisely $n^{3}/2$ ``operations''
-\footnote{\tiny{Assuming that two operations are available every cycle.}}.
+There are now precisely $n^{3}/2$ ``operations''\footnote{\tiny{Assuming that two operations are available every cycle.}}.
 \vspace{.1in}
 }
 \end{frame}
@@ -244,17 +243,17 @@ costs, and assuming perfect parallelism.}}.
 \item $n^{2}$ stores to C
 \end{enumerate}
 Counting the loads and stores, there are precisely $n^{3} + 3n^{2}$ memory
-accesses. There are now precisely $3n^{3} + 3n^{2}$ ``operations''.
+accesses. There are now precisely $\frac{65n^{3}}{64} + 3n^{2}$ ``operations''.
 \vfill
 \begin{alertblock}{Arithmetic intensity}
-\center$\lim\limits_{n \to \infty} \frac{\text{Arithmetic}}{\text{Memory}}\approx 2$
+\center$\lim\limits_{n \to \infty} \frac{\text{Arithmetic}}{\text{Memory}} = 2$
 \end{alertblock}
 \vfill
 \end{frame}
 
 \begin{frame}{Loads and stores}
 Hong and Kung proved in 1981 that any schedule of conventional matrix
-multiplication must transfer $\Omega(\frac{n^{3}}{\sqrt{z}}), Z<\frac{n^{2}}{6}$
+multiplication must transfer $\Omega(\frac{n^{3}}{\sqrt{Z}}), Z<\frac{n^{2}}{6}$
 words between slow and fast memory. \textit{Tiling} is the optimal strategy.
 \vfill
 Of course, AVX's VMOVAPS moves 256 bits, or 8 32-bit single precision floating
@@ -265,6 +264,91 @@ point words, at a time. And there's 4 cores. With two load/store pipes each. So 
 Of course, we're not going to be able to pack two VFMADDPS and two VMOVAPS
 instructions into every 16B/\textbf{c} I\$ fetch\footnote{\tiny{VEX-encoded
 VMOVAPS tends to run \textasciitilde 5 bytes.}}.
+\vfill
+How does this interact with register banking? Multilevel caching? TLBs? Page
+cache? Prefetching? DRAM banking? Multilevel disk? Logical cores? Other physical cores?
+NUMA?
+\end{frame}
+
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[scale=1]{images/rage.jpg}
+}%
+\begin{frame}{Argh}
+\begin{block}{FFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUU}
+We've not yet mentioned branching.
+\end{block}
+\end{frame}
+}
+
+\begin{frame}{CS4803 Spring 2010 Lab 3---All $\mathcal{O}(n^{3})$}
+\includegraphics[width=.8\paperwidth]{images/lab3.jpg}
+\end{frame}
+
+\begin{frame}{ATLAS Unleashed---All $\mathcal{O}(n^{3})$\hfill\tiny{Image source: Richard Vuduc's CSE6230}}
+\includegraphics[width=.8\paperwidth]{images/vuduc.jpg}
+\end{frame}
+
+\begin{frame}{RAPTORIAL-file\hfill\tiny{Image source: Dirty South Supercomputing and Waffles}}
+\begin{center}
+In the pure systems space, $\mathcal{O}$ makes still less sense.\\
+What's $\mathcal{O}$ of multithreaded file lexing?\\
+\includegraphics[width=.675\paperwidth]{images/raptorial-file-fullsize.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{RAPT-show-version\hfill\tiny{Image source: Dirty South Supercomputing and Waffles}}
+\begin{center}
+Nonetheless, optimization can be very fruitful.
+\includegraphics[width=.675\paperwidth]{images/rapt-show-versions-fullsize.png}
+\end{center}
+\end{frame}
+
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[scale=.5]{images/perf1.jpg}
+}%
+\begin{frame}[b]{Analysis-driven optimization I}
+\begin{block}{High-level (``Macroanalysis'')}
+Coarse tools and algorithmic reasoning, e.g.:
+\begin{itemize}
+\item Ensure sufficient task-level parallelism
+\item Ensure cores aren't overutilized
+\item Profiler-driven hotspot location
+\item High-level memory and I/O flow
+\end{itemize}
+\end{block}
+\end{frame}
+}
+
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[width=\paperwidth]{images/cudaprof.png}
+}%
+\begin{frame}[b]{Analysis-driven optimization II}
+\begin{block}{Low-level (``Microanalysis'')}
+Performance counters and throughput-based reasoning, e.g.:
+\begin{itemize}
+\item Vectorize
+\item Tune for caches
+\item Watch for $\upmu$architectural stalls
+\end{itemize}
+\end{block}
+\end{frame}
+}
+
+\begin{frame}{Complexity finds a way}
+\begin{center}
+\includegraphics[width=\textwidth]{peano.jpg}\\
+\tiny{A fractal having Hausdorff dimension 2,\\
+the space-filling Peano curve is used in cache-oblivious algorithms.}
+\end{center}
+\vfill
+\large{\textbf{Mastering the complex modern design space requires deftly
+switching between theoretical analysis, guided experiment, and pure
+exploration.\\
+\vspace{.25in}
+This class is about doing so.}}
 \end{frame}
 
 %In terms of pure growth, we have $ijk$, so we can set
@@ -294,6 +378,7 @@ VMOVAPS tends to run \textasciitilde 5 bytes.}}.
 \begin{frame}{Recommended reading}
 \tiny{
 \begin{itemize}
+\item Hong and Kung. ``I/O complexity: The red-blue pebble game'' (1981).
 \item Yotov et al. ``An experimental comparison of cache-oblivious and cache-conscious programs'' (2007).
 \item Irony et al. ``Communication Lower Bounds for Distributed-Memory Matrix Mul'' (2004).
 \item Goto et al. ``Anatomy of High-Performance Matrix Multiplication'' (2008).
