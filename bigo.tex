@@ -146,14 +146,14 @@ But, by all means, do ensure you're not doing linear searches on sorted data etc
 \end{frame}
 
 \begin{frame}{What's hiding behind $\mathcal{O}$?}
-Naive $nXn$ matrix multiplication is $\Theta(n^{3})$.
+Naive square (nXn X nXn) matrix multiplication is $\Theta(n^{3})$.
 \vfill
 \begin{equation}
 C = AB \implies C_{ij} = \sum\limits_{m=1}^{k} A_{im}B_{mj}
 \end{equation}
 \vfill
 Counting the explicit additions and multiplications, there are
-precisely $2n^{3}$ operations.
+precisely $2n^{3}$ ``operations''.
 \end{frame}
 
 
@@ -176,13 +176,39 @@ SIMD FP FMA\footnote{AMD's XOP further implements an SIMD integer FMA.}.
 The throughput and latency are equivalent to standard single SIMD FP adds and
 multiplies. NVIDIA's Fermi likewise introduced a full-throughput FMA.
 \vfill
-There are now precisely $n^{3}$ operations.
+There are now precisely $n^{3}$ ``operations''.
 }
 \end{frame}
 
-\begin{frame}{Wide issue}
+
+{
+\setbeamertemplate{background canvas}{%
 \includegraphics[scale=.33]{images/haswellexec.png}
+}%
+\begin{frame}[b]{Wide issue}
+\scriptsize{
+Haswell can issue and retire 2 VFMADD* instructions per cycle.\\
+There are now precisely $n^{3}/2$ ``operations''
+\footnote{\tiny{Assuming that two operations are available every cycle.}}.
+\vspace{.1in}
+}
 \end{frame}
+}
+
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[scale=1]{images/256bit.png}
+}%
+\begin{frame}[b]{SIMD}
+\scriptsize{
+AVX uses the 16 256-bit YMM registers. There are 8 32-bit IEEE 754-2008
+single-precision values in a 256-bit input.\\
+There are now precisely $n^{3}/16$ ``operations''\footnote{Assuming that values
+are usable in 256-bit chunks.}.
+\vspace{.1in}
+}
+\end{frame}
+}
 
 %In terms of pure growth, we have $ijk$, so we can set
 %\begin{equation}
