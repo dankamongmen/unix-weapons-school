@@ -122,9 +122,9 @@ P_{time} = Inst_{dynamic}\cdot CPI_{avg}\cdot\nu
 \end{enumerate}
 \vspace{.25in}
 \#1 is an exhausted technique. Understanding why will require a detour into
-electrical engineering.
-Hold on tight\footnote{\tiny{``Dilating time'' (``relativistic computing?'') is some
-non-starter Discovery Channel horseshit.}}!
+electrical engineering. Hold on tight!
+%\footnote{\tiny{``Dilating time'' (``relativistic computing?'') is some
+%non-starter Discovery Channel horseshit.}}
 \end{frame}
 
 \begin{frame}{\textbf{c}-time}
@@ -182,47 +182,72 @@ $\nu = \mu_{SC}E = \frac{\mu_{SC}V_{DS}}{L} \implies t = \frac{L}{\nu} = \frac{L
 \scriptsize{But mainly w00t. Thanks, CMOS technologists!}
 \end{frame}
 
-\begin{frame}{Digital logic}
-\tiny{\textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$ and
+\begin{frame}{Metal oxide semiconductors I}
+\scriptsize{Let's calculate negative MOS. With no
+mobile carriers, $I_{D_{C}} = 0$. $V^{+}_{GS}$
+is applied to the gate, attracting electrons as $V_{GS}\ \text{exceeds the threshold
+voltage}\ V_{TH}$, establishing a salient.
+%C^{*}_{ox} = \frac{\varepsilon_{ox}}{T_{ox}}
+$I_{D_{TL}} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[2(V_{GS} - V_{TH})V_{DS} - V^{2}_{DS}\right]$, growing
+linearly with $V_{GS}$. Once $V_{DSat}\triangleq V_{GS} - V_{TH} \ge V_{DS}$, a
+conducting channel exists from source to drain, and $I_{DSat} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[V_{GS} - V_{TH}\right]^{2}$. We call these three modes \textit{cutoff},
+\textit{linear}, and \textit{saturation}. This switch requires discharging the charge in our nMOSFET:\\
+\begin{equation}
+\tau_{pHL} \approx \frac{\text{charge on} C_L}{2 * \text{NMOS discharge current}} = \frac{L_{n}C_{L}V_{DD}}{W_{n}\mu_{n}C^{*}_{ox}\left(V_{DD} - V_{TH}\right)^{2}}
+\end{equation}
+Where appropriate, pMOS reverses the signs\footnote{Using holes, not $e^{+}$ (positrons).}.
+}
+\vfill
+\includegraphics[scale=.3]{images/oe-001.png}
+\includegraphics[scale=.3]{images/oe-000.png}
+\end{frame}
+
+\begin{frame}{Metal oxide semiconductors II}
+Drain and source are doped opposite the substrate. L is gap between source and
+drain. W is width of source/gate/drain\footnote{\tiny{W/L is known as the \textit{drain current capability}.}}.
+$T_{ox} < 2$nm. Circuit speed increases with increasing $I_{on}$ which increases with decreasing $V_{TH}$.
+\vfill
+\begin{columns}
+\begin{column}{.5\paperwidth}
+\center \textbf{nMOS}
+\begin{itemize}
+\item $V_{GS}, V_{DS}, I_{D}$ are positive
+\item Gate voltage $V_{GS}$ increases
+\item Negative doping (n+)
+\item $e^{-}$ is charge carrier
+\item Current flows when output is low
+\item Carries a strong 0 and a weak 1
+\item Bulk connected to ground
+\item $I_{D}$ is drain-to-source
+\end{itemize}
+\end{column}
+\begin{column}{.5\paperwidth}
+\center \textbf{pMOS}
+\begin{itemize}
+\item $V_{GS}, V_{DS}, I_{D}$ are negative
+\item Gate voltage $V_{GS}$ decreases
+\item Positive doping (p+)
+\item Holes are charge carrier
+\item Current flows when output is high
+\item Carries a strong 1 and a weak 0
+\item Bulk connected to supply ($V_{DD}$)
+\item $I_{D}$ is source-to-drain
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{CMOS Inverter}
+\scriptsize{We'd like timing and other properties to be independent of whether we're going
+high or low, and not to draw power in a steady state. \textit{Symmetric CMOS inverters} ($V_{T_{n}} = |V_{T_{p}}|$ and
 %$C^{*}_{oxn} = C^{*}_{oxp}$, and
 $K_n = K_p$ ($K_{foo,ox}\triangleq \frac{\mu_{foo}\kappa_{ox}}{T_{ox}}$
 ($\mu = \text{electron mobility in}\ foo$,
 $\kappa = \text{relative permittivity in}\ ox$,
-and $T = \text{thickness of insulator oxide}\ ox$))
+and $T = \text{thickness of insulator oxide}\ ox$)))
 %$\kappa$ is frequently written $\varepsilon$ and refered to as ``dielectric constant''
 draw power only while switching, maximize use of clocks, and require only 
 a pMOS and nMOS transistor in series.}
-\begin{figure}
-\begin{center}
-\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl_inverter_sch.png}}
-\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttl.png}}   
-\fbox{\tiny{pMOS}\includegraphics[height=.49in,width=0.1\textwidth]{images/pmos.jpg}}   
-\fbox{\tiny{nMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/nmosinverter.pdf}}   
-\fbox{\tiny{CMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/cmos.png}}
-\end{center}
-\tiny{\textbf{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs\footnote{\tiny{CMOS NOR/NAND in 4 transistors each; TTL multiemitters requires 5 for NOR vs. 4 for NAND.}}\ldots}}
-\end{figure}
-\begin{figure}
-\begin{center}
-%\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
-%\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
-\fbox{\includegraphics[width=0.25\textwidth]{images/cmosnor.png}}
-\fbox{\includegraphics[width=0.25\textwidth]{images/cmosnand.png}}
-\end{center}
-\tiny{\textbf{\ldots given NORs and NANDs, we can build universal computers\ldots}}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-%\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
-%\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
-\fbox{\includegraphics[width=0.25\textwidth]{images/nandadder.png}}\\
-\tiny{\textbf{\ldots and now we're getting somewhere. Delicious!}}
-\end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}{CMOS Inverter}
 \center{\includegraphics[scale=.5]{images/cmos.png}}
 \vfill
 \footnotesize{
@@ -249,54 +274,35 @@ $V_{IN} = V_{DD} \implies V_{OUT} = 0$
 }
 \end{frame}
 
-\begin{frame}{Complementary metal oxide semiconductors I}
-\scriptsize{nMOS (``negative MOS'') uses
-$e^{-}$ as charge carriers, n+ source, drain, and gate, and p-substrate. With no
-mobile carriers, $I_{D_{C}} = 0$. $V^{+}_{GS}$
-is applied to the gate, attracting electrons as $V_{GS}\ \text{exceeds the threshold
-voltage}\ V_{TH}$, establishing a salient.
-%C^{*}_{ox} = \frac{\varepsilon_{ox}}{T_{ox}}
-$I_{D_{TL}} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[2(V_{GS} - V_{TH})V_{DS} - V^{2}_{DS}\right]$, growing
-linearly with $V_{GS}$. Once $V_{DSat}\triangleq V_{GS} - V_{TH} \ge V_{DS}$, a
-conducting channel exists from source to drain, and $I_{DSat} = \frac{\mu_{n}C^{*}_{oxn}W}{2L}\left[V_{GS} - V_{TH}\right]^{2}$. We call these three modes \textit{cutoff},
-\textit{linear}, and \textit{saturation}. This switch requires discharging the charge in our nMOSFET:\\
-\begin{equation}
-\tau_{pHL} \approx \frac{\text{charge on} C_L}{2 * \text{NMOS discharge current}} = \frac{L_{n}C_{L}V_{DD}}{W_{n}\mu_{n}C^{*}_{ox}\left(V_{DD} - V_{TH}\right)^{2}}
-\end{equation}
-Where appropriate, pMOS reverses the signs\footnote{Using holes, not $e^{+}$ (positrons).}.
-}
-\vfill
-\includegraphics[scale=.3]{images/oe-001.png}
-\includegraphics[scale=.3]{images/oe-000.png}
-\end{frame}
+\begin{frame}{Digital logic}
+\begin{figure}
+\begin{center}
+\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl_inverter_sch.png}}
+\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttl.png}}   
+\fbox{\tiny{pMOS}\includegraphics[height=.49in,width=0.1\textwidth]{images/pmos.jpg}}   
+\fbox{\tiny{nMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/nmosinverter.pdf}}   
+\fbox{\tiny{CMOS}\includegraphics[height=.5in,width=0.1\textwidth]{images/cmos.png}}
+\end{center}
+\scriptsize{\textbf{Given inverters, we can build (\textit{functionally complete}) NORs and NANDs\footnote{\tiny{CMOS NOR/NAND in 4 transistors each; TTL multiemitters requires 5 for NOR vs. 4 for NAND.}}\ldots}}
+\end{figure}
+\begin{figure}
+\begin{center}
+%\fbox{\tiny{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
+%\fbox{\tiny{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
+\fbox{\includegraphics[width=0.25\textwidth]{images/cmosnor.png}}
+\fbox{\includegraphics[width=0.25\textwidth]{images/cmosnand.png}}
+\end{center}
+\scriptsize{\textbf{\ldots given NORs and NANDs, we can build universal computers\ldots}}
+\end{figure}
 
-\begin{frame}{Complementary metal oxide semiconductors II}
-Drain and source are doped opposite the substrate. L is gap between source and
-drain. W is width of source/gate/drain. $T_{ox} < 2$nm. Circuit
-speed increases with increasing $I_{on}$ which increases with decreasing $V_{TH}$.
-\vfill
-\begin{columns}
-\begin{column}{.5\paperwidth}
-\center \textbf{nMOS}
-\begin{itemize}
-\item Gate voltage $V_{GS}$ increases
-\item Negative doping (n+)
-\item $e-$ is charge carrier
-\item Current flows when output is low
-\item Carries a strong 0 and a weak 1
-\end{itemize}
-\end{column}
-\begin{column}{.5\paperwidth}
-\center \textbf{pMOS}
-\begin{itemize}
-\item Gate voltage $V_{GS}$ decreases
-\item Positive doping (p+)
-\item Holes are charge carrier
-\item Current flows when output is high
-\item Carries a strong 1 and a weak 0
-\end{itemize}
-\end{column}
-\end{columns}
+\begin{figure}
+\begin{center}
+%\fbox{\scriptsize{RTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/rtl-npn-nor.pdf}}
+%\fbox{\scriptsize{TTL}\includegraphics[height=.5in,width=0.1\textwidth]{images/ttlnor.png}}
+\fbox{\includegraphics[width=0.25\textwidth]{images/nandadder.png}}\\
+\scriptsize{\textbf{\ldots and now we're getting somewhere. Delicious!}}
+\end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}{CMOS dynamic power}
