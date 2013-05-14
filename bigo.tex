@@ -112,7 +112,7 @@ numbers so large that their addition is $\Theta(n)$.
 \hline\hline
 $\mathcal{O}(1)$ & Constant & Is word-sized unsigned int $n$ a power of 2?\\
 \hline
-$\mathcal{O}(\lg_{c_1}\lg_{c_2} n)$ & Double-logarithmic & Interpolative search on uniform distribion\\
+$\mathcal{O}(\lg_{c_1}\lg_{c_2} n)$ & Double-log & Interpolative search on uniform distribion\\
 \hline
 $\mathcal{O}(\lg_c n)$ & Logarithmic & Binary search\\
 \hline
@@ -124,7 +124,7 @@ $\mathcal{O}(c^{n})$ & Exponential & Brute-force Boolean equivalence \\
 \hline
 $\mathcal{O}(n!)$ & Factorial & Unrestricted permutations of a poset\\
 \hline
-$\mathcal{O}(c^{c^{n}_2}_1)$ & Double-exponential & Presburger arithmetic decision best case\\
+$\mathcal{O}(c^{c^{n}_2}_1)$ & Double-exp & Presburger arithmetic decision best case\\
 \hline
 \end{tabular}%
 };
@@ -161,6 +161,27 @@ Counting the explicit additions and multiplications, there are
 precisely $2n^{3}$ ``operations''.
 \end{frame}
 
+\begin{frame}{Memory accesses}
+\begin{enumerate}
+\item $\forall i, 0\le i \le n:$ Read row $i$ from $A$ into $a$
+\item $\forall j, 0\le j \le n:$ Read column $j$ from $B$ into $b$, read $C_{ij}$ into $c$
+\item $\forall k, 0\le k \le n:$ Store $a_k * b_k + c$ into $C_{ij}$
+\end{enumerate}
+\vfill
+\begin{enumerate}
+\item $n^{2}$ loads from A
+\item $n^{3}$ loads from B
+\item $n^{2}$ loads from C
+\item $n^{2}$ stores to C
+\end{enumerate}
+Counting the loads and stores, there are precisely $n^{3} + 3n^{2}$ memory
+accesses. There are now precisely $3n^{3} + 3n^{2}$ ``operations''.
+\vfill
+\begin{alertblock}{Arithmetic intensity}
+\center$\lim\limits_{n \to \infty} \frac{\text{Arithmetic}}{\text{Memory}}\approx 2$
+\end{alertblock}
+\vfill
+\end{frame}
 
 \begin{frame}{Fused multiply-add}
 \small{
@@ -277,6 +298,7 @@ VMOVAPS tends to run \textasciitilde 5 bytes.}}.
 \item Kalyanasundaram et al. ``Improved Simulation of NTMs'' (2011).
 \item Fran\c{c}ois Le Gall. ``Faster Algorithms for Rectangular Matrix Multiplication'' (2012).
 \item Eric Quinnell. ``Floating-Point Fused Multiply-Add Architectures'' (2007).
+\item Tom Leighton. ``Better Master Theorems for Divide-and-Conquer Recurrences'' (1996).
 \item \textit{Intel Instruction Set Extensions Programming Reference}
 \end{itemize}
 }
