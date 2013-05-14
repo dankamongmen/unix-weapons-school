@@ -146,7 +146,7 @@ But, by all means, do ensure you're not doing linear searches on sorted data etc
 \end{frame}
 
 \begin{frame}{What's hiding behind $\mathcal{O}$?}
-Naive $nxn$ matrix multiplication is $\Theta(n^{3})$.
+Naive $nXn$ matrix multiplication is $\Theta(n^{3})$.
 \vfill
 \begin{equation}
 C = AB \implies C_{ij} = \sum\limits_{m=1}^{k} A_{im}B_{mj}
@@ -158,6 +158,26 @@ precisely $2n^{3}$ operations.
 
 
 \begin{frame}{Fused multiply-add}
+\small{
+IEEE 754-2008 floating point support requires FMA, fused multiply-add.
+Let $rn()$ denote a rounding operation. Typically, a multiply-add chain
+requires two instructions, and rounds twice:
+\begin{equation}
+MAC(A,B,C) = rn(rn(A * B) + C)
+\end{equation}
+Fused multiply-add rounds only once, preserving the fully precise product in
+an internal register:
+\begin{equation}
+FMA(A,B,C) = rn(A * B + C)
+\end{equation}
+AMD's FMA4 (Bulldozer) implements a fully general SIMD FP FMA. Intel's FMA3
+(Haswell, as part of AVX2; also in AMD's Piledriver) implements a destructive
+SIMD FP FMA\footnote{AMD's XOP further implements an SIMD integer FMA.}.
+The throughput and latency are equivalent to standard single SIMD FP adds and
+multiplies. NVIDIA's Fermi likewise introduced a full-throughput FMA.
+\vfill
+There are now precisely $n^{3}$ operations.
+}
 \end{frame}
 
 %In terms of pure growth, we have $ijk$, so we can set
