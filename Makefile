@@ -14,6 +14,7 @@ all: $(LECTOUT)
 
 %.pdf: %.tex $(IMAGES)
 	pdflatex $(basename $<)
+	pdflatex $(basename $<)
 
 upload: all
 	scp *html *pdf qemfd.net:/var/www
