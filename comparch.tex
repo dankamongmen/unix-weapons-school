@@ -222,7 +222,34 @@ a pMOS and nMOS transistor in series.}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Complementary metal oxide semiconductors}
+\begin{frame}{CMOS Inverter}
+\center{\includegraphics[scale=.5]{images/cmos.png}}
+\vfill
+\footnotesize{
+\begin{columns}
+\begin{column}{.5\textwidth}
+$V_{IN} = 0 \implies V_{OUT} = V_{DD}$
+\begin{itemize}
+\item $V_{GS_{n}} = 0 < V_{TH_{n}}\linebreak
+ \implies \text{nMOS off}$
+\item $V_{SG_{p}} = V_{DD} > -V_{TH_{p}}\linebreak
+ \implies \text{pMOS on}$
+\end{itemize}
+\end{column}
+\begin{column}{.5\textwidth}
+$V_{IN} = V_{DD} \implies V_{OUT} = 0$
+\begin{itemize}
+\item $V_{GS_{n}} = V_{DD} > V_{TH_{n}}\linebreak
+ \implies \text{nMOS on}$
+\item $V_{SG_{p}} = 0 < -V_{TH_{p}}\linebreak
+ \implies \text{pMOS off}$
+\end{itemize}
+\end{column}
+\end{columns}
+}
+\end{frame}
+
+\begin{frame}{Complementary metal oxide semiconductors I}
 \scriptsize{nMOS (``negative MOS'') uses
 $e^{-}$ as charge carriers, n+ source, drain, and gate, and p-substrate. With no
 mobile carriers, $I_{D_{C}} = 0$. $V^{+}_{GS}$
@@ -241,6 +268,35 @@ Where appropriate, pMOS reverses the signs\footnote{Using holes, not $e^{+}$ (po
 \vfill
 \includegraphics[scale=.3]{images/oe-001.png}
 \includegraphics[scale=.3]{images/oe-000.png}
+\end{frame}
+
+\begin{frame}{Complementary metal oxide semiconductors II}
+Drain and source are doped opposite the substrate. L is gap between source and
+drain. W is width of source/gate/drain. $T_{ox} < 2$nm. Circuit
+speed increases with increasing $I_{on}$ which increases with decreasing $V_{TH}$.
+\vfill
+\begin{columns}
+\begin{column}{.5\paperwidth}
+\center \textbf{nMOS}
+\begin{itemize}
+\item Gate voltage $V_{GS}$ increases
+\item Negative doping (n+)
+\item $e-$ is charge carrier
+\item Current flows when output is low
+\item Carries a strong 0 and a weak 1
+\end{itemize}
+\end{column}
+\begin{column}{.5\paperwidth}
+\center \textbf{pMOS}
+\begin{itemize}
+\item Gate voltage $V_{GS}$ decreases
+\item Positive doping (p+)
+\item Holes are charge carrier
+\item Current flows when output is high
+\item Carries a strong 1 and a weak 0
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{CMOS dynamic power}
