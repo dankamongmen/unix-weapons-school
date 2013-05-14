@@ -18,6 +18,8 @@
 \usepackage{amsmath}
 \beamertemplatenavigationsymbolsempty
 
+\renewcommand{\sfdefault}{cmr}
+
 \definecolor{shadecolor}{rgb}{1,0.8,0.3}
 
 \title{\textbf{Big-$\boldsymbol{\mathcal{O}}$ Ain't What it Used to Be}}
@@ -230,7 +232,18 @@ costs, and assuming perfect parallelism.}}.
 }
 
 \begin{frame}{Loads and stores}
-
+Hong and Kung proved in 1981 that any schedule of conventional matrix
+multiplication must transfer $\Omega(\frac{n^{3}}{\sqrt{z}}), Z<\frac{n^{2}}{6}$
+words between slow and fast memory.
+\vfill
+Of course, AVX's VMOVAPS moves 256 bits, or 8 32-bit single precision floating
+point words, at a time. And there's 4 cores. With two load/store pipes each. So that's $\Omega_{HK}/64$\footnote{
+\tiny{Assuming that the values are located in aligned, contiguous 256-bite chunks in memory.\\
+\hspace{.6cm}Wait\ldots we can use VMOVUPS if they're unsuitably aligned.}}.
+\vfill
+Of course, we're not going to be able to pack two VFMADDPS and two VMOVAPS
+instructions into every 16B/\textbf{c} I\$ fetch\footnote{\tiny{VEX-encoded
+VMOVAPS tends to run \textasciitilde 5 bytes.}}.
 \end{frame}
 
 %In terms of pure growth, we have $ijk$, so we can set
@@ -264,6 +277,7 @@ costs, and assuming perfect parallelism.}}.
 \item Kalyanasundaram et al. ``Improved Simulation of NTMs'' (2011).
 \item Fran\c{c}ois Le Gall. ``Faster Algorithms for Rectangular Matrix Multiplication'' (2012).
 \item Eric Quinnell. ``Floating-Point Fused Multiply-Add Architectures'' (2007).
+\item \textit{Intel Instruction Set Extensions Programming Reference}
 \end{itemize}
 }
 \end{frame}
