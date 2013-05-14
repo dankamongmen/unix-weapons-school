@@ -161,28 +161,6 @@ Counting the explicit additions and multiplications, there are
 precisely $2n^{3}$ ``operations''.
 \end{frame}
 
-\begin{frame}{Memory accesses}
-\begin{enumerate}
-\item $\forall i, 0\le i \le n:$ Read row $i$ from $A$ into $a$
-\item $\forall j, 0\le j \le n:$ Read column $j$ from $B$ into $b$, read $C_{ij}$ into $c$
-\item $\forall k, 0\le k \le n:$ Store $a_k * b_k + c$ into $C_{ij}$
-\end{enumerate}
-\vfill
-\begin{enumerate}
-\item $n^{2}$ loads from A
-\item $n^{3}$ loads from B
-\item $n^{2}$ loads from C
-\item $n^{2}$ stores to C
-\end{enumerate}
-Counting the loads and stores, there are precisely $n^{3} + 3n^{2}$ memory
-accesses. There are now precisely $3n^{3} + 3n^{2}$ ``operations''.
-\vfill
-\begin{alertblock}{Arithmetic intensity}
-\center$\lim\limits_{n \to \infty} \frac{\text{Arithmetic}}{\text{Memory}}\approx 2$
-\end{alertblock}
-\vfill
-\end{frame}
-
 \begin{frame}{Fused multiply-add}
 \small{
 IEEE 754-2008 floating point support requires FMA, fused multiply-add.
@@ -252,10 +230,32 @@ costs, and assuming perfect parallelism.}}.
 \end{frame}
 }
 
+\begin{frame}{Memory accesses}
+\begin{enumerate}
+\item $\forall i, 0\le i \le n:$ Read row $i$ from $A$ into $a$
+\item $\forall j, 0\le j \le n:$ Read column $j$ from $B$ into $b$, read $C_{ij}$ into $c$
+\item $\forall k, 0\le k \le n:$ Store $a_k * b_k + c$ into $C_{ij}$
+\end{enumerate}
+\vfill
+\begin{enumerate}
+\item $n^{2}$ loads from A
+\item $n^{3}$ loads from B
+\item $n^{2}$ loads from C
+\item $n^{2}$ stores to C
+\end{enumerate}
+Counting the loads and stores, there are precisely $n^{3} + 3n^{2}$ memory
+accesses. There are now precisely $3n^{3} + 3n^{2}$ ``operations''.
+\vfill
+\begin{alertblock}{Arithmetic intensity}
+\center$\lim\limits_{n \to \infty} \frac{\text{Arithmetic}}{\text{Memory}}\approx 2$
+\end{alertblock}
+\vfill
+\end{frame}
+
 \begin{frame}{Loads and stores}
 Hong and Kung proved in 1981 that any schedule of conventional matrix
 multiplication must transfer $\Omega(\frac{n^{3}}{\sqrt{z}}), Z<\frac{n^{2}}{6}$
-words between slow and fast memory.
+words between slow and fast memory. \textit{Tiling} is the optimal strategy.
 \vfill
 Of course, AVX's VMOVAPS moves 256 bits, or 8 32-bit single precision floating
 point words, at a time. And there's 4 cores. With two load/store pipes each. So that's $\Omega_{HK}/64$\footnote{
@@ -294,6 +294,8 @@ VMOVAPS tends to run \textasciitilde 5 bytes.}}.
 \begin{frame}{Recommended reading}
 \tiny{
 \begin{itemize}
+\item Yotov et al. ``An experimental comparison of cache-oblivious and cache-conscious programs'' (2007).
+\item Irony et al. ``Communication Lower Bounds for Distributed-Memory Matrix Mul'' (2004).
 \item Goto et al. ``Anatomy of High-Performance Matrix Multiplication'' (2008).
 \item Kalyanasundaram et al. ``Improved Simulation of NTMs'' (2011).
 \item Fran\c{c}ois Le Gall. ``Faster Algorithms for Rectangular Matrix Multiplication'' (2012).
