@@ -5,6 +5,7 @@
 \usepackage{centernot}
 \usepackage{upgreek}
 \usepackage{graphicx}
+\usepackage{framed,color}
 \usepackage{geometry}
 \usepackage{transparent}
 \usepackage{tikz}
@@ -16,6 +17,8 @@
 \usepackage[babel=true]{microtype}
 \usepackage{amsmath}
 \beamertemplatenavigationsymbolsempty
+
+\definecolor{shadecolor}{rgb}{1,0.8,0.3}
 
 \title{\textbf{Big-$\boldsymbol{\mathcal{O}}$ Ain't What it Used to Be}}
 \date{}
@@ -209,6 +212,26 @@ are usable in 256-bit chunks.}.
 }
 \end{frame}
 }
+
+{
+\setbeamertemplate{background canvas}{%
+\includegraphics[scale=1]{images/Multicore.jpg}
+}%
+\begin{frame}[b]{Multicore}
+\scriptsize{
+\begin{block}{}
+Haswell will likely debut in a quadcore physical package.\\
+There are now precisely $n^{3}/64$ ``operations''\footnote{\tiny{Ignoring communication
+costs, and assuming perfect parallelism.}}.
+\end{block}
+\vspace{.1in}
+}
+\end{frame}
+}
+
+\begin{frame}{Loads and stores}
+
+\end{frame}
 
 %In terms of pure growth, we have $ijk$, so we can set
 %\begin{equation}
