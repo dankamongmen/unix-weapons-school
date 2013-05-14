@@ -250,19 +250,19 @@ Cyrix 6x86 & 1996 & 3.3M@.65--.35$\upmu$m & 7 & 80--150MHz \\
 
 \begin{block}{Intel P6 (PPro / PII / PIII)}
 \begin{itemize}
-\item PPro adds \texttt{SYSENTER, SYSEXIT}
+\item PPro adds \texttt{SYSENTER, SYSEXIT}, big ``on-package'' L2
 \item PIII adds 8 128-bit regs, SSE1 and \texttt{CMOVcc}
 %SSE1 is strictly 32x4 FP + data-movement stuff, plus SFENCE
 %PIII shared execution resources (save regs) between SSE/FP
-\item FIXME
+\item Low-latency 8W L2 on Coppermine, HW prefetch on Tualatin
 \end{itemize}
 \end{block}
-\begin{block}{AMD K6 (K6 / K6-2 / K6-III)}
+\begin{block}{AMD (NexGen) K6 (K6 / K6-2 / K6-III)}
 \begin{itemize}
 \item Adds \texttt{SYSCALL, SYSRET}
-\item K6-2 adds 3DNow! atop MMX regs
 % shit for performance, but worked without OS support, but who cares?
-\item FIXME
+\item K6-2 adds 3DNow! atop MMX regs
+\item K6-III just sticks an L2 on K6-2
 \end{itemize}
 \end{block}
 \vfill
@@ -273,19 +273,33 @@ Cyrix 6x86 & 1996 & 3.3M@.65--.35$\upmu$m & 7 & 80--150MHz \\
 {\footnotesize
 \begin{tabular}{|r|r|r|c|l|}
 \hline
-Pentium Pro & 1995 & 5.5M@.6--.35$\upmu$m & 14 & 150--333MHz \\
+Pentium Pro & 1995 & 5.5M@.6--.35$\upmu$m & 14 & 150--333MHz / 60--66MHz \\
 \hline
-K6 & 1997 & 8.8M@.35--.25$\upmu$m & 6 & 166--233MHz \\
+K6 & 1997 & 8.8M@.35--.25$\upmu$m & 6 & 166--300MHz / 66MHz \\
 \hline
-K6-2 & 1998 & 9.3M@.25$\upmu$m & 6 & 300--550MHz \\
+K6-2 & 1998 & 9.3M@.25$\upmu$m & 6 & 300--550MHz / 66--100MHz \\
 \hline
-Pentium III & 1999 & 9.5M@.25--.13$\upmu$m & 10 & 400--1400MHz \\
+Pentium III & 1999 & 9.5M@.25--.13$\upmu$m & 10 & 400--1400MHz / 100--130MHz \\
+\hline
+K6-III & 1999 & 21.4M@.25--.18$\upmu$m & 10 & 350--500MHz / 66--100MHz \\
 \hline
 \end{tabular}%
 }
 };
 \end{tikzpicture}
 \end{center}
+\end{frame}
+
+\begin{frame}{K6\hfill\tiny{Image source: Wikimedia Commons}}
+\includegraphics[width=\textwidth]{images/k6.pdf}
+\end{frame}
+
+\begin{frame}{K6-2\hfill\tiny{Image source: Wikimedia Commons}}
+\includegraphics[width=\textwidth]{images/k62.pdf}
+\end{frame}
+
+\begin{frame}{K6-III\hfill\tiny{Image source: Wikimedia Commons}}
+\includegraphics[width=\textwidth]{images/Amdk6III_arch.pdf}
 \end{frame}
 
 \begin{frame}[t]{SSE2 + long pipelines (FreeBSD 4, Linux 2.4)}
@@ -321,6 +335,7 @@ Intel Northwood & 2003 & 55M@130nm & 20 & 1.6--3.4GHz / 800MT/s \\
 \hline
 Athlon Barton & 2003 & 54M@130nm & 10/15 & 1.833--2.333MHz / 400MT/s \\
 \hline
+% to give you a point of reference that's bigger than the alaskan pipeline
 Intel Prescott & 2004 & 125M@90nm & 31 & 3--3.8GHz / 800MT/s \\
 \hline
 \end{tabular}%
@@ -390,7 +405,7 @@ Intel Nehalem & 2008 & 731M@45nm & 16 & 2--3.33GHz \\
 \hline
 Intel Sandy Bridge & 2011 & 1.2B@32nm & 14/19 & 2.3--4GHz \\
 \hline
-AMD Bulldozer & 2011 & 1.2B@32nm & 15 & fixme \\
+AMD Bulldozer & 2011 & 1.2B@32nm & 15/20 & 3--4.6GHz \\
 \hline
 Intel Haswell & 2013 & 1.5B@22nm & 14/19 & 2.3--3.9GHz \\
 \hline
