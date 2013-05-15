@@ -465,6 +465,50 @@ execution core at full throughput. How?
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Superscaler}
+An ALU contains numerous functional units---address generation, shifting, basic
+arithmetic, etc. The transistor budget for functional logic is typically
+dwarfed by that of cache\footnote{\tiny{This is not true on manycore architectures
+such as NVIDIA's CUDA.}}.
+\vfill
+It would be reasonable, then, to execute multiple instructions at a time (not
+staggered, as in a pipeline, but truly synchronously). This ought be possible
+so long as
+\begin{itemize}
+\item There are no true dependencies between the instructions, and
+\item The instructions use different functional units
+\end{itemize}
+\vfill
+Analyzing the instruction stream for such dependencies would add to our
+$\phi_{logic_{max}}$, increasing \textbf{c}-time and reducing frequency\footnote{\tiny{There
+would also be a cost in transistors, of course.}}.
+\vfill
+Attempts---EPIC/VLIW---were made to have the compiler perform this analysis
+itself. Compiler technology was (is?) not up to the task, due largely to the
+difficulty of modeling varied caches.
+\end{frame}
+
+\begin{frame}{Pipelines}
+In and of itself, pipelining does not improve performance. A scaler pipelined
+processor continues to retire, at best, 1 instruction per \textbf{c}.
+\vfill
+The advantage of pipelining is that, by reducing the number of gates and traces
+a signal travels \textit{in a \textbf{c}}, we reduce $\phi_{logic_{max}}$, and
+can thus increase $\upnu$, increasing our available \textbf{c} per
+unit time. Also, it can hide absolute delays\footnote{\tiny{Upon reaching steady state.}},
+such as the dependency analysis necessary for compiler-oblivious superscaler
+operation, or the complicated decoding necessary to convert x86 instructions
+into $\upmu$ops.
+\vfill
+We pay\footnote{\tiny{When the processor is running at full frequency, anyway.}} for
+these extra \textbf{c} whether we can exploit them or not. The effects of
+delays are amplified; a 400ns off-die DRAM access blocks for 200\textbf{c} at
+500MHz, but 1200\textbf{c} at 3GHz.
+\vfill
+The techniques by which the pipeline is kept full are collectively known as
+out-of-order execution.
+\end{frame}
+
 \begin{frame}
 \huge FIXME talk about OOO-dataflow limit
 \end{frame}
