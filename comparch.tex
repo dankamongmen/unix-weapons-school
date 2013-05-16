@@ -440,17 +440,25 @@ arithmetic/register throughput to arithmetic intensity ($\textbf{c}$ per word) w
 to sustain peak.
 \end{frame}
 
+\begin{frame}
+\huge{FRONTEND}
+\end{frame}
+
 \begin{frame}{Sandy Bridge frontend}
-The modern x86 frontend is tremendously complicated due to its inherited ISA,
+The modern x86 frontend is tremendously complicated\footnote{\tiny{Indeed, it is
+this dense frontend which made things like 31-stage pipelines even feasible (Northwood's
+``execution'' cycle was 17 of 20). The
+Loop Stream Decoder (present since Nehalem) effectively shortens the pipeline by
+bypassing the decoding frontend.}} due to its inherited ISA,
 yet it manages to deliver $\upmu$ops to the superscalar dataflow-ordered
 execution core at full throughput. How?
 \vfill
 \begin{itemize}
-\item 16B/\textbf{c} fetches from 32KB 8-way\footnote{4-way on Nehalem} I\$
+\item 16B/\textbf{c} fetches from 32KB 8-way\footnote{\tiny{4-way on Nehalem}} I\$
 \item Speculative decoding at each of fetch's 16B
 \item 1 complex decoder, 3 simple decoders
 \item 32 sets of 8 ways of 6 $\upmu$op $\upmu$I\$ (``decoded I\$'')
-\item 28$\upmu$op $\upmu$L\$ (``Loop stream detector'') per thread\footnote{On HyperThreaded Ivy Bridge, 56 $\upmu$ops if one logical core is inactive.}
+\item 28$\upmu$op $\upmu$L\$ (``Loop stream detector'') per thread\footnote{\tiny{On HyperThreaded Ivy Bridge, 56 $\upmu$ops if one logical core is inactive.}}
 \item 4$\upmu$op/\textbf{c} renamer-scheduler
 \item Macro- and $\upmu$-fusion
 \end{itemize}
@@ -461,8 +469,13 @@ execution core at full throughput. How?
 \item Instruction fetch miss (7\textbf{c} for ITLB miss + 2TLB hit)
 \item 3\textbf{c} for each non-REX length changing prefix\footnote{6\textbf{c} for any fetch containing an LCP on Nehalem}
 \item Instruction decode delay / MSROM access
-\item \huge\textbf{FIXME}
+\item Reservation stations full / ROB full
+\item Self-modifying code flushes all pipelines/cache
 \end{itemize}
+\vfill
+We cannot have more instructions in flight than we have ROB entries. We cannot
+have more instructions for a given set of ports in flight than we do
+reservation stations at those ports.
 \end{frame}
 
 \begin{frame}{Superscaler}
@@ -488,6 +501,10 @@ itself. Compiler technology was (is?) not up to the task, due largely to the
 difficulty of modeling varied caches.
 \end{frame}
 
+\begin{frame}
+\huge{BACKEND}
+\end{frame}
+
 \begin{frame}{Pipelines}
 In and of itself, pipelining does not improve performance. A scaler pipelined
 processor continues to retire, at best, 1 instruction per \textbf{c}.
@@ -497,20 +514,50 @@ a signal travels \textit{in a \textbf{c}}, we reduce $\phi_{logic_{max}}$, and
 can thus increase $\upnu$, increasing our available \textbf{c} per
 unit time. Also, it can hide absolute delays\footnote{\tiny{Upon reaching steady state.}},
 such as the dependency analysis necessary for compiler-oblivious superscaler
-operation, or the complicated decoding necessary to convert x86 instructions
-into $\upmu$ops.
+operation, or the complicated decoding necessary for x86 instructions.
 \vfill
 We pay\footnote{\tiny{When the processor is running at full frequency, anyway.}} for
 these extra \textbf{c} whether we can exploit them or not. The effects of
 delays are amplified; a 400ns off-die DRAM access blocks for 200\textbf{c} at
 500MHz, but 1200\textbf{c} at 3GHz.
 \vfill
-The techniques by which the pipeline is kept full are collectively known as
-out-of-order execution.
+The techniques by which the execution plane is kept full are
+collectively known as out-of-order execution.
 \end{frame}
 
-\begin{frame}
-\huge FIXME talk about OOO-dataflow limit
+\begin{frame}{The dataflow limit}
+Can we describe an ideal von Neumann/Harvard machine?
+\begin{itemize}
+\item Infinitely many registers
+\item Infallible branch prediction
+\item Infallible dealiasing
+\item Single-cycle, non-blocking caches
+\item Infinitely many issues/retires per \textbf{c}
+\end{itemize}
+\vfill
+This processor will proceed governed only by true dependencies; we
+call this the \textit{dataflow rate}\footnote{\tiny{\textit{Value prediction}
+has been studied to exceed the dataflow rate. It's not very awesome.}.}
+\end{frame}
+
+\begin{frame}{Out of order execution}
+\begin{itemize}
+\item \textit{Register renaming} eliminates WAW/WAR hazards
+\item \textit{Branch prediction} generates branch statuses earlier
+\item \textit{Target prediction} generates branch targets earlier
+\item \textit{Speculative execution} performs work based on predictions
+\item \textit{Predication} is branchless conditional execution
+\item \textit{Disambiguation} allows loads and stores to be reordered
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Backend delays}
+\begin{itemize}
+\item Store forwarding stalls / memory intermediates
+\item Data migration across execution domains
+\item False dependencies due to flag regs / partial regs
+\item Retirement station bandwidth exceeded
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Why we fall short of peak}
@@ -614,7 +661,9 @@ Yes. Look for strength reduction or new algorithms.
 \item Ulrich Drepper. ``What Every Programmer Needs to Know About Memory'' (2007). Linux Weekly News, in eight parts.
 \item Paul McKenney. ``Transactional Memory Everywhere'' (2012).
 \item Ward and Halstead. ``Computation Structures'' (1990).
-\item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004).
+\item Fisher et al. \textit{Embedded Computing: A VLIW Approach} (2004).
+\item John Shen and Mikko Lipasti. \textit{Modern Processor Design} (2004)\\
+and ``Exceeding Dataflow Limit via Value Prediction'' (1996).
 \item Agner Fog. \textit{The microarchitecture of Intel, AMD and VIA CPUs: An optimization guide for assembly programmers and compiler makers} (regularly updated). http://www.agner.org.
 \item Bruce Shriver and Bennett Smith. \textit{The Anatomy of a High-Performance Microprocessor: A Systems Perspective} (1998).
 \item \textit{Intel 64 and IA-32 Architectures Optimization Manuals}.
