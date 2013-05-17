@@ -48,4 +48,44 @@ Georgia Institute of Technology
 \end{frame}
 }
 
+\begin{frame}{Processes}
+Process 1\footnote{\tiny{Typically {\tt /sbin/init}; override this with kernel parameter {\tt init=}.}} is launched by the
+kernel following initialization. The kernel will panic if {\tt init} cannot be found,
+or if process 1 ever terminates. Process 1 is the ultimate ancestor of all userspace
+processes, and orphaned processes are reparented to it.
+\vfill
+On Linux, new processes are launched with {\tt clone(2)}. FreeBSD uses the more
+traditional {\tt rfork(2)} interface; GNU libc since 2.3.3 implements {\tt fork(2)}
+in terms of {\tt clone(2)}.
+\end{frame}
+
+\begin{frame}{Credentials}
+%\item[\textbf{PID}] Process ID---positive (kernel processes have PID 0), unique
+% integer < {\tt /proc/sys/kernel/pid\_max}. {\tt pid\_t getpid(2) \$\$ /proc/<pid>/status} (f1).
+%\item[\textbf{PPID}] Parent ID---from set of active PIDs {\tt pid\_t getppid(2) \$PPID /proc/<pid>/status} (f4).
+%\item[\textbf{PGID}] Process group ID---unique to each pipeline. Set up by job-controlling shell
+% shell. {\tt pid\_t getpgrp(2) N/A /proc/<pid>/status} (f5).
+
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
+{\tiny
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Name} & \textbf{Description} & \textbf{C} & \textbf{Shell} & \textbf{Other} \\
+\hline\hline
+PID & Process ID & {\tt getpid(2)} & \$\$ & {\tt /proc/<pid>/status} (f1)\\
+\hline
+PPID & Parent PID & {\tt getppid(2)} & \$PPID & {\tt /proc/<pid>/status} (f4)\\
+\hline
+PGID & Process group ID & {\tt getpgrp(2)} & N/A & {\tt /proc/<pid>/status} (f5)\\
+\hline
+SID & Session ID & {\tt getsid(2)} & N/A & {\tt /proc/<pid>/status} (f6)\\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
+\end{frame}
+
 \end{document}
