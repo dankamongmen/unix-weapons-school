@@ -7,14 +7,16 @@ IMAGES:=$(wildcard images/*) $(wildcard code/*)
 
 all: $(LECTOUT)
 
+LOPS:=-halt-on-error 
+
 %.pdf.info: %.pdf
 	makebeamerinfo $<
 
 .PRECIOUS: $(addsuffix .pdf,$(LECTURES))
 
 %.pdf: %.tex $(IMAGES)
-	pdflatex $(basename $<)
-	pdflatex $(basename $<)
+	pdflatex $(LOPS) $(basename $<)
+	pdflatex $(LOPS) $(basename $<)
 
 upload: all
 	scp *html *pdf qemfd.net:/var/www

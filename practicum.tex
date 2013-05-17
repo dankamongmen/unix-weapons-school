@@ -4,6 +4,7 @@
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
 \usepackage{graphicx}
+\usepackage{bnf}
 \usepackage{geometry}
 \usepackage{transparent}
 \usepackage{tikz}
@@ -48,8 +49,31 @@ Georgia Institute of Technology
 \end{frame}
 }
 
-\begin{frame}{Perl}
-Please don't write perl.
+\begin{frame}
+\huge{SCRIPTING}
+\end{frame}
+
+\begin{frame}{Bash grammar\footnote{\tiny{This does not conform to {\tt bash(1)} as of 4.2; I believe the official grammar to be inaccurate.}}}
+\tiny{
+\begin{description}
+\item[\textbf{compound::=}] {\tt(}<list>{\tt)} | {\tt\{}<list>{\tt;\}} | {\tt((}<arithexpr>{\tt))} | {\tt[[}<condexpr>{\tt]]} |\\
+ {\tt for} <name> [{\tt in} <word> \ldots {\tt;}] {\tt do} <list> {\tt; done} |\\
+ {\tt for ((} <expr> {\tt;} <expr> {\tt;} <expr> {\tt)) ;} {\tt do} <list> {\tt; done} |\\
+ {\tt select} <name> [{\tt in} <word>] {\tt; do} <list> {\tt; done} |\\
+ {\tt case} <word> {\tt in} [[{\tt(}<pattern> [| <pattern>\ldots]{\tt)}] <list> {\tt;;}] \ldots {\tt esac} |\\
+ {\tt if} <list> {\tt; then} <list> {\tt;} [{\tt elif} <list> {\tt; then} <list> {\tt;}] \ldots [{\tt else} <list> {\tt;}] {\tt fi} |\\
+ {\tt while} <list> \textbf{FIXME} |\\
+ {\tt until} <list> \textbf{FIXME}
+\item[\textbf{function::=}] \ <name> () <compound> [<redirection>] | \\
+ {\tt function} name [{\tt ()}] <compound> [<redirection>]
+\item[\textbf{coproc::=}] {\tt coproc} <name> 
+\item[\textbf{list::=}] \ <pipeline> [{\tt;} | {\tt\&} | {\tt\&\&} | {\tt||} <pipeline> \ldots] [{\tt;} | {\tt\&}]
+\item[\textbf{pipeline::=}] [{\tt time} [{\tt -p}]] [{\tt!}] <command> [{\tt|} | {\tt|\&} <command> \ldots]
+\item[\textbf{arithexpr::=}]
+\item[\textbf{condexpr::=}]
+\item[\textbf{command::=}]
+\end{description}
+}
 \end{frame}
 
 \begin{frame}{Shell scripts}
@@ -65,6 +89,7 @@ Please don't write perl.
 
 \begin{frame}{Redirection}
 \begin{itemize}
+\item Pipe creation occurs prior to redirection
 \item Redirect to stderr: \texttt{>\&2}
 \item Functions can be redirected at definition, \textit{and} at invocation
 \item Pipes can't target functions (use \texttt{read} if you must)
@@ -75,6 +100,18 @@ Please don't write perl.
 \item Dup and append: \texttt{| tee -a} \textit{file}
 \item \texttt{/dev/std\{in, out, err\}}: stdio in a filename context
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Perl}
+Please don't write perl.
+\end{frame}
+
+\begin{frame}{FIXME}
+\huge FIXME approximately 5 more pages...
+\end{frame}
+
+\begin{frame}
+\huge{C/C++}
 \end{frame}
 
 \begin{frame}{GNU Autotools in one terrible diagram}
