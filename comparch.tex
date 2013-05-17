@@ -409,7 +409,7 @@ Often read-only/privileged/require special instructions.
 \item Write ports pace instruction retire
 \item Register width paces bit parallelism
 \item Architectural registers pace memory accesses
-\item Physical registers pace OOO hiding of antidependency
+\item Physical registers pace OOO hiding of false dependency
 % particularly useful for EFLAGS!
 \end{itemize}
 \end{frame}
@@ -537,7 +537,7 @@ Can we describe an ideal von Neumann/Harvard machine?
 \vfill
 This processor will proceed governed only by true dependencies; we
 call this the \textit{dataflow rate}\footnote{\tiny{\textit{Value prediction}
-has been studied to exceed the dataflow rate. It's not very awesome.}.}
+has been studied to exceed the dataflow rate. It's not very awesome.}}.
 \end{frame}
 
 \begin{frame}{Out of order execution}
