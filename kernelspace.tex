@@ -59,13 +59,11 @@ traditional {\tt rfork(2)} interface; GNU libc since 2.3.3 implements {\tt fork(
 in terms of {\tt clone(2)}.
 \end{frame}
 
-\begin{frame}{Credentials}
-%\item[\textbf{PID}] Process ID---positive (kernel processes have PID 0), unique
-% integer < {\tt /proc/sys/kernel/pid\_max}. {\tt pid\_t getpid(2) \$\$ /proc/<pid>/stat} (f1).
-%\item[\textbf{PPID}] Parent ID---from set of active PIDs {\tt pid\_t getppid(2) \$PPID /proc/<pid>/stat} (f4).
-%\item[\textbf{PGID}] Process group ID---unique to each pipeline. Set up by job-controlling shell
-% shell. {\tt pid\_t getpgrp(2) N/A /proc/<pid>/stat} (f5).
-
+\begin{frame}{POSIX.1-2001 Credentials}
+\scriptsize{A process's PID and PPID, real UID, real GID, and supplementary group IDs are
+preserved across an {\tt execve(2)}. Effective and set UIDs/GIDs might be
+changed.}
+\vfill
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
@@ -83,14 +81,38 @@ PGID & Process group ID & {\tt getpgrp(2)} & N/A & {\tt /proc/\$\$/stat} (f5)\\
 SID & Session ID & {\tt getsid(2)} & N/A & {\tt /proc/\$\$/stat} (f6)\\
 \hline
 UID & User ID & {\tt getuid(2)} & \$UID & {\tt /proc/\$\$/status}\\
+\hline
+UID & User ID & {\tt getuid(2)} & \$UID & {\tt /proc/\$\$/status}\\
+\hline
 GID & Group ID & {\tt getgid(2)} & N/A & {\tt /proc/\$\$/status}\\
+\hline
 EUID & Effective UID & {\tt geteuid(2)} & N/A & {\tt /proc/\$\$/status}\\
+\hline
 EGID & Effective GID & {\tt getegid(2)} & N/A & {\tt /proc/\$\$/status}\\
+\hline
+SSUID & Saved set-UID & {\tt getresuid(2)} & N/A & {\tt /proc/\$\$/status}\\
+\hline
+SSGID & Saved set-GID & {\tt getresgid(2)} & N/A & {\tt /proc/\$\$/status}\\
+\hline
+FSUID & Filesystem UID & N/A & N/A & {\tt /proc/\$\$/status}\\
+\hline
+FSGID & Filesystem GID & N/A & N/A & {\tt /proc/\$\$/status}\\
+\hline
+SGIDS & Supplementary GIDs & {\tt getgroups(2)} & \$GROUPS & fixme \\
 \hline
 \end{tabular}%
 }
 };
 \end{tikzpicture}
+\vfill
+\scriptsize{Filesystem UID/GID are Linux-specific. Upon an EUID/EGID change,
+the kernel changes the FSUID/FSGID to match the new values.}
+\vfill
+\scriptsize{OS X supports per-thread credentials using {\tt
+pthread\_setugid\_np(2)} and {\tt pthread\_getugid\_np(2)}. A {\tt
+pthread\_getcred\_np} and {\tt pthread\_setcred\_np} were introduced on the
+freebsd-arch mailing list in 2009, but have seen little discussion since then.
+Such behavior contradicts POSIX.1-2001.}
 \end{frame}
 
 \end{document}
