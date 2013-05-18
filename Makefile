@@ -1,13 +1,16 @@
 .DELETE_ON_ERROR:
 .PHONY: clean all upload
-LECTURES:=intro x86 comparch candc kernelspace userspace compilers future \
-	algorithms networking practicum bigo io
-LECTOUT:=$(addsuffix .pdf.info,$(LECTURES))
+LECTURES:=intro bigo comparch practicum x86 candc io kernelspace userspace \
+	compilers algorithms networking future
+LECTOUT:=$(addsuffix .pdf,$(LECTURES))
 IMAGES:=$(wildcard images/*) $(wildcard code/*)
 
-all: $(LECTOUT)
+all: $(addsuffix .info,$(LECTOUT)) uws.pdf
 
 LOPS:=-halt-on-error 
+
+uws.pdf: $(LECTOUT)
+	pdftk $^ output $@
 
 %.pdf.info: %.pdf
 	makebeamerinfo $<

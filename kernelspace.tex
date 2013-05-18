@@ -132,7 +132,6 @@ introduced \textit{capsicum(4)}, a radically different system.}
 \tiny{
 \begin{columns}
 \begin{column}{.33\textwidth}
-{\tt
 \begin{itemize}
 \item CAP\_AUDIT\_CONTROL
 \item CAP\_AUDIT\_WRITE
@@ -147,11 +146,9 @@ introduced \textit{capsicum(4)}, a radically different system.}
 \item \textbf{CAP\_KILL}
 \item CAP\_LEASE
 \end{itemize}
-}
 \hfill \textbf{Boldface denotes POSIX.1e.}
 \end{column}
 \begin{column}{.33\textwidth}
-{\tt
 \begin{itemize}
 \item CAP\_LINUX\_IMMUTABLE
 \item CAP\_MAC\_ADMIN
@@ -166,11 +163,9 @@ introduced \textit{capsicum(4)}, a radically different system.}
 \item CAP\_SETPCAP
 \item \textbf{CAP\_SETUID}
 \end{itemize}
-}
 All others are Linux-specific.
 \end{column}
 \begin{column}{.33\textwidth}
-{\tt
 \begin{itemize}
 \item CAP\_SYS\_ADMIN
 \item CAP\_SYS\_BOOT
@@ -186,7 +181,6 @@ All others are Linux-specific.
 \item CAP\_SYSLOG
 \item CAP\_WAKE\_ALARM
 \end{itemize}
-}
 \end{column}
 \end{columns}
 }
@@ -205,37 +199,37 @@ cannot (as of 3.9.2) change all namespaces, only IPC/UTS/Net.}}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
 {\tiny
-\begin{tabular}{|l|l|l}
+\begin{tabular}{|l|l|l|l|}
 \hline
-\textbf{Name} & \textbf{Description} & \textbf{System(s)} \\
+\textbf{Name} & \textbf{Description} & \textbf{System(s)} & \textbf{\texttt{clone(2)} arg}\\
 \hline\hline
-PID & Process IDs & Linux/FreeBSD\\
+PID & Process IDs & Linux/FreeBSD & \texttt{CLONE\_NEWPID}\\
 \hline
-IPC & Interprocess communication (SYSV+POSIX) & Linux\\
+IPC & Interprocess communication (SYSV+POSIX) & Linux & \texttt{CLONE\_NEWIPC}\\
 \hline
-$\drsh$SYSV IPC & SYSV IPC (shmem, msgqueues, semaphores) & FreeBSD\\
+$\drsh$SYSV IPC & SYSV IPC (shmem, msgqueues, semaphores) & FreeBSD & N/A\\
 \hline
-$\drsh$POSIX IPC & POSIX IPC (message queues) & FreeBSD\\
+$\drsh$POSIX IPC & POSIX IPC (message queues) & FreeBSD & N/A\\
 \hline
-UID & User and group IDs & Linux\\
+UID & User and group IDs & Linux & \texttt{CLONE\_NEWUSER}\\
 \hline
-Net & Network devices, protocol stacks, firewall rules & Linux\\
+Net & Network devices, protocol stacks, firewall rules & Linux & \texttt{CLONE\_NEWNET}\\
 \hline
-$\drsh$Protocols & Protocol endpoints & FreeBSD\\
+$\drsh$Protocols & Protocol endpoints & FreeBSD & N/A\\
 \hline
-Mount & Filesystem mount points & Linux/FreeBSD\\
+Mount & Filesystem mount points & Linux/FreeBSD & \texttt{CLONE\_NEWNS}\\
 \hline
-Paths & Filesystem paths & FreeBSD\\
+Paths & Filesystem paths & FreeBSD & N/A\\
 \hline
-NFS & NFS file handles & FreeBSD\\
+NFS & NFS file handles & FreeBSD & N/A\\
 \hline
-UTS & {\tt uname(2)} values (node/domain) & Linux\\
+UTS & {\tt uname(2)} values (node/domain) & Linux & \texttt{CLONE\_NEWUTS}\\
 \hline
-Clocks & System clocks & FreeBSD\\
+Clocks & System clocks & FreeBSD & N/A\\
 \hline
-MIB & {\tt sysctl} management information base  & FreeBSD\\
+MIB & {\tt sysctl} management information base & FreeBSD & N/A\\
 \hline
-Jails & FreeBSD {\tt jail(8)}s  & FreeBSD\\
+Jails & FreeBSD {\tt jail(8)}s  & FreeBSD & N/A\\
 \hline
 \end{tabular}%
 }
