@@ -49,20 +49,25 @@ Georgia Institute of Technology
 }
 
 \begin{frame}{Processes}
-Process 1\footnote{\tiny{Typically {\tt /sbin/init}; override this with kernel parameter {\tt init=}.}} is launched by the
+Process 1\footnote{\tiny{Typically {\tt /sbin/init}; override this with kernel parameter {\tt init=}, i.e. ``{\tt init=/bin/sh}''.}} is launched by the
 kernel following initialization. The kernel will panic if {\tt init} cannot be found,
 or if process 1 ever terminates. Process 1 is the ultimate ancestor of all userspace
 processes, and orphaned processes are reparented to it.
 \vfill
-On Linux, new processes are launched with {\tt clone(2)}. FreeBSD uses the more
-traditional {\tt rfork(2)} interface; GNU libc since 2.3.3 implements {\tt fork(2)}
-in terms of {\tt clone(2)}.
+On Linux, new processes are launched with {\tt clone(2)}. GNU libc since 2.3.3
+implements {\tt fork(2)} in terms of {\tt clone(2)}. FreeBSD uses the more
+traditional {\tt rfork(2)} interface. As of FreeBSD 9.1, {\tt fork(2)} is not
+implemented in terms of {\tt rfork(2)} ``for reasons of backwards
+compatibility.\footnote{\tiny{? Dubious!}}''
+\vfill
+{\tt vfork(2)} is unnecessary with modern COW implementations, and has been
+deprecated by POSIX.1-2008. Do not use it in new code.
 \end{frame}
 
 \begin{frame}{POSIX.1-2001 Credentials}
 \scriptsize{A process's PID and PPID, real UID, real GID, and supplementary group IDs are
 preserved across an {\tt execve(2)}. Effective and set UIDs/GIDs might be
-changed.}
+changed. Process groups cannot cross session boundaries.}
 \vfill
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
@@ -111,8 +116,79 @@ the kernel changes the FSUID/FSGID to match the new values.}
 \scriptsize{OS X supports per-thread credentials using {\tt
 pthread\_setugid\_np(2)} and {\tt pthread\_getugid\_np(2)}. A {\tt
 pthread\_getcred\_np} and {\tt pthread\_setcred\_np} were introduced on the
-freebsd-arch mailing list in 2009, but have seen little discussion since then.
-Such behavior contradicts POSIX.1-2001.}
+freebsd-arch mailing list in 2009, but have seen little discussion. Linux
+uses per-thread credentials in kernelspace, but NPTL enforces the 1-2001
+model.}
+\end{frame}
+
+\begin{frame}{POSIX.1e Capabilities}
+\footnotesize{The superuser concept is very coarse security. Linux
+implements\footnote{\tiny{When the {\tt CONFIG\_SECURITY\_CAPABILITIES} option is used during kernel build.}}
+fine-grained per-thread \textit{capabilities} from the withdrawn POSIX.1e standard, and a
+wealth of optional ``security models'' (see {\tt CONFIG\_SECURITY}). FreeBSD 9
+introduced \textit{capsicum(4)}, a radically different system.}
+\begin{center}\footnotesize{\textbf{Linux capabilities as of 3.9}}\end{center}
+\tiny{
+\begin{columns}
+\begin{column}{.33\textwidth}
+{\tt
+\begin{itemize}
+\item CAP\_AUDIT\_CONTROL
+\item CAP\_AUDIT\_WRITE
+\item CAP\_BLOCK\_SUSPEND
+\item \textbf{CAP\_CHOWN}
+\item \textbf{CAP\_DAC\_OVERRIDE}
+\item CAP\_DAC\_READ\_SEARCH
+\item \textbf{CAP\_FOWNER}
+\item \textbf{CAP\_FSETID}
+\item CAP\_IPC\_LOCK
+\item CAP\_IPC\_OWNER
+\item \textbf{CAP\_KILL}
+\item CAP\_LEASE
+\end{itemize}
+}
+\hfill \textbf{Boldface denotes POSIX.1e.}
+\end{column}
+\begin{column}{.33\textwidth}
+{\tt
+\begin{itemize}
+\item CAP\_LINUX\_IMMUTABLE
+\item CAP\_MAC\_ADMIN
+\item CAP\_MAC\_OVERRIDE
+\item CAP\_MKNOD
+\item CAP\_NET\_ADMIN
+\item CAP\_NET\_BIND\_SERVICE
+\item CAP\_NET\_BROADCAST
+\item CAP\_NET\_RAW
+\item \textbf{CAP\_SETGID}
+\item CAP\_SETFCAP
+\item CAP\_SETPCAP
+\item \textbf{CAP\_SETUID}
+\end{itemize}
+}
+All others are Linux-specific.
+\end{column}
+\begin{column}{.33\textwidth}
+{\tt
+\begin{itemize}
+\item CAP\_SYS\_ADMIN
+\item CAP\_SYS\_BOOT
+\item CAP\_SYS\_CHROOT
+\item CAP\_SYS\_MODULE
+\item CAP\_SYS\_NICE
+\item CAP\_SYS\_PACCT
+\item CAP\_SYS\_PTRACE
+\item CAP\_SYS\_RAWIO
+\item CAP\_SYS\_RESOURCE
+\item CAP\_SYS\_TIME
+\item CAP\_SYS\_TTY\_CONFIG
+\item CAP\_SYSLOG
+\item CAP\_WAKE\_ALARM
+\end{itemize}
+}
+\end{column}
+\end{columns}
+}
 \end{frame}
 
 \end{document}
