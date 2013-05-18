@@ -193,6 +193,14 @@ All others are Linux-specific.
 \end{frame}
 
 \begin{frame}{Namespaces}
+Various identifiers are globally shared; each set forms a namespace. Child
+processes live in their parents' namespaces by default. On Linux, this 
+behavior can be changed via arguments to the {\tt clone(2)} system call at
+child creation time. A process can change its own namespaces via
+{\tt setns(2)}\footnote{\tiny{Added in kernel 3.0. {\tt setns(2)}
+cannot (as of 3.9.2) change all namespaces, only IPC/UTS/Net.}}
+\vfill
+\hfill
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
@@ -211,7 +219,7 @@ $\drsh$POSIX IPC & POSIX IPC (message queues) & FreeBSD\\
 \hline
 UID & User and group IDs & Linux\\
 \hline
-Network & Network devices / stacks & Linux\\
+Net & Network devices, protocol stacks, firewall rules & Linux\\
 \hline
 $\drsh$Protocols & Protocol endpoints & FreeBSD\\
 \hline
