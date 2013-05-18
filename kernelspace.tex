@@ -3,6 +3,7 @@
 \documentclass[mathserif,xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
+\usepackage{mathabx}
 \usepackage{graphicx}
 \usepackage{transparent}
 \usepackage{geometry}
@@ -189,6 +190,49 @@ All others are Linux-specific.
 \end{column}
 \end{columns}
 }
+\end{frame}
+
+\begin{frame}{Namespaces}
+\begin{tikzpicture}
+\node[drop shadow,fill=white,inner sep=0pt]
+{\rowcolors{1}{ForestGreen!20}{ForestGreen!5}
+{\tiny
+\begin{tabular}{|l|l|l}
+\hline
+\textbf{Name} & \textbf{Description} & \textbf{System(s)} \\
+\hline\hline
+PID & Process IDs & Linux/FreeBSD\\
+\hline
+IPC & Interprocess communication (SYSV+POSIX) & Linux\\
+\hline
+$\drsh$SYSV IPC & SYSV IPC (shmem, msgqueues, semaphores) & FreeBSD\\
+\hline
+$\drsh$POSIX IPC & POSIX IPC (message queues) & FreeBSD\\
+\hline
+UID & User and group IDs & Linux\\
+\hline
+Network & Network devices / stacks & Linux\\
+\hline
+$\drsh$Protocols & Protocol endpoints & FreeBSD\\
+\hline
+Mount & Filesystem mount points & Linux/FreeBSD\\
+\hline
+Paths & Filesystem paths & FreeBSD\\
+\hline
+NFS & NFS file handles & FreeBSD\\
+\hline
+UTS & {\tt uname(2)} values (node/domain) & Linux\\
+\hline
+Clocks & System clocks & FreeBSD\\
+\hline
+MIB & {\tt sysctl} management information base  & FreeBSD\\
+\hline
+Jails & FreeBSD {\tt jail(8)}s  & FreeBSD\\
+\hline
+\end{tabular}%
+}
+};
+\end{tikzpicture}
 \end{frame}
 
 \end{document}
