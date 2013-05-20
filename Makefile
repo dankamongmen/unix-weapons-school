@@ -25,7 +25,7 @@ upload: all
 	scp *html *pdf qemfd.net:/var/www
 
 clean:
-	rm -f $(LECTOUT) doc_data.txt $(wildcard *.log) \
+	rm -f $(LECTOUT) doc_data.txt $(wildcard *.log) $(wildcard *.info) \
 		$(addsuffix .toc,$(LECTURES)) $(addsuffix .log,$(LECTURES)) \
 		$(addsuffix .out,$(LECTURES)) $(addsuffix .snm,$(LECTURES)) \
 		$(addsuffix .log,$(LECTURES)) $(addsuffix .nav,$(LECTURES)) \
