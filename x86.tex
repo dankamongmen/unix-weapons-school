@@ -168,6 +168,10 @@ That said, if you can chase peak on x86, you can chase it anywhere.
 \end{center}
 \end{frame}
 
+\begin{frame}{Intel 80286\hfill\tiny{image source: Wikimedia Commons}}
+\includegraphics[width=\textwidth]{images/80286.pdf}
+\end{frame}
+
 \begin{frame}[t]{IA-32 CISC (Win 3.11, OS/2, Linux, 386BSD)}
 \begin{block}{80386 (Am386, TI, Chips, IBM, \ldots)}
 \begin{itemize}
@@ -209,6 +213,10 @@ Am486-DX4 & 1995 & 1.25M@.44$\upmu$m & 32 / 32 / 32 & 75--120MHz \\
 \end{center}
 \end{frame}
 
+\begin{frame}{Intel 80486DX2\hfill\tiny{image source: Wikimedia Commons}}
+\includegraphics[width=\textwidth]{images/80486DX2.pdf}
+\end{frame}
+
 \begin{frame}[t]{Pipelined superscalar (Win 95, BeOS, FreeBSD)}
 \begin{block}{Intel P5 (Pentium, Pentium MMX)}
 \begin{itemize}
@@ -248,6 +256,10 @@ Cyrix 6x86 & 1996 & 3.3M@.65--.35$\upmu$m & 7 & 80--150MHz \\
 };
 \end{tikzpicture}
 \end{center}
+\end{frame}
+
+\begin{frame}{Cyrix 6x86\hfill\tiny{image source: Wikimedia Commons}}
+\includegraphics[width=\textwidth]{images/6x86.pdf}
 \end{frame}
 
 \begin{frame}[t]{SSE + OOO CRISC (Win 98, FreeBSD 3, Linux 2)}
@@ -432,6 +444,18 @@ Intel Haswell & 2013 & 1.5B@22nm & 14/19 & 2.3--3.9GHz \\
 \end{center}
 \end{frame}
 
+\begin{frame}{Sandy Bridge (2011)\hfill\tiny{image source: \textit{Intel Optimization Manual}}}
+\includegraphics[scale=.175]{images/sandybridge.jpg}
+\end{frame}
+
+\begin{frame}{Haswell (2013)\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\includegraphics[scale=.225]{images/haswell-5.png}
+\end{column}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Decoding\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
 \includegraphics[scale=.49]{images/haswell-1.png}
 \end{frame}
@@ -448,25 +472,13 @@ Intel Haswell & 2013 & 1.5B@22nm & 14/19 & 2.3--3.9GHz \\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Sandy Bridge (2011)\hfill\tiny{image source: \textit{Intel Optimization Manual}}}
-\includegraphics[scale=.175]{images/sandybridge.jpg}
-\end{frame}
-
-\begin{frame}{Haswell (2013)\hfill\tiny{image source: \href{http://realworldtech.com}{Real World Technologies}}}
-\begin{columns}
-\begin{column}{.5\textwidth}
-\includegraphics[scale=.225]{images/haswell-5.png}
-\end{column}
-\end{columns}
-\end{frame}
-
 \begin{frame}{Model}
 Very rigid memory model for all but non-temporal accesses\footnote{\tiny{Centaur Winchip implemented ``x86 oostore'', with less strongly ordered memory.}}:
 \begin{itemize}
-\item The pipeline and I\$ are coherent
-\item Loads (dependent or otherwise) are never reordered
 \item Atomics are never reordered
+\item The pipeline and I\$ are coherent
 \item Stores \textbf{can be} reoredered after loads
+\item Loads can be reordered after stores to other locations
 \end{itemize}
 \vfill
 HyperThreading, when activated by BIOS and OS, results in:
@@ -677,12 +689,49 @@ IRET & & \\
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
-{\scriptsize
+{\tiny
 \begin{tabular}{|l|l|l|}
 \hline
-DPP[DS] & \_mm\_dp\_p* & FP dot product\\
+VFMADD*[PS][DS] & \_mm\_dp\_p* & FP fused multiply-add\\
+\hline
+VFNMADD*[PS][DS] & \_mm\_dp\_p* & FP fused multiply-negate-add\\
+\hline
+VFMSUB*[PS][DS] & \_mm\_dp\_p* & FP fused multiply-sub\\
+\hline
+VFNMSUB*[PS][DS] & \_mm\_dp\_p* & FP fused multiply-negate-sub\\
+\hline
+VFMADDSUB*[PS][DS] & \_mm\_dp\_p* & FP fused multiply-sub/add\\
+\hline
+VGATHER[DQ]D & \_m256i\_mm256\_add\_epixx & Gather ints from memory\\
+\hline
+VGATHER[DQ]P[SD] & \_m256i\_mm256\_add\_epixx & Gather FPs from memory\\
+\hline
+VPADD[BWDQ] & \_m256i\_mm256\_add\_epixx & Packed integer add\\
+\hline
+VPADDS[BW] & \_m256i\_mm256\_adds\_epixx & Packed sinteger add, signed saturation\\
+\hline
+VPADDUS[BW] & \_m256i\_mm256\_adds\_epuxx & Packed unsinteger add, unsigned saturation\\
+\hline
+VPAND/VPANDN & \_m256i\_mm256\_and[not]\_si256 & Logical AND / NOT+AND\footnote{\tiny{``Material nonimplication'' aka $\nrightarrow$.}}\\
+\hline
+VPAVG[BW] & \_m256i\_mm256\_avg\_epuXX & Integer average\\
+\hline
+VPBLEND[BW] & \_m256i\_mm256\_blend\_epiXX & Blend\\
+\hline
+VPERM[DQ] & \_m256i\_mm256\_perm\_epuXX & Permute integers \\
+\hline
+VPERMP[SD] & \_m256i\_mm256\_perm\_epuXX & Permute FPs \\
+\hline
+VPSLLV[DQ] & \_m256i\_mm256\_perm\_epuXX & Logical shift left \\
+\hline
+VPSRAV[DQ] & \_m256i\_mm256\_perm\_epuXX & Arithmetic shift right \\
+\hline
+VPSRLV[DQ] & \_m256i\_mm256\_perm\_epuXX & Logical shift right \\
+\hline
+PCMPcc[BWDQ] & \_m256i\_mm256\_cmpCC\_epiXX & Compare packed integers\\
 \hline
 PMULDQ/LD & \_mm\_mul*\_epi32 & Packed 32-bit integer multiply\\
+\hline
 \end{tabular}%
 }
 };
