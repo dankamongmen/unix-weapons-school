@@ -1,4 +1,3 @@
-\pdfminorversion=4
 \documentclass[mathserif,xcolor={dvipsnames,table}]{beamer}
 \mode<presentation>{\usetheme{Warsaw}\usecolortheme{crane}}
 \usepackage{centernot}
@@ -12,18 +11,14 @@
 \usetikzlibrary{shadows}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
-%\usepackage[hebrew,english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-%\usepackage[babel=true]{microtype}
 \usepackage{amsmath}
 \beamertemplatenavigationsymbolsempty
 
 \title{\textbf{The x86 is dead. Long live the x86!}}
 \date{}
-\author{CS4803UWS at the\\
-Georgia Institute of Technology
-}
+\author{\textit{georgia tech $\circ$ summer 2013 $\circ$ cs4803uws $\circ$ nick black}}
 
 \begin{document}
 
@@ -46,7 +41,7 @@ Georgia Institute of Technology
 \hfill \tiny{CC3.0 share-alike attribution}\\
 }
 \textcolor{white}{
-\hfill \scriptsize{copyright \copyright\ 2013}\\
+\hfill \scriptsize{copyright \copyright\ 2013 nick black}\\
 }
 \vspace{.6cm}
 \textcolor{white}{
@@ -84,7 +79,7 @@ Georgia Institute of Technology
 Do not think that x86 is all that's gone on over the past
 30 years\footnote{Commonly expressed as ``All the world's an x86.''}.\\
 \vspace{.35in}
-That said, if you can chase peak on x86, you can chase it anywhere.
+That said, those who've chased peak on x86 can chase it anywhere.
 \end{frame}
 
 \begin{frame}{In the grim future of computing there are 10,000 ISAs}
@@ -365,7 +360,7 @@ Intel Prescott & 2004 & 125M@90nm & 31 & 3--3.8GHz / 800MT/s \\
 \includegraphics[width=\textwidth]{images/northwood.jpg}
 \end{frame}
 
-\begin{frame}[t]{IA-64 multicore (FreeBSD 7, Linux 2.6)}
+\begin{frame}[t]{x86-64 multicore (FreeBSD 7, Linux 2.6)}
 \begin{block}{Intel Core}
 \begin{itemize}
 \item 45nm Penryn replaces $\text{SiO}_2$ with HfSiON.
@@ -813,7 +808,7 @@ Bloody instructions, which, being taught, return\\
 To plague th' inventor''\\
 \hfill---Shakespeare, \textit{Macbeth}
 \vfill
-``Each day the mythical return Enzian dreamed of seems less possible. Once it
+\justifying ``Each day the mythical return Enzian dreamed of seems less possible. Once it
 was necessary to know uniforms, insignia, airplane markings, to observe
 boundaries. But by now too many choices have been made. The single root lost,
 way back there in the May desolation. Each bird has his branch now, and each
