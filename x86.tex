@@ -472,15 +472,53 @@ Intel Haswell & 2013 & 1.5B@22nm & 14/19 & 2.3--3.9GHz \\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Model}
+\begin{frame}{Write order with store-buffer forwarding}
+\scriptsize{
 Very rigid memory model for all but non-temporal accesses\footnote{\tiny{Centaur Winchip implemented ``x86 oostore'', with less strongly ordered memory.}}:
 \begin{itemize}
 \item Atomics are never reordered
 \item The pipeline and I\$ are coherent
-\item Stores \textbf{can be} reoredered after loads
+\item Stores can be reordered after loads, but not before
+\item Accesses to uncacheable memory are never reordered
 \item Loads can be reordered after stores to other locations
+\item String ops, streaming stores, non-temporal moves and CLFLUSH can reorder
+	writes among themselves
 \end{itemize}
 \vfill
+Among multiple (logical or physical) processors:
+\begin{itemize}
+\item Individual processors maintain this model
+\item Writes by a single processor are seen in the same order by all processors
+\item Writes among processors are not totally ordered, unless locked
+\item Memory ordering obeys causality
+\item Stores are externally consistent
+\end{itemize}
+\textbf{Implication:} concurrent stores by multiple processors will result in
+each processor seeing its own write occur first!
+}
+\end{frame}
+
+\begin{frame}{Task model}
+Hardware-recognized task state is stored in Task State Segments:
+\begin{itemize}
+\item Segment selectors of segment registers and LDTR
+\item GP registers, EFLAGS, EIP, CR3, TR
+\item I/O map base address and I/O map
+\item Stack pointers for CPL0, 1, 2 stacks
+\item Link to previously executed task
+\end{itemize}
+\vfill
+Share among tasks via three methods:
+\begin{itemize}
+\item Through the GDT segment descriptors\\(share among all processes)
+\item Through a shared LDT\\(share among some cooperating processes)
+\item Through shared descriptors in distinct LDTs mapped to a common
+	address in linear address space\\(share among some non-cooperating
+	processes)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Simultaneous multithreading}
 HyperThreading, when activated by BIOS and OS, results in:
 \begin{description}
 \item[\textbf{Replication}] Registers, renamed RSB, large page ITLB
@@ -589,7 +627,6 @@ inclusivity).
 \item Sandy Bridge-E: 4x 8B DDR3 @ 1.6GT/s (51.2GB/s)
 \item Speculative reads allowed from WB, WC, and WT memory
 \end{itemize}
-\textbf{FIXME show PATs/MTRRs, page table hierarchy\ldots}
 \end{frame}
 
 \begin{frame}{Instruction set I---Encoding}
@@ -621,12 +658,15 @@ write-combining, write-collapsing, and weakly ordered. They do not take
 PATs into account. When
 properly bunched into cacheline-length chunks, they can deliver the full bus
 bandwidth. \textit{Prefetches} (as opposed to preloading) do not consume a
-register, do not stall retirement, do not split cache lines, and cannot fault\footnote{\tiny{CPUID.01H.EBX holds the stride length (D\$/U\$ only).}}. \textit{Fence} instructions ensure coherence of data.}
+register, do not stall retirement, do not split cache lines, and cannot
+fault\footnote{\tiny{CPUID.01H.EBX holds the stride length (D\$/U\$ only).}}.
+\textit{Fence} instructions ensure coherence of data.}\\
+\vfill
 %MOVs to CR3/CR4 can also invalidate page cache structures.
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
-{\scriptsize
+{\tiny
 \begin{tabular}{|l|l|l|}
 \hline
 MOVNT*\footnote{\tiny{See also AMD's SSE4a's MOVNTSD/MOVNTSS.}} & \_mm\_stream\_* & Streaming store to mem\\
@@ -647,7 +687,9 @@ WBINVD & "wbinvd":::"memory" & Write back, and invalidate cache\\
 \hline
 INVD & "invd" & Screw it, just invalidate the caches\\
 \hline
-INVLPG & "invlpg" & Invalidate TLB entries\\
+INVLPG & "invlpg" & Invalidate TLB entries containing address\\
+\hline
+INVPCID & "invpcid" & Invalidate TLB entries based on PCID\\
 \hline
 % All levels, broadcasted
 CLFLUSH & "clflush \%0":"+m" & Cacheline invalidation\\
@@ -658,26 +700,26 @@ CLFLUSH & "clflush \%0":"+m" & Cacheline invalidation\\
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Instruction set III---Control}
+\begin{frame}{Instruction set III---Some control instructions}
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
 {\scriptsize
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|l|}
 \hline
-HALT & & \\
+HALT & Halt the processor\\
 \hline
-MWAIT (SSE3) & \_mm\_mwait & Monitor a cache line\\
+MWAIT (SSE3) & Monitor a cache line (\_mm\_mwait)\\
 \hline
-CCMOVxx & & Conditional move (control dep to data dep) \\
+CCMOVxx & Conditional move (control dep to data dep)\\
 \hline
-JMP & & Unconditional branch \\
+JMP & Unconditional branch\\
 \hline
-Jxx / Jx & & Conditional branches \\
+Jxx / Jx & Conditional branches\\
 \hline
-CALL & & \\
+CALL & Task switch\\
 \hline
-IRET & & \\
+IRET & Return from far call\\
 \hline
 \end{tabular}%
 }
@@ -685,7 +727,7 @@ IRET & & \\
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Instruction set IV---Arithmetic}
+\begin{frame}{Instruction set IV---Some arithmetics}
 \begin{tikzpicture}
 \node[drop shadow,fill=white,inner sep=0pt]
 {\rowcolors{1}{BurntOrange!20}{BurntOrange!5}
